@@ -1,3 +1,8 @@
 import './css/style.css';
+import App from './pages/App';
 
-console.log('Hello, World!');
+
+(() => {
+  App();
+})()
+
