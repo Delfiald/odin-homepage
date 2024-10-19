@@ -35,12 +35,14 @@ const skillList = () => {
 
 const createSkills = (icon, className) => {
   const skill = document.createElement('div')
-  skill.className = `skill ${className}`
 
   if(icon){
+    skill.className = `skill ${className}`
     const skillIcon = document.createElement('i')
     skillIcon.className = icon;
     skill.appendChild(skillIcon)
+  }else {
+    skill.className = `skill`
   }
 
   return skill
@@ -60,7 +62,7 @@ const createSkillsWrapper = (skillContainer) => {
     });
 
     for (let j = rowSkills.length; j < 5; j+=1) {
-      skillsWrapper.appendChild(createSkills(null, 'empty-skill'));
+      skillsWrapper.appendChild(createSkills(null, ''));
     }
 
     skillContainer.appendChild(skillsWrapper);

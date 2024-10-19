@@ -4,6 +4,7 @@ import about from '../components/about'
 import skills from '../components/skills'
 import portfolio from '../components/portfolios'
 import contact from '../components/contact'
+import events from './event'
 
 export default () => {
   const body = document.querySelector('body')
@@ -19,4 +20,6 @@ export default () => {
   body.appendChild(main)
   
   body.appendChild(contact())
+
+  events()
 }

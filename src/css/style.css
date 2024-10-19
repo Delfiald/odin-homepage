@@ -7,8 +7,9 @@
 }
 
 :root {
-  --color-dark-200: #000;
+  --color-dark-200: #101010;
   --color-dark-300: #111;
+  --color-dark-340: #111;
   --color-dark-400: #333;
   --color-dark-600: #555;
 
@@ -18,11 +19,13 @@
 
   --text-color: var(--color-light-200);
   --background-color: var(--color-dark-300);
+  --skill-color: var(--color-dark-300);
 }
 
 :root.light {
   --text-color: var(--color-dark-200);
   --background-color: var(--color-light-200);
+  --skill-color: var(--color-light-300);
 }
 
 body {
@@ -60,14 +63,25 @@ main > * {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  mask-image: linear-gradient(90deg,transparent 0%,#ffffff 300px,#ffffff calc(100vw - 300px),transparent 100%);
 }
 
 #skills .skills-header {
   font-size: 3rem;
   font-weight: 700;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem;
+  cursor: default;
+  background: var(--background-color);
+  z-index: 2;
 }
 
 #skills .skills-container {
+  position: relative;
   flex: 1;
   width: 100%;
   display: flex;
@@ -75,6 +89,32 @@ main > * {
   justify-content: center;
   flex-direction: column;
   gap: .75rem;
+}
+
+#skills .skills-container::before,
+#skills .skills-container::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background: #000000;
+  z-index: 1;
+  pointer-events: none;
+}
+
+#skills .skills-container::before {
+  top: -50px;
+  background: -moz-linear-gradient(top, var(--background-color) 0%, transparent 100%);
+  background: -webkit-linear-gradient(top, var(--background-color) 0%, transparent 100%);
+  background: linear-gradient(180deg, var(--background-color) 0%, transparent 100%);
+}
+
+#skills .skills-container::after {
+  bottom: -25px;
+  background: -moz-linear-gradient(bottom, var(--background-color) 0%, transparent 100%);
+  background: -webkit-linear-gradient(bottom, var(--background-color) 0%, transparent 100%);
+  background: linear-gradient(360deg, var(--background-color) 0%, transparent 100%);
 }
 
 #skills .skills-wrapper {
@@ -94,19 +134,20 @@ main > * {
   border: 1px solid var(--color-dark-600);
   border-radius: 15px;
   cursor: pointer;
-  background: var(--background-color);
-  transition: .5s all ease;
+  background: var(--skill-color);
+  transition: .25s all ease;
 }
 
-#skills .skills-wrapper .skill::before {
+#skills .skills-wrapper .skill:has(i)::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  height: 90%;
+  transform: translate(-50%, -50%);
   background: var(--_glowing-color);
-  filter: blur(15px);
+  filter: blur(24px);
   z-index: -1;
   opacity: 0;
   transition: 3s all ease;
