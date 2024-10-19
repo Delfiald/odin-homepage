@@ -1,7 +1,13 @@
-const createPortoSection = () => {
-  const portoSection = document.createElement('section')
+const createPortSection = () => {
+  const portSection = document.createElement('section')
+  portSection.id = 'portfolios'
 
-  return portoSection
+  const portHeader = document.createElement('h1')
+  portHeader.textContent = 'Projects'
+
+  portSection.appendChild(portHeader)
+
+  return portSection
 }
 
-export default createPortoSection
+export default createPortSection

@@ -1,24 +1,75 @@
-const createSkills = () => {
+const skillList = () => {
+  const skills = [
+    {
+      icon: 'fas fa-javascript',
+      className: 'js'
+    },
+    {
+      icon: 'fas fa-html',
+      className: 'html'
+    },
+    {
+      icon: 'fas fa-css',
+      className: 'css'
+    },
+    {
+      icon: 'fas fa-java',
+      className: 'java'
+    },
+    {
+      icon: 'fas fa-react',
+      className: 'react'
+    },
+    {
+      icon: 'fas fa-php',
+      className: 'php'
+    },
+    {
+      icon: 'fas fa-codeIgniter',
+      className: 'code-igniter'
+    },
+  ]
+
+  return skills
+}
+
+const createSkills = (icon, className) => {
   const skill = document.createElement('div')
-  skill.className = 'skill'
+  skill.className = `skill ${className}`
+
+  if(icon){
+    const skillIcon = document.createElement('i')
+    skillIcon.className = icon;
+    skill.appendChild(skillIcon)
+  }
 
   return skill
 }
 
-const createSkillsWrapper = () => {
-  const skillsWrapper = document.createElement('div')
-  skillsWrapper.className = 'skills-wrapper'
+const createSkillsWrapper = (skillContainer) => {
+  const skills = skillList()
 
-  for(let i = 0; i < 12; i+=1) {
-    skillsWrapper.appendChild(createSkills())
+  for(let i = 0; i < 25; i+=5) {
+    const skillsWrapper = document.createElement('div')
+    skillsWrapper.className = 'skills-wrapper'
+
+    const rowSkills = skills.slice(i, i + 5);
+  
+    rowSkills.forEach(skill => {
+      skillsWrapper.appendChild(createSkills(skill.icon, skill.className));
+    });
+
+    for (let j = rowSkills.length; j < 5; j+=1) {
+      skillsWrapper.appendChild(createSkills(null, 'empty-skill'));
+    }
+
+    skillContainer.appendChild(skillsWrapper);
   }
-
-  return skillsWrapper
 }
 
 const createSkillSection = () => {
   const skillSection = document.createElement('section')
-  skillSection.className = 'skills'
+  skillSection.id = 'skills'
   const skillHeader = document.createElement('h1')
   skillHeader.textContent = 'SKILLS'
   skillHeader.className = 'skills-header header'
@@ -26,13 +77,9 @@ const createSkillSection = () => {
   skillSection.appendChild(skillHeader);
 
   const skillContainer = document.createElement('div')
-  skillContainer.className = 'skill-container'
+  skillContainer.className = 'skills-container'
   
-  skillContainer.appendChild(createSkillsWrapper())
-  skillContainer.appendChild(createSkillsWrapper())
-  skillContainer.appendChild(createSkillsWrapper())
-  skillContainer.appendChild(createSkillsWrapper())
-  skillContainer.appendChild(createSkillsWrapper())
+  createSkillsWrapper(skillContainer)
 
   skillSection.appendChild(skillContainer)
   return skillSection
