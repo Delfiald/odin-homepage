@@ -28,6 +28,70 @@ const skillList = () => {
       icon: 'fas fa-codeIgniter',
       className: 'code-igniter'
     },
+    {
+      icon: 'fas fa-codeIgniter',
+      className: 'code-igniter'
+    },
+    {
+      icon: 'fas fa-codeIgniter',
+      className: 'code-igniter'
+    },
+    {
+      icon: 'fas fa-codeIgniter',
+      className: 'code-igniter'
+    },
+    {
+      icon: 'fas fa-codeIgniter',
+      className: 'code-igniter'
+    },
+    {
+      icon: 'fas fa-codeIgniter',
+      className: 'code-igniter'
+    },
+    {
+      icon: 'fas fa-codeIgniter',
+      className: 'code-igniter'
+    },
+    {
+      icon: 'fas fa-codeIgniter',
+      className: 'code-igniter'
+    },
+    {
+      icon: 'fas fa-codeIgniter',
+      className: 'code-igniter'
+    },
+    {
+      icon: 'fas fa-codeIgniter',
+      className: 'code-igniter'
+    },
+    {
+      icon: 'fas fa-codeIgniter',
+      className: 'code-igniter'
+    },
+    {
+      icon: 'fas fa-codeIgniter',
+      className: 'code-igniter'
+    },
+    {
+      icon: 'fas fa-codeIgniter',
+      className: 'code-igniter'
+    },
+    {
+      icon: 'fas fa-codeIgniter',
+      className: 'code-igniter'
+    },
+    {
+      icon: 'fas fa-codeIgniter',
+      className: 'code-igniter'
+    },
+    {
+      icon: 'fas fa-codeIgniter',
+      className: 'code-igniter'
+    },
+    {
+      icon: 'fas fa-codeIgniter',
+      className: 'code-igniter'
+    },
   ]
 
   return skills
@@ -50,19 +114,25 @@ const createSkills = (icon, className) => {
 
 const createSkillsWrapper = (skillContainer) => {
   const skills = skillList()
+  let skillIndex = 0;
 
-  for(let i = 0; i < 25; i+=5) {
+  for(let i = 0; i < 5; i+=1) {
     const skillsWrapper = document.createElement('div')
     skillsWrapper.className = 'skills-wrapper'
 
-    const rowSkills = skills.slice(i, i + 5);
-  
-    rowSkills.forEach(skill => {
-      skillsWrapper.appendChild(createSkills(skill.icon, skill.className));
-    });
-
-    for (let j = rowSkills.length; j < 5; j+=1) {
-      skillsWrapper.appendChild(createSkills(null, ''));
+    if (i === 0 || i === 4) {
+      for (let j = 0; j < 12; j+=1) {
+        skillsWrapper.appendChild(createSkills(null, ''));
+      }
+    }else {
+      for (let j = 0; j < 12; j += 1) {
+        if (j >= 2 && j < 9 && skillIndex < skills.length) {
+          skillsWrapper.appendChild(createSkills(skills[skillIndex].icon, skills[skillIndex].className));
+          skillIndex+=1;
+        } else {
+          skillsWrapper.appendChild(createSkills(null, ''));
+        }
+      }
     }
 
     skillContainer.appendChild(skillsWrapper);
