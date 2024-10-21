@@ -9,7 +9,6 @@
 :root {
   --color-dark-200: #101010;
   --color-dark-300: #111;
-  --color-dark-340: #111;
   --color-dark-400: #333;
   --color-dark-500: #444;
   --color-dark-600: #555;
@@ -56,6 +55,7 @@ main > * {
   width: 100%;
   height: 100vh;
   position: relative;
+  overflow: hidden;
 }
 
 /* Skills */
@@ -68,6 +68,7 @@ main > * {
 }
 
 #skills .skills-header {
+  position: relative;
   font-size: 3rem;
   font-weight: 700;
   z-index: 1;
@@ -79,6 +80,7 @@ main > * {
   cursor: default;
   background: var(--background-color);
   z-index: 2;
+  opacity: 0;
 }
 
 #skills .skills-container {
@@ -120,7 +122,8 @@ main > * {
 
 #skills .skills-wrapper {
   display: grid;
-  grid-template-columns: repeat(12, 100px);
+  grid-auto-columns: 100px;
+  grid-auto-flow: column;
   grid-auto-rows: 100px;
   justify-content: center;
   gap: .75rem;
@@ -141,6 +144,7 @@ main > * {
   align-items: center;
   justify-content: center;
   transition: .3s all ease-in-out;
+  padding: 1rem;
 }
 
 #skills .skills-wrapper .skill:has(img) {
@@ -230,8 +234,136 @@ main > * {
 }
 
 #skills .skills-wrapper .skill > img {
-  width: 75%;
+  width: 100%;
   object-fit: contain;
   border-radius: 15px;
   z-index: 1;
+}
+
+/* Indicator */
+.indicator-wrapper {
+  top: 50%;
+  right: 1rem;
+  transform: translate(0, -50%);
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.indicator-wrapper .indicator {
+  padding: 0 .25rem;
+  width: 5px;
+  height: 35px;
+  overflow: hidden;
+  background: var(--color-dark-600);
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: .3s all ease-in-out;
+  color: transparent;
+  font-weight: bolder;
+}
+
+.indicator-wrapper .indicator:hover {
+  width: 100px;
+  color: var(--color-light-200);
+}
+
+.indicator-wrapper .indicator.active {
+  background: var(--color-light-200);
+}
+
+.indicator-wrapper .indicator.active:hover {
+  color: var(--color-dark-400);
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 900px) {
+  #skills .skills-wrapper {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-auto-flow: row;
+  }
+
+  #skills .skills-wrapper:first-child,
+  #skills .skills-wrapper:last-child {
+    grid-auto-flow: column;
+  }
+
+  #skills .skills-wrapper:nth-child(even) {
+    transform: translateX(0);
+  }
+
+  #skills .skills-wrapper:nth-child(2) .skill:not(:has(img)) {
+    display: none !important;
+  }
+
+  #skills .skills-wrapper:nth-child(3) .skill:not(:has(img)) {
+    display: none !important;
+  }
+
+  #skills .skills-wrapper:nth-child(4) .skill:not(:has(img)) {
+    display: none !important;
+  }
+}
+
+@media (max-width: 800px) {
+  #skills .skills-wrapper {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 12%));
+    grid-auto-rows: 10vh;
+    grid-auto-flow: row;
+  }
+}
+
+@media (max-width: 600px) {
+  #skills {
+    mask-image: none;
+  }
+
+  #skills .skills-wrapper {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 12%));
+    grid-auto-rows: 100px;
+    grid-auto-flow: row;
+  }
+
+  #skills .skills-wrapper .skill:not(:has(img)) {
+    display: none !important;
+  }
+
+  #skills .skills-wrapper .skill {
+    padding: .75rem;
+  }
+
+  #skills .skills-container::before,
+  #skills .skills-container::after {
+    height: 100px;
+  }
+
+  #skills .skills-container::before {
+    top: 0px;
+  }
+
+  #skills .skills-container::after {
+    bottom: 0px;
+  }
+}
+
+@media (max-width: 600px) and (max-height: 750px) {
+  #skills .skills-wrapper {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 12%));
+    grid-auto-rows: 80px;
+  }
 }
