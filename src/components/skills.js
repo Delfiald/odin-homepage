@@ -1,96 +1,75 @@
+import js from '../assets/skills/js.svg'
+import html from '../assets/skills/html.svg'
+import css from '../assets/skills/css.svg'
+import java from '../assets/skills/java.svg'
+import react from '../assets/skills/react.svg'
+import php from '../assets/skills/php.svg'
+import codeIgniter from '../assets/skills/codeIgniter.svg'
+import webpack from '../assets/skills/webpack.svg'
+import git from '../assets/skills/git.svg'
+import jest from '../assets/skills/jest.svg'
+import mysql from '../assets/skills/mysql.svg'
+import postgresql from '../assets/skills/postgresql.svg'
+import bootstrap from '../assets/skills/bootstrap.svg'
+import tailwind from '../assets/skills/tailwind.svg'
+
 const skillList = () => {
   const skills = [
     {
-      icon: 'fas fa-javascript',
+      icon: js,
       className: 'js'
     },
     {
-      icon: 'fas fa-html',
+      icon: html,
       className: 'html'
     },
     {
-      icon: 'fas fa-css',
+      icon: css,
       className: 'css'
     },
     {
-      icon: 'fas fa-java',
+      icon: java,
       className: 'java'
     },
     {
-      icon: 'fas fa-react',
+      icon: react,
       className: 'react'
     },
     {
-      icon: 'fas fa-php',
+      icon: php,
       className: 'php'
     },
     {
-      icon: 'fas fa-codeIgniter',
+      icon: webpack,
+      className: 'webpack'
+    },
+    {
+      icon: git,
+      className: 'git'
+    },
+    {
+      icon: jest,
+      className: 'jest'
+    },
+    {
+      icon: mysql,
+      className: 'mysql'
+    },
+    {
+      icon: postgresql,
+      className: 'postgresql'
+    },
+    {
+      icon: codeIgniter,
       className: 'code-igniter'
     },
     {
-      icon: 'fas fa-codeIgniter',
-      className: 'code-igniter'
+      icon: bootstrap,
+      className: 'bootstrap'
     },
     {
-      icon: 'fas fa-codeIgniter',
-      className: 'code-igniter'
-    },
-    {
-      icon: 'fas fa-codeIgniter',
-      className: 'code-igniter'
-    },
-    {
-      icon: 'fas fa-codeIgniter',
-      className: 'code-igniter'
-    },
-    {
-      icon: 'fas fa-codeIgniter',
-      className: 'code-igniter'
-    },
-    {
-      icon: 'fas fa-codeIgniter',
-      className: 'code-igniter'
-    },
-    {
-      icon: 'fas fa-codeIgniter',
-      className: 'code-igniter'
-    },
-    {
-      icon: 'fas fa-codeIgniter',
-      className: 'code-igniter'
-    },
-    {
-      icon: 'fas fa-codeIgniter',
-      className: 'code-igniter'
-    },
-    {
-      icon: 'fas fa-codeIgniter',
-      className: 'code-igniter'
-    },
-    {
-      icon: 'fas fa-codeIgniter',
-      className: 'code-igniter'
-    },
-    {
-      icon: 'fas fa-codeIgniter',
-      className: 'code-igniter'
-    },
-    {
-      icon: 'fas fa-codeIgniter',
-      className: 'code-igniter'
-    },
-    {
-      icon: 'fas fa-codeIgniter',
-      className: 'code-igniter'
-    },
-    {
-      icon: 'fas fa-codeIgniter',
-      className: 'code-igniter'
-    },
-    {
-      icon: 'fas fa-codeIgniter',
-      className: 'code-igniter'
+      icon: tailwind,
+      className: 'tailwind'
     },
   ]
 
@@ -102,8 +81,8 @@ const createSkills = (icon, className) => {
 
   if(icon){
     skill.className = `skill ${className}`
-    const skillIcon = document.createElement('i')
-    skillIcon.className = icon;
+    const skillIcon = document.createElement('img')
+    skillIcon.src = icon;
     skill.appendChild(skillIcon)
   }else {
     skill.className = `skill`
@@ -154,6 +133,7 @@ const createSkillSection = () => {
   createSkillsWrapper(skillContainer)
 
   skillSection.appendChild(skillContainer)
+
   return skillSection
 }
 

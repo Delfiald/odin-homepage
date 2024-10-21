@@ -11,6 +11,7 @@
   --color-dark-300: #111;
   --color-dark-340: #111;
   --color-dark-400: #333;
+  --color-dark-500: #444;
   --color-dark-600: #555;
 
   --color-light-200: #fff;
@@ -131,14 +132,26 @@ main > * {
 
 #skills .skills-wrapper .skill {
   position: relative;
-  border: 1px solid var(--color-dark-600);
+  border: 1px solid var(--color-dark-400);
   border-radius: 15px;
   cursor: pointer;
   background: var(--skill-color);
   transition: .25s all ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: .3s all ease-in-out;
 }
 
-#skills .skills-wrapper .skill:has(i)::before {
+#skills .skills-wrapper .skill:has(img) {
+  opacity: 0;
+}
+
+#skills .skills-wrapper .skill.active {
+  opacity: 1;
+}
+
+#skills .skills-wrapper .skill:has(img)::before {
   content: '';
   position: absolute;
   top: 50%;
@@ -147,25 +160,78 @@ main > * {
   height: 90%;
   transform: translate(-50%, -50%);
   background: var(--_glowing-color);
-  filter: blur(24px);
+  filter: blur(20px);
   z-index: -1;
   opacity: 0;
   transition: 3s all ease;
 }
 
-#skills .skills-wrapper .skill:has(i):hover::before {
+#skills .skills-wrapper .skill:has(img):hover::before {
   opacity: 1;
-  --_glowing-color: yellow;
+  --_glowing-color: #F7DF1E;
   transition: .15s all ease;
 }
 
-#skills .skills-wrapper .skill:not(:has(i)):hover {
+#skills .skills-wrapper .skill.html:hover::before {
+  --_glowing-color: #F16529;
+}
+
+#skills .skills-wrapper .skill.css:hover::before {
+  --_glowing-color: #33AADD;
+}
+
+#skills .skills-wrapper .skill.java:hover::before {
+  --_glowing-color: #E76F00;
+}
+
+#skills .skills-wrapper .skill.react:hover::before {
+  --_glowing-color: #53C1DE;
+}
+
+#skills .skills-wrapper .skill.php:hover::before {
+  --_glowing-color: #777BB3;
+}
+
+#skills .skills-wrapper .skill.code-igniter:hover::before {
+  --_glowing-color: #EE4323;
+}
+
+#skills .skills-wrapper .skill.webpack:hover::before {
+  --_glowing-color: #1C78C0;
+}
+
+#skills .skills-wrapper .skill.git:hover::before {
+  --_glowing-color: #EE513B;
+}
+
+#skills .skills-wrapper .skill.jest:hover::before {
+  --_glowing-color: #99425B;
+}
+
+#skills .skills-wrapper .skill.mysql:hover::before {
+  --_glowing-color: #5D87A1;
+}
+
+#skills .skills-wrapper .skill.postgresql:hover::before {
+  --_glowing-color: #336791;
+}
+
+#skills .skills-wrapper .skill.bootstrap:hover::before {
+  --_glowing-color: #563D7C;
+}
+
+#skills .skills-wrapper .skill.tailwind:hover::before {
+  --_glowing-color: #44A8B3;
+}
+
+#skills .skills-wrapper .skill:not(:has(img)):hover {
   transform: scale(.95);
   cursor: default;
 }
 
-@media (max-width:1200px) {
-  .skill.js {
-    display: none;
-  }
+#skills .skills-wrapper .skill > img {
+  width: 75%;
+  object-fit: contain;
+  border-radius: 15px;
+  z-index: 1;
 }
