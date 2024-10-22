@@ -1,6 +1,6 @@
 const createPortSection = () => {
   const portSection = document.createElement('section')
-  portSection.id = 'portfolios'
+  portSection.id = 'projects'
 
   const portHeader = document.createElement('h1')
   portHeader.textContent = 'Projects'
