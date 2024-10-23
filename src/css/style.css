@@ -30,21 +30,24 @@
 
 /* Utilities */
 ::-webkit-scrollbar {
-  width: 5px;
+	width: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(50, 50, 50, .75);
-  border-radius: 10px;
+	border-radius: 10px;
+	background-color: var(--color-dark-400);
+  border-left: 2px solid var(--background-color);
+  border-right: 2px solid var(--background-color);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-light-600);
-  border-radius: 10px;
+	border-radius: 15px;
+	background-color: var(--color-light-600);
+  cursor: pointer;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-dark-600);
+  background: var(--color-light-400);
 }
 
 a {

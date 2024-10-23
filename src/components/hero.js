@@ -1,13 +1,13 @@
 const createHero = () => {
-  const hero = document.createElement('section')
-  hero.id = 'hero'
-  
-  const heroText = document.createElement('h1')
-  heroText.textContent = 'Hero'
+  const hero = document.createElement('section');
+  hero.id = 'hero';
 
-  hero.appendChild(heroText)
+  const heroText = document.createElement('h1');
+  heroText.textContent = 'Hero';
 
-  return hero
-}
+  hero.appendChild(heroText);
 
-export default createHero
+  return hero;
+};
+
+export default createHero;

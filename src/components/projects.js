@@ -1,13 +1,13 @@
 const createPortSection = () => {
-  const portSection = document.createElement('section')
-  portSection.id = 'projects'
+  const portSection = document.createElement('section');
+  portSection.id = 'projects';
 
-  const portHeader = document.createElement('h1')
-  portHeader.textContent = 'Projects'
+  const portHeader = document.createElement('h1');
+  portHeader.textContent = 'Projects';
 
-  portSection.appendChild(portHeader)
+  portSection.appendChild(portHeader);
 
-  return portSection
-}
+  return portSection;
+};
 
-export default createPortSection
+export default createPortSection;
