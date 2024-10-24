@@ -11,6 +11,12 @@ const events = () => {
         top: targetSection.offsetTop,
         behavior: 'smooth',
       });
+    } else if(e.target.closest('.scroll-down')) {
+      const targetSection = document.querySelector('#about');
+      window.scrollTo({
+        top: targetSection.offsetTop,
+        behavior: 'smooth',
+      });
     }
   };
 
@@ -111,6 +117,15 @@ const events = () => {
     }
   };
 
+  // Hero
+  const heroEventHandler = (e) => {
+    const {target} = e;
+
+    if(target.closest('.hero-container')) {
+      document.querySelector('.hero-container').classList.add('extend')
+    }
+  }
+
   window.addEventListener('scroll', () => {
     setIndicatorActive();
     checkBoxes();
@@ -118,7 +133,38 @@ const events = () => {
 
   body.addEventListener('click', (e) => {
     sectionScroll(e);
+    heroEventHandler(e);
   });
+
+  const heroText = document.querySelector('.hero-wrapper h1')
+
+  const heroFontHandler = (() => {
+    const fontList = ['Manrope', 'Inter', 'Georgia', 'Sans-serif', 'Times New Roman']
+    
+    let currentIndex = 0;
+  
+    const randomFont = () => {
+      let randomIndex;
+      do {
+        randomIndex = Math.floor(Math.random() * fontList.length);
+      } while (randomIndex === currentIndex);
+  
+      currentIndex = randomIndex
+  
+      return randomIndex;
+    }
+  
+    const setFont = () => {
+      const fontIndex = randomFont()
+      heroText.style.fontFamily = fontList[fontIndex]
+    }
+
+    return { setFont }
+  })()
+
+  heroText.addEventListener('mouseenter', () => {
+    heroFontHandler.setFont()
+  })
 };
 
 export default events;

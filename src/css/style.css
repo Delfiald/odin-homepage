@@ -58,7 +58,7 @@ a {
 body {
   background: var(--background-color);
   color: var(--text-color);
-  font-family: 'Manrope', 'Inter', Georgia, 'Times New Roman', Times, serif;
+  font-family: 'Manrope', 'Inter', sans-serif;
   line-height: 1.6;
   overflow-x: hidden;
 }
@@ -91,6 +91,177 @@ main > * {
   position: relative;
   overflow: hidden;
   /* scroll-snap-align: start; */
+}
+
+/* Hero */
+#hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-container {
+  cursor: pointer;
+  position: relative;
+  width: 100px;
+  height: 100px;
+  background: var(--color-dark-400);
+  border-radius: 50%;
+  box-shadow: 0px 0px 5px 0px var(--color-dark-500);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: 1s all cubic-bezier(0.80, 0.35, 0.15, 0.50);
+  overflow: hidden;
+}
+
+.hero-container.extend {
+  cursor: default;
+  width: 90%;
+  height: 90vh;
+  border-radius: 15px;
+  background: var(--color-dark-400);
+}
+
+.hero-container .hero-wrapper {
+  overflow: hidden;
+}
+
+.hero-container h1 {
+  transform: translateX(-125%);
+  position: relative;
+  font-size: 8rem;
+  transition: .35s 0s all ease-in;
+  font-weight: bolder;
+  z-index: 4;
+}
+
+.hero-container.extend h1 {
+  transform: translateX(0);
+  transition: .5s .75s all ease-in-out;
+}
+
+.hero-container .hero-wrapper span {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: var(--color-light-200);
+  border-radius: 50%;
+}
+
+.hero-container .scroll-down {
+  position: absolute;
+  bottom: 0;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: .75s 1.5s all ease-in;
+  visibility: hidden;
+}
+
+.hero-container .scroll-down h3 {
+  font-weight: 500;
+  font-size: 1rem;
+  opacity: .75;
+}
+
+.hero-container .scroll-down i {
+  font-size: 1.5rem;
+  opacity: .75;
+  animation: arrow-down 2s ease infinite;
+}
+
+.hero-container.extend .scroll-down {
+  opacity: .75;
+  visibility: visible;
+}
+
+.hero-container.extend .scroll-down:hover {
+  opacity: .9 !important;
+}
+
+.hero-container .shape-1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  background: var(--color-dark-600);
+  border-radius: 10px;
+  z-index: 0;
+  transform: translate(-50%, -50%) skew(65deg, -65deg);
+  opacity: 0;
+  transition: .5s all ease 1.5s;
+}
+
+.hero-container.extend .shape-1 {
+  opacity: .5;
+}
+
+.hero-container .shape-2 {
+  position: absolute;
+  display: flex;
+  top: 15%;
+  left: 44.5%;
+  width: 75px;
+  height: 25px;
+  border-radius: 7.5px;
+  background: var(--color-dark-600);
+  transform: translate(-50%, -50%) skew(65deg, -65deg) scaleX(0);
+  opacity: .75;
+  z-index: 3;
+  transition: .5s all ease 1.5s;
+  transform-origin: right;
+}
+
+.hero-container.extend .shape-2 {
+  transform: translate(-50%, -50%) skew(65deg, -65deg) scaleX(1)
+}
+
+.hero-container .shape-3 {
+  position: absolute;
+  display: flex;
+  top: 15.5%;
+  left: 41.25%;
+  width: 50px;
+  height: 15px;
+  border-radius: 5px;
+  background: var(--color-dark-600);
+  transform: translate(-50%, -50%) skew(65deg, -65deg) scaleX(0);
+  opacity: .5;
+  z-index: 3;
+  transition: .5s all ease 1.75s;
+  transform-origin: right;
+}
+
+.hero-container.extend .shape-3 {
+  transform: translate(-50%, -50%) skew(65deg, -65deg) scaleX(1)
+}
+
+.hero-container .shape-4 {
+  position: absolute;
+  display: flex;
+  bottom: 28.5%;
+  left: 57%;
+  width: 15px;
+  height: 15px;
+  border-radius: 5px;
+  background: var(--color-dark-600);
+  transform: translate(-50%, -50%) skew(65deg, -65deg) scaleX(0);
+  opacity: 1;
+  z-index: 1;
+  transition: .5s all ease 1.75s;
+  transform-origin: right;
+}
+
+.hero-container.extend .shape-4 {
+  transform: translate(-50%, -50%) skew(65deg, -65deg) scaleX(1)
 }
 
 /* Skills */
@@ -395,6 +566,50 @@ main > * {
 
   #skills .skills-container::after {
     bottom: 0px;
+  }
+}
+
+@keyframes hero-knot-drop {
+  0% {
+    height: 0%;
+  }
+
+  100% {
+    height: 50%;
+  }
+}
+
+@keyframes hero-glow {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes hero-border {
+  0% {
+    transform: translate(-50%, -50%) scaleY(0);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scaleY(1);
+  }
+}
+
+@keyframes arrow-down {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(50%);
+  }
+
+  100% {
+    transform: translateY(0);
   }
 }
 
