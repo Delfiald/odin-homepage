@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&display=swap');
 
 * {
   box-sizing: border-box;
@@ -61,6 +61,94 @@ body {
   font-family: 'Manrope', 'Inter', sans-serif;
   line-height: 1.6;
   overflow-x: hidden;
+}
+
+/* Menu Button */
+#menu-btn {
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 1rem;
+  padding: .5rem 1rem;
+  border: 1px solid var(--color-dark-600);
+  border-radius: 10px;
+  cursor: pointer;
+  background: var(--background-color);
+  z-index: 1;
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: bolder;
+}
+
+#menu-btn:hover {
+  filter: brightness(1.2);
+}
+
+#menu-btn > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: .3s all ease;
+  transform-origin: center;
+}
+
+#menu-btn > div:last-child {
+  position: relative;
+}
+
+#menu-btn > div:last-child::before,
+#menu-btn > div:last-child::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg) scaleX(0);
+  width: 100%;
+  height: 4px;
+  border-radius: 5px;
+  background: var(--color-light-200);
+  transition: .35s 0s all ease;
+  transform-origin: center;
+}
+
+#menu-btn > div:last-child::after {
+  transform: translate(-50%, -50%) rotate(45deg) scaleX(0);
+}
+
+#menu-btn:hover > div:last-child,
+#menu-btn.open > div:last-child {
+  transform: rotate(90deg);
+}
+
+#menu-btn.open > div:last-child:before {
+  transform: translate(-50%, -50%) rotate(-45deg) scaleX(1);
+  transition: .35s .25s all ease;
+}
+
+#menu-btn.open > div:last-child:after {
+  transform: translate(-50%, -50%) rotate(45deg) scaleX(1);
+  transition: .35s .25s all ease;
+}
+
+#menu-btn > div:last-child > div {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text-color);
+  transition: .25s .35s all ease;
+}
+
+#menu-btn.open > div:last-child > div:first-child {
+  transform: translateX(calc(50% + 2.5px));
+  transition: .25s 0s all ease;
+}
+
+#menu-btn.open > div:last-child > div:last-child {
+  transform: translateX(calc(-50% - 2.5px));
+  transition: .25s 0s all ease;
 }
 
 /* Menu */
@@ -136,11 +224,12 @@ main > * {
   transition: .35s 0s all ease-in;
   font-weight: bolder;
   z-index: 4;
+  font-optical-sizing: auto;
 }
 
 .hero-container.extend h1 {
   transform: translateX(0);
-  transition: .5s .75s all ease-in-out;
+  transition: .5s 2s all ease-in-out;
 }
 
 .hero-container .hero-wrapper span {
@@ -161,7 +250,7 @@ main > * {
   justify-content: center;
   cursor: pointer;
   opacity: 0;
-  transition: .75s 1.5s all ease-in;
+  transition: .75s 2.5s all ease-in;
   visibility: hidden;
 }
 
@@ -195,13 +284,14 @@ main > * {
   background: var(--color-dark-600);
   border-radius: 10px;
   z-index: 0;
-  transform: translate(-50%, -50%) skew(65deg, -65deg);
-  opacity: 0;
-  transition: .5s all ease 1.5s;
+  transform: translate(-50%, -50%) skew(65deg, -65deg) scale(0);
+  opacity: .5;
+  transition: .5s all ease 1s;
 }
 
 .hero-container.extend .shape-1 {
   opacity: .5;
+  transform: translate(-50%, -50%) skew(65deg, -65deg) scale(1);
 }
 
 .hero-container .shape-2 {
@@ -262,6 +352,174 @@ main > * {
 
 .hero-container.extend .shape-4 {
   transform: translate(-50%, -50%) skew(65deg, -65deg) scaleX(1)
+}
+
+/* Lucky Button */
+/* .lucky-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 75px;
+  height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  font-size: .8rem;
+  cursor: pointer;
+}
+
+.lucky-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding: .5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-dark-600);
+  border-radius: 5px;
+  transform: rotate(45deg);
+  overflow: hidden;
+}
+
+.lucky-wrapper > div {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bolder;
+  white-space: nowrap;
+  transition: .5s all ease;
+}
+
+.lucky-wrapper > div::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  z-index: -1;
+  background: var(--color-light-400);
+  transform-origin: bottom;
+  transform: translate(-50%, -50%) scaleY(0);
+  transition: .5s all ease;
+}
+
+.lucky-wrapper:hover > div {
+  color: var(--color-dark-200);
+}
+
+.lucky-wrapper:hover > div::before {
+  transform: translate(-50%, -50%) scaleY(1);
+} */
+
+.lucky-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  font-size: .8rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: .5s all 15s ease;
+}
+
+.hero-container.extend .lucky-btn {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lucky-btn .lucky-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid var(--color-dark-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  transition: .25s all ease;
+  cursor: pointer;
+}
+
+.lucky-btn .lucky-wrapper::before {
+  position: absolute;
+  content: '';
+  top: calc(50% + 2px);
+  left: 50%;
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--color-dark-200);
+}
+
+.lucky-btn .lucky:hover {
+  filter: brightness(0.8);
+}
+
+.lucky-btn .lucky:active {
+  transform: translateY(2px);
+}
+
+.lucky-btn .lucky {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--color-dark-600);
+  border-radius: 50%;
+  border: 1px solid var(--color-dark-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  transition: .25s all ease;
+}
+
+.lucky-btn .lucky-background {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-dark-600);
+  border-radius: 50%;
+  border: 1px solid var(--color-dark-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  transition: .25s all ease;
+}
+
+.lucky-btn .lucky-indicator {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 10px;
+  height: 10px;
+  background: var(--color-light-600);
+  border: 1px solid var(--color-dark-600);
+  border-radius: 50%;
+  box-shadow: 0px 0px 2px 0px var(--color-dark-200);
+  transition: 1.5s all ease;
+}
+
+.lucky-btn.active .lucky-indicator {
+  background: crimson;
 }
 
 /* Skills */
@@ -349,7 +607,7 @@ main > * {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0s all ease-in-out;
+  transition: 0.25s all ease-in-out;
   padding: 1rem;
 }
 
@@ -566,6 +824,16 @@ main > * {
 
   #skills .skills-container::after {
     bottom: 0px;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
   }
 }
 

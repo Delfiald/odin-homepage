@@ -126,6 +126,21 @@ const events = () => {
     }
   }
 
+  // Menu
+  const menuHandler = (e) => {
+    const menuButton = document.querySelector('#menu-btn')
+    if(e.target.closest('#menu-btn')) {
+      menuButton.classList.toggle('open')
+    }
+  }
+
+  // Lucky Button
+  const luckyButtonHandler = (e) => {
+    if(e.target.closest('.lucky-wrapper')) {
+      document.querySelector('.lucky-btn').classList.toggle('active')
+    }
+  }
+
   window.addEventListener('scroll', () => {
     setIndicatorActive();
     checkBoxes();
@@ -134,12 +149,14 @@ const events = () => {
   body.addEventListener('click', (e) => {
     sectionScroll(e);
     heroEventHandler(e);
+    menuHandler(e);
+    luckyButtonHandler(e)
   });
 
   const heroText = document.querySelector('.hero-wrapper h1')
 
   const heroFontHandler = (() => {
-    const fontList = ['Manrope', 'Inter', 'Georgia', 'Sans-serif', 'Times New Roman']
+    const fontList = ['Manrope', 'Inter', 'Georgia', 'Sans-serif', 'Times New Roman', 'Playwrite GB S', 'Arima']
     
     let currentIndex = 0;
   
