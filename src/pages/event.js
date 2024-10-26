@@ -1,3 +1,5 @@
+import easterEgg from '../components/easter'
+
 const events = () => {
   const body = document.querySelector('body');
 
@@ -138,6 +140,11 @@ const events = () => {
   const luckyButtonHandler = (e) => {
     if(e.target.closest('.lucky-wrapper')) {
       document.querySelector('.lucky-btn').classList.toggle('active')
+      const hero = document.querySelector('#hero .hero-container');
+      hero.classList.toggle('easter')
+      if(hero.classList.contains('easter')) {
+        hero.appendChild(easterEgg());
+      }
     }
   }
 
