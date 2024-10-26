@@ -1,7 +1,7 @@
 const createMenu = () => {
-  const menu = document.createElement('aside')
-  menu.id = 'menu'
-  return menu
-}
+  const menu = document.createElement('aside');
+  menu.id = 'menu';
+  return menu;
+};
 
-export default createMenu
+export default createMenu;
