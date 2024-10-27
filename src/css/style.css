@@ -189,6 +189,31 @@ main > * {
   justify-content: center;
 }
 
+.hero-line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 50%;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--color-dark-400) 0%, var(--color-light-400) 30%, var(--color-dark-400) 100%);
+}
+
+.hero-line::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 7.5px;
+  height: 7.5px;
+  border-radius: 50%;
+  background: var(--color-light-400);
+  box-shadow: 0px 0px 15px 0px var(--color-light-200);
+  filter: drop-shadow(0 0 3px var(--color-light-200));
+  animation: flow 3s cubic-bezier(.7, 0.3, 0.2, .8) forwards;
+}
+
 .hero-container {
   cursor: pointer;
   position: relative;
@@ -827,6 +852,20 @@ main > * {
 
   #skills .skills-container::after {
     bottom: 0px;
+  }
+}
+
+@keyframes flow {
+  0% {
+    transform: translate(-50%, 0);
+  }
+
+  50% {
+    transform: translate(-50%, 25vh);
+  }
+
+  100% {
+    transform: translate(-50%, 50vh);
   }
 }
 

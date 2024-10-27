@@ -120,12 +120,10 @@ const events = () => {
   };
 
   // Hero
-  const heroEventHandler = (e) => {
-    const {target} = e;
-
-    if(target.closest('.hero-container')) {
+  const heroEventHandler = () => {
+    setTimeout(() => {
       document.querySelector('.hero-container').classList.add('extend')
-    }
+    }, 2500)
   }
 
   // Menu
@@ -175,7 +173,6 @@ const events = () => {
 
   body.addEventListener('click', (e) => {
     sectionScroll(e);
-    heroEventHandler(e);
     menuHandler(e);
     luckyButtonHandler(e)
   });
@@ -209,6 +206,8 @@ const events = () => {
   heroText.addEventListener('mouseenter', () => {
     heroFontHandler.setFont()
   })
+
+  heroEventHandler()
 };
 
 export default events;
