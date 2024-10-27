@@ -73,6 +73,24 @@ const events = () => {
     indicators[maxVisibleIndex].classList.add('active');
   };
 
+  const aboutTitleAnimationHandler = () => {
+    const aboutTitle = document.querySelector('.about-title')
+    const aboutTitleLetters = aboutTitle.querySelectorAll('div')
+
+    if(isInViewPort(aboutTitle)){
+
+      aboutTitleLetters.forEach((letter, index) => {
+        setTimeout(() => {
+          letter.classList.add('show')
+        }, 75*index)
+      })
+    }else {
+      aboutTitleLetters.forEach((letter) => {
+        letter.classList.remove('show')
+      })
+    }
+  }
+
   const skillAnimationHandler = (() => {
     const skillsHeader = document.querySelector('.skills-header');
     const skills = document.querySelectorAll('.skill:has(img)');
@@ -123,7 +141,7 @@ const events = () => {
   const heroEventHandler = () => {
     setTimeout(() => {
       document.querySelector('.hero-container').classList.add('extend')
-    }, 2500)
+    }, 3250)
   }
 
   // Menu
@@ -168,6 +186,7 @@ const events = () => {
 
   window.addEventListener('scroll', () => {
     setIndicatorActive();
+    aboutTitleAnimationHandler();
     checkBoxes();
   });
 
