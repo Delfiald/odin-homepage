@@ -1,19 +1,3 @@
-// const createLuckyMeButton = () => {
-//   const luckyMeButton = document.createElement('div')
-//   luckyMeButton.className = 'lucky-btn'
-
-//   const luckyMeWrapper = document.createElement('div')
-//   luckyMeWrapper.className = 'lucky-wrapper'
-
-//   const luckyMeText = document.createElement('div')
-//   luckyMeText.textContent = 'Lucky Me'
-
-//   luckyMeWrapper.appendChild(luckyMeText)
-//   luckyMeButton.appendChild(luckyMeWrapper)
-
-//   return luckyMeButton
-// }
-
 const createLuckyMeButton = () => {
   const luckyMeButton = document.createElement('div')
   luckyMeButton.className = 'lucky-btn'
@@ -44,6 +28,13 @@ const createHeroBackground = (index) => {
   shape.className = `shape-${index}`
 
   return shape
+}
+
+const createHeroLine = () => {
+  const heroLine = document.createElement('div')
+  heroLine.className = 'hero-line'
+
+  return heroLine
 }
 
 const createHeroWrapper = () => {
@@ -86,6 +77,7 @@ const createHeroSection = () => {
   const hero = document.createElement('section');
   hero.id = 'hero';
 
+  hero.appendChild(createHeroLine())
   hero.appendChild(createHeroWrapper());
 
   return hero;
