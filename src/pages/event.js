@@ -82,7 +82,7 @@ const events = () => {
       aboutTitleLetters.forEach((letter, index) => {
         setTimeout(() => {
           letter.classList.add('show')
-        }, 75*index)
+        }, 35*index)
       })
     }else {
       aboutTitleLetters.forEach((letter) => {
@@ -152,6 +152,15 @@ const events = () => {
     }
   }
 
+  // About
+  const aboutHandler = (e) => {
+    const aboutSection = document.getElementById('about');
+
+    if(e.target.closest('#about .more-btn')) {
+      aboutSection.classList.toggle('more')
+    }
+  }
+
   // Easter Egg
   const easterEggHandler = () => {
     const easterEggContainer = document.querySelector('.easter-egg')
@@ -193,7 +202,8 @@ const events = () => {
   body.addEventListener('click', (e) => {
     sectionScroll(e);
     menuHandler(e);
-    luckyButtonHandler(e)
+    luckyButtonHandler(e);
+    aboutHandler(e);
   });
 
   const heroText = document.querySelector('.hero-wrapper h1')
