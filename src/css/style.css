@@ -602,7 +602,7 @@ main > * {
 }
 
 #about.more .about-container {
-  transform: translateX(calc(-33%));
+  transform: translateX(calc(-33% - .5rem));
 }
 
 #about .about-container .more-btn {
@@ -615,6 +615,27 @@ main > * {
   justify-content: center;
   padding: 1rem;
   gap: .5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: .5s all ease;
+  opacity: 1;
+  visibility: visible;
+}
+
+#about.more .about-container .more-btn {
+  left: calc(100% + 5rem);
+  opacity: 0;
+  visibility: hidden;
+}
+
+#about .about-container .less-btn {
+  position: absolute;
+  right: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  padding: 1rem;
   font-size: 1.5rem;
   cursor: pointer;
 }
@@ -630,6 +651,7 @@ main > * {
   justify-content: center;
   flex-direction: column;
   font-size: 2rem;
+  padding: 0 1rem;
 }
 
 #about .about-container .name-section > span:first-child {
@@ -654,12 +676,71 @@ main > * {
 }
 
 #about .about-container .about-details {
+  position: relative;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  color: var(--color-light-200);
+  height: 100vh;
+  gap: 1rem;
+}
+
+#about .about-container .about-details .details-section {
+  width: 35vw;
+  font-size: 1.15rem;
+}
+
+#about .about-container .about-details .link-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  gap: .5rem;
+}
+
+#about .about-container .about-details .link-section .linked-btn {
+  position: relative;
+  font-size: 3rem;
+  cursor: pointer;
+  color: var(--color-light-200);
+  overflow: hidden;
+  display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 5;
-  color: var(--color-light-200);
+}
+
+#about .about-container .about-details .link-section .linked-btn:hover .grayscale {
+  transform: translateY(-200%);
+}
+
+#about .about-container .about-details .link-section .linked-btn:hover .colored {
+  top: 0;
+}
+
+#about .about-container .about-details .link-section .linked-btn > div {
+  width: 100px;
+  height: 100px;
+  transition: .5s all ease;
+}
+
+#about .about-container .about-details .link-section .linked-btn > div img {
+  width: 100%;
+  object-fit: contain;
+}
+
+#about .about-container .about-details .link-section .linked-btn .grayscale img {
+  filter: grayscale(100%) invert(100%);
+}
+
+#about .about-container .about-details .link-section .linked-btn .colored {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  color: blue;
+  transition: .5s all ease;
 }
 
 /* Skills */

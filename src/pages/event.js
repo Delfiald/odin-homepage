@@ -4,9 +4,9 @@ const events = () => {
   const body = document.querySelector('body');
 
   const sectionScroll = (e) => {
-    e.preventDefault();
     const indicator = e.target.closest('.indicator');
     if (indicator) {
+      e.preventDefault();
       const targetSectionID = indicator.getAttribute('href');
       const targetSection = document.querySelector(targetSectionID);
       window.scrollTo({
@@ -157,7 +157,9 @@ const events = () => {
     const aboutSection = document.getElementById('about');
 
     if(e.target.closest('#about .more-btn')) {
-      aboutSection.classList.toggle('more')
+      aboutSection.classList.add('more')
+    }else if(e.target.closest('#about .less-btn')) {
+      aboutSection.classList.remove('more')
     }
   }
 
@@ -200,10 +202,10 @@ const events = () => {
   });
 
   body.addEventListener('click', (e) => {
-    sectionScroll(e);
     menuHandler(e);
     luckyButtonHandler(e);
     aboutHandler(e);
+    sectionScroll(e);
   });
 
   const heroText = document.querySelector('.hero-wrapper h1')

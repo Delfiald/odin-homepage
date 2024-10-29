@@ -1,3 +1,5 @@
+import linkedin from '../assets/link/linkedin.svg'
+
 const createAboutTitle = () => {
   const aboutTitle = document.createElement('div')
   aboutTitle.className = 'about-title'
@@ -37,7 +39,7 @@ const createOverviewSection = () => {
   descriptionSection.className = 'description-section'
   descriptionSection.textContent = `I'm a `
   const overviewJob = document.createElement('span')
-  overviewJob.textContent = 'Fullstack Developer '
+  overviewJob.textContent = 'Frontend Developer '
   descriptionSection.appendChild(overviewJob)
   descriptionSection.appendChild(document.createTextNode('from Indonesia'));
 
@@ -55,17 +57,41 @@ const createDetailsSection = () => {
   details.className = 'about-details'
 
   const detailsContent = document.createElement('div')
-  detailsContent.textContent = 'Details Content'
+  detailsContent.textContent = `As an enthusiastic web developer and recent graduate, I have a strong passion for coding and problem-solving. Though I'm at the start of my professional journey, I've sharpened my skills through rigorous online courses like The Odin Project. These programs have given me a solid foundation in HTML, CSS, JavaScript, and various modern web development frameworks. My portfolio highlights practical projects that demonstrate my commitment to continuous learning and my ability to create innovative web solutions!`
+  detailsContent.className = 'details-section'
 
-  const detailsContent2 = document.createElement('div')
-  detailsContent2.textContent = 'Details Content'
+  const detailsLink = document.createElement('div')
+  detailsLink.className = 'link-section'
+  const detailsLinkText = document.createElement('div')
+  detailsLinkText.textContent = 'Explore my LinkedIn profile!'
 
-  const detailsContent3 = document.createElement('div')
-  detailsContent3.textContent = 'Details Content'
+  const detailsLinkButton = document.createElement('a')
+  detailsLinkButton.href = 'https://linkedin.com/in/m-aldi-gunawan'
+  detailsLinkButton.rel = 'noopener noreferrer'
+  detailsLinkButton.target = '_blank'
+  detailsLinkButton.className = 'linked-btn'
+  const linkedInIcon = document.createElement('div')
+  linkedInIcon.className = 'grayscale'
+
+  const linkedInImage = document.createElement('img')
+  linkedInImage.src = linkedin;
+  linkedInIcon.appendChild(linkedInImage)
+  
+  const linkedInIconColored = document.createElement('div')
+  linkedInIconColored.className = 'colored'
+
+  const linkedInImageColored = document.createElement('img')
+  linkedInImageColored.src = linkedin;
+  linkedInIconColored.appendChild(linkedInImageColored)
+
+  detailsLinkButton.appendChild(linkedInIcon)
+  detailsLinkButton.appendChild(linkedInIconColored)
+
+  detailsLink.appendChild(detailsLinkText)
+  detailsLink.appendChild(detailsLinkButton)
 
   details.appendChild(detailsContent)
-  details.appendChild(detailsContent2)
-  details.appendChild(detailsContent3)
+  details.appendChild(detailsLink)
 
   return details
 }
@@ -74,22 +100,33 @@ const createAboutContainer = () => {
   const container = document.createElement('div');
   container.className = 'about-container';
 
+  // More Button
   const moreButton = document.createElement('div')
   moreButton.className = 'more-btn'
-
   const moreButtonText = document.createElement('div')
   moreButtonText.textContent = 'More'
-
   const moreButtonIcon = document.createElement('i')
   moreButtonIcon.className = 'fas fa-chevron-right'
 
   moreButton.appendChild(moreButtonText)
   moreButton.appendChild(moreButtonIcon)
 
+  // Less Button
+  const lessButton = document.createElement('div')
+  lessButton.className = 'less-btn'
+  const lessButtonText = document.createElement('div')
+  lessButtonText.textContent = 'Less'
+  const lessButtonIcon = document.createElement('i')
+  lessButtonIcon.className = 'fas fa-chevron-left'
+
+  lessButton.appendChild(lessButtonIcon)
+  lessButton.appendChild(lessButtonText)
+
   container.appendChild(createAboutTitle());
   container.appendChild(createOverviewSection());
   container.appendChild(createDetailsSection());
   container.appendChild(moreButton);
+  container.appendChild(lessButton);
 
   return container;
 }
