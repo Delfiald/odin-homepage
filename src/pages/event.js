@@ -4,9 +4,9 @@ const events = () => {
   const body = document.querySelector('body');
 
   const sectionScroll = (e) => {
-    e.preventDefault();
     const indicator = e.target.closest('.indicator');
     if (indicator) {
+      e.preventDefault();
       const targetSectionID = indicator.getAttribute('href');
       const targetSection = document.querySelector(targetSectionID);
       window.scrollTo({
@@ -24,17 +24,18 @@ const events = () => {
 
   const isInViewPort = (element) => {
     const rect = element.getBoundingClientRect();
+    const viewHeight = window.innerHeight || document.documentElement.clientHeight;
+
     return (
       rect.top >= 0 &&
       rect.bottom <=
-        (window.innerHeight || document.documentElement.clientHeight)
+      viewHeight
     );
   };
 
   const getVisiblePercentage = (element) => {
     const rect = element.getBoundingClientRect();
-    const windowHeight =
-      window.innerHeight || document.documentElement.clientHeight;
+    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
 
     const visibleTop = Math.max(0, rect.top);
     const visibleBottom = Math.min(windowHeight, rect.bottom);
@@ -72,6 +73,89 @@ const events = () => {
 
     indicators[maxVisibleIndex].classList.add('active');
   };
+
+  const aboutTitleAnimationHandler = () => {
+    const about = document.getElementById('about');
+    const aboutTitle = document.querySelector('.about-title')
+    const aboutTitleLetters = aboutTitle.querySelectorAll('div')
+
+    if(getVisiblePercentage(about) > 20){
+
+      aboutTitleLetters.forEach((letter, index) => {
+        setTimeout(() => {
+          letter.classList.add('show')
+        }, 35*index)
+      })
+    }else {
+      aboutTitleLetters.forEach((letter) => {
+        letter.classList.remove('show')
+      })
+    }
+  }
+
+  const aboutOverViewAnimationHandler = () => {
+    const about = document.getElementById('about');
+    const aboutOverviewContainer = document.querySelector('.about-overview')
+    const aboutNameSections = aboutOverviewContainer.querySelectorAll('.name-section > *')
+    const aboutDescriptionsSections = aboutOverviewContainer.querySelectorAll('.description-section div')
+    const moreBtn = document.querySelector('.more-btn')
+    const detailSection = document.querySelector('.details-section')
+    const aboutCTAText = document.querySelectorAll('.about-cta-text .word')
+    const aboutCTAButton = document.querySelector('.linked-btn')
+    const scrollWrapper = document.querySelector('.about-scroll-wrapper')
+    const scrollLetter = scrollWrapper.querySelectorAll('.letter')
+
+    if(getVisiblePercentage(about) > 20){
+      aboutNameSections.forEach((word, index) => {
+        setTimeout(() => {
+          word.classList.add('show')
+        }, 35*index)
+      })
+
+      aboutDescriptionsSections.forEach((word, index) => {
+        setTimeout(() => {
+          word.classList.add('show')
+        }, 35*index)
+      })
+
+      moreBtn.classList.add('show')
+
+      scrollWrapper.classList.add('show')
+
+      scrollLetter.forEach((letter, index) => {
+        setTimeout(() => {
+          letter.classList.add('show')
+        }, 35*index)
+      })
+
+      if(about.classList.contains('more')) {
+        detailSection.classList.add('show')
+        aboutCTAText.forEach((word, index) => {
+          setTimeout(() => {
+            word.classList.add('show')
+          }, 35*index)
+        })
+        aboutCTAButton.classList.add('show')
+      }
+    }else {
+      aboutNameSections.forEach((word) => {
+        word.classList.remove('show')
+      })
+      aboutDescriptionsSections.forEach((word) => {
+        word.classList.remove('show')
+      })
+      moreBtn.classList.remove('show')
+      scrollWrapper.classList.remove('show')
+      scrollLetter.forEach((letter) => {
+        letter.classList.remove('show')
+      })
+      detailSection.classList.remove('show')
+      aboutCTAText.forEach((word) => {
+          word.classList.remove('show')
+      })
+      aboutCTAButton.classList.remove('show')
+    }
+  }
 
   const skillAnimationHandler = (() => {
     const skillsHeader = document.querySelector('.skills-header');
@@ -123,7 +207,7 @@ const events = () => {
   const heroEventHandler = () => {
     setTimeout(() => {
       document.querySelector('.hero-container').classList.add('extend')
-    }, 2500)
+    }, 3250)
   }
 
   // Menu
@@ -131,6 +215,32 @@ const events = () => {
     const menuButton = document.querySelector('#menu-btn')
     if(e.target.closest('#menu-btn')) {
       menuButton.classList.toggle('open')
+    }
+  }
+
+  // About
+  const aboutHandler = (e) => {
+    const aboutSection = document.getElementById('about');
+    const aboutCTAText = document.querySelectorAll('.about-cta-text .word')
+    const aboutCTAButton = document.querySelector('.linked-btn')
+    const detailSection = document.querySelector('.details-section')
+
+    if(e.target.closest('#about .more-btn')) {
+      aboutSection.classList.add('more')
+      detailSection.classList.add('show')
+      aboutCTAText.forEach((word, index) => {
+        setTimeout(() => {
+          word.classList.add('show')
+        }, 35*index)
+      })
+      aboutCTAButton.classList.add('show')
+    }else if(e.target.closest('#about .less-btn')) {
+      aboutSection.classList.remove('more')
+      detailSection.classList.remove('show')
+      aboutCTAText.forEach((word) => {
+        word.classList.remove('show')
+      })
+      aboutCTAButton.classList.remove('show')
     }
   }
 
@@ -168,13 +278,16 @@ const events = () => {
 
   window.addEventListener('scroll', () => {
     setIndicatorActive();
+    aboutTitleAnimationHandler();
+    aboutOverViewAnimationHandler();
     checkBoxes();
   });
 
   body.addEventListener('click', (e) => {
-    sectionScroll(e);
     menuHandler(e);
-    luckyButtonHandler(e)
+    luckyButtonHandler(e);
+    aboutHandler(e);
+    sectionScroll(e);
   });
 
   const heroText = document.querySelector('.hero-wrapper h1')
