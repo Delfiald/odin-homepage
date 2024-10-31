@@ -752,7 +752,7 @@ main > * {
   position: absolute;
   align-self: center;
   letter-spacing: 3px;
-  font-size: 1rem;
+  font-size: .75rem;
   min-height: 40vh;
   transform: translateY(-50%);
 }
@@ -868,8 +868,8 @@ main > * {
 
 #about .about-container .about-details .link-section .about-cta-text > div {
   margin-right: 4px;
-  transform: translateY(120%) rotate(15deg);
-  transition: .15s all linear;
+  transform: translateY(150%) rotate(15deg);
+  transition: .05s all linear;
 }
 
 #about .about-container .about-details .link-section .about-cta-text > .word.show {
