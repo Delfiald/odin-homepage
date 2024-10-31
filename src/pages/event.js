@@ -3,36 +3,7 @@ import easterEgg from '../components/easter'
 const events = () => {
   const body = document.querySelector('body');
 
-  const sectionScroll = (e) => {
-    const indicator = e.target.closest('.indicator');
-    if (indicator) {
-      e.preventDefault();
-      const targetSectionID = indicator.getAttribute('href');
-      const targetSection = document.querySelector(targetSectionID);
-      window.scrollTo({
-        top: targetSection.offsetTop,
-        behavior: 'smooth',
-      });
-    } else if(e.target.closest('.scroll-down')) {
-      const targetSection = document.querySelector('#about');
-      window.scrollTo({
-        top: targetSection.offsetTop,
-        behavior: 'smooth',
-      });
-    }
-  };
-
-  const isInViewPort = (element) => {
-    const rect = element.getBoundingClientRect();
-    const viewHeight = window.innerHeight || document.documentElement.clientHeight;
-
-    return (
-      rect.top >= 0 &&
-      rect.bottom <=
-      viewHeight
-    );
-  };
-
+  // Container Visible Percentage
   const getVisiblePercentage = (element) => {
     const rect = element.getBoundingClientRect();
     const windowHeight = window.innerHeight || document.documentElement.clientHeight;
@@ -45,6 +16,14 @@ const events = () => {
     return (visibleHeight / windowHeight) * 100;
   };
 
+  // Hero
+  const heroEventHandler = () => {
+    setTimeout(() => {
+      document.querySelector('.hero-container').classList.add('extend')
+    }, 3250)
+  }
+
+  // Indicator
   const setIndicatorActive = () => {
     const sections = [
       document.getElementById('hero'),
@@ -74,30 +53,12 @@ const events = () => {
     indicators[maxVisibleIndex].classList.add('active');
   };
 
-  const aboutTitleAnimationHandler = () => {
-    const about = document.getElementById('about');
-    const aboutTitle = document.querySelector('.about-title')
-    const aboutTitleLetters = aboutTitle.querySelectorAll('div')
-
-    if(getVisiblePercentage(about) > 20){
-
-      aboutTitleLetters.forEach((letter, index) => {
-        setTimeout(() => {
-          letter.classList.add('show')
-        }, 35*index)
-      })
-    }else {
-      aboutTitleLetters.forEach((letter) => {
-        letter.classList.remove('show')
-      })
-    }
-  }
-
-  const aboutOverViewAnimationHandler = () => {
-    const about = document.getElementById('about');
-    const aboutOverviewContainer = document.querySelector('.about-overview')
-    const aboutNameSections = aboutOverviewContainer.querySelectorAll('.name-section > *')
-    const aboutDescriptionsSections = aboutOverviewContainer.querySelectorAll('.description-section div')
+  // About Handler
+  const aboutAnimationHandler = (() => {
+    const aboutSection = document.getElementById('about');
+    const aboutTitleLetters = document.querySelectorAll('.about-title div')
+    const aboutNameSections = aboutSection.querySelectorAll('.name-section > *')
+    const aboutDescriptionsSections = aboutSection.querySelectorAll('.description-section div')
     const moreBtn = document.querySelector('.more-btn')
     const detailSection = document.querySelector('.details-section')
     const aboutCTAText = document.querySelectorAll('.about-cta-text .word')
@@ -105,57 +66,70 @@ const events = () => {
     const scrollWrapper = document.querySelector('.about-scroll-wrapper')
     const scrollLetter = scrollWrapper.querySelectorAll('.letter')
 
-    if(getVisiblePercentage(about) > 20){
-      aboutNameSections.forEach((word, index) => {
-        setTimeout(() => {
-          word.classList.add('show')
-        }, 35*index)
-      })
-
-      aboutDescriptionsSections.forEach((word, index) => {
-        setTimeout(() => {
-          word.classList.add('show')
-        }, 35*index)
-      })
-
-      moreBtn.classList.add('show')
-
-      scrollWrapper.classList.add('show')
-
-      scrollLetter.forEach((letter, index) => {
-        setTimeout(() => {
-          letter.classList.add('show')
-        }, 35*index)
-      })
-
-      if(about.classList.contains('more')) {
-        detailSection.classList.add('show')
-        aboutCTAText.forEach((word, index) => {
+    const textShowHandler = (text) => {
+      if(text.length > 0) {
+        text.forEach((item, index) => {
           setTimeout(() => {
-            word.classList.add('show')
+            item.classList.add('show')
           }, 35*index)
         })
-        aboutCTAButton.classList.add('show')
       }
-    }else {
-      aboutNameSections.forEach((word) => {
-        word.classList.remove('show')
-      })
-      aboutDescriptionsSections.forEach((word) => {
-        word.classList.remove('show')
-      })
-      moreBtn.classList.remove('show')
-      scrollWrapper.classList.remove('show')
-      scrollLetter.forEach((letter) => {
-        letter.classList.remove('show')
-      })
-      detailSection.classList.remove('show')
-      aboutCTAText.forEach((word) => {
-          word.classList.remove('show')
-      })
-      aboutCTAButton.classList.remove('show')
     }
-  }
+
+    const textHideHandler = (text) => {
+      if(text.length > 0) {
+        text.forEach((item) => {
+          item.classList.remove('show')
+        })
+      }else {
+        text.classList.remove('show')
+      }
+    }
+
+    const aboutScroll = () => {
+      if(getVisiblePercentage(aboutSection) > 20){
+        textShowHandler(aboutTitleLetters)
+        textShowHandler(aboutNameSections)
+        textShowHandler(aboutDescriptionsSections)
+        moreBtn.classList.add('show')
+        scrollWrapper.classList.add('show')
+  
+        textShowHandler(scrollLetter)
+  
+        if(aboutSection.classList.contains('more')) {
+          textShowHandler(aboutCTAText)
+          detailSection.classList.add('show')
+          aboutCTAButton.classList.add('show')
+        }
+      }else {
+        textHideHandler(aboutTitleLetters)
+        textHideHandler(aboutNameSections)
+        textHideHandler(aboutDescriptionsSections)
+        textHideHandler(scrollLetter)
+        textHideHandler(aboutCTAText)
+        moreBtn.classList.remove('show')
+        scrollWrapper.classList.remove('show')
+        detailSection.classList.remove('show')
+        aboutCTAButton.classList.remove('show')
+      }
+    }
+
+    const aboutClick = (e) => {
+      if(e.target.closest('#about .more-btn')) {
+        textShowHandler(aboutCTAText)
+        aboutSection.classList.add('more')
+        detailSection.classList.add('show')
+        aboutCTAButton.classList.add('show')
+      }else if(e.target.closest('#about .less-btn')) {
+        textHideHandler(aboutCTAText)
+        aboutSection.classList.remove('more')
+        detailSection.classList.remove('show')
+        aboutCTAButton.classList.remove('show')
+      }
+    }
+
+    return {aboutScroll, aboutClick}
+  })()
 
   const skillAnimationHandler = (() => {
     const skillsHeader = document.querySelector('.skills-header');
@@ -189,58 +163,26 @@ const events = () => {
   const checkBoxes = () => {
     const skillSection = document.getElementById('skills');
     if (skillSection) {
-      const skillWrapper = skillSection.querySelector('.skills-wrapper');
-      const skillHeader = skillSection.querySelector('.skills-header');
-      const skillWrapperLast = skillSection.querySelector(
-        '.skills-wrapper:nth-child(4)'
-      );
-
-      if (!isInViewPort(skillHeader) && !isInViewPort(skillWrapperLast)) {
-        skillAnimationHandler.removeAnimation();
-      } else if (isInViewPort(skillWrapper) || isInViewPort(skillWrapperLast)) {
+      if (getVisiblePercentage(skillSection) > 10) {
         skillAnimationHandler.addAnimation();
+      } else {
+        skillAnimationHandler.removeAnimation();
       }
     }
   };
-
-  // Hero
-  const heroEventHandler = () => {
-    setTimeout(() => {
-      document.querySelector('.hero-container').classList.add('extend')
-    }, 3250)
-  }
-
+  
+  // Scroll Event Listener
+  window.addEventListener('scroll', () => {
+    setIndicatorActive();
+    aboutAnimationHandler.aboutScroll();
+    checkBoxes();
+  });
+  
   // Menu
   const menuHandler = (e) => {
     const menuButton = document.querySelector('#menu-btn')
     if(e.target.closest('#menu-btn')) {
       menuButton.classList.toggle('open')
-    }
-  }
-
-  // About
-  const aboutHandler = (e) => {
-    const aboutSection = document.getElementById('about');
-    const aboutCTAText = document.querySelectorAll('.about-cta-text .word')
-    const aboutCTAButton = document.querySelector('.linked-btn')
-    const detailSection = document.querySelector('.details-section')
-
-    if(e.target.closest('#about .more-btn')) {
-      aboutSection.classList.add('more')
-      detailSection.classList.add('show')
-      aboutCTAText.forEach((word, index) => {
-        setTimeout(() => {
-          word.classList.add('show')
-        }, 35*index)
-      })
-      aboutCTAButton.classList.add('show')
-    }else if(e.target.closest('#about .less-btn')) {
-      aboutSection.classList.remove('more')
-      detailSection.classList.remove('show')
-      aboutCTAText.forEach((word) => {
-        word.classList.remove('show')
-      })
-      aboutCTAButton.classList.remove('show')
     }
   }
 
@@ -275,19 +217,32 @@ const events = () => {
       }
     }
   }
+  
+  const sectionHandler = (e) => {
+    const indicator = e.target.closest('.indicator');
+    if (indicator) {
+      e.preventDefault();
+      const targetSectionID = indicator.getAttribute('href');
+      const targetSection = document.querySelector(targetSectionID);
+      window.scrollTo({
+        top: targetSection.offsetTop,
+        behavior: 'smooth',
+      });
+    } else if(e.target.closest('.scroll-down')) {
+      const targetSection = document.querySelector('#about');
+      window.scrollTo({
+        top: targetSection.offsetTop,
+        behavior: 'smooth',
+      });
+    }
+  };
 
-  window.addEventListener('scroll', () => {
-    setIndicatorActive();
-    aboutTitleAnimationHandler();
-    aboutOverViewAnimationHandler();
-    checkBoxes();
-  });
-
+  // Click Event Listener
   body.addEventListener('click', (e) => {
     menuHandler(e);
     luckyButtonHandler(e);
-    aboutHandler(e);
-    sectionScroll(e);
+    aboutAnimationHandler.aboutClick(e);
+    sectionHandler(e);
   });
 
   const heroText = document.querySelector('.hero-wrapper h1')
@@ -316,6 +271,7 @@ const events = () => {
     return { setFont }
   })()
 
+  // Mouse Enter EventListener
   heroText.addEventListener('mouseenter', () => {
     heroFontHandler.setFont()
   })

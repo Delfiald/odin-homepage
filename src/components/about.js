@@ -49,7 +49,7 @@ const createOverviewSection = () => {
 
   const scrollText = document.createElement('div')
   scrollText.classList = 'scroll-down-text'
-  createSeparateLetter('Scroll', scrollText)
+  createSeparateLetter('SCROLL', scrollText)
   scrollDownWrapper.appendChild(scrollText)
   scrollDown.appendChild(scrollDownWrapper)
 
