@@ -42,32 +42,31 @@ const createSectionIndicator = () => {
 };
 
 const createMenuButton = () => {
-  const menuButton = document.createElement('div')
-  menuButton.id = 'menu-btn'
-  const menuButtonText = document.createElement('div')
-  menuButtonText.textContent = 'Menu'
-  
-  const menuButtonIcon = document.createElement('div')
-  const icon1 = document.createElement('div')
-  const icon2 = document.createElement('div')
+  const menuButton = document.createElement('div');
+  menuButton.id = 'menu-btn';
+  const menuButtonText = document.createElement('div');
+  menuButtonText.textContent = 'Menu';
 
-  menuButtonIcon.appendChild(icon1)
-  menuButtonIcon.appendChild(icon2)
+  const menuButtonIcon = document.createElement('div');
+  const icon1 = document.createElement('div');
+  const icon2 = document.createElement('div');
 
-  menuButton.appendChild(menuButtonText)
-  menuButton.appendChild(menuButtonIcon)
+  menuButtonIcon.appendChild(icon1);
+  menuButtonIcon.appendChild(icon2);
+
+  menuButton.appendChild(menuButtonText);
+  menuButton.appendChild(menuButtonIcon);
 
   return menuButton;
-}
+};
 
 export default () => {
   const body = document.querySelector('body');
-  body.appendChild(createMenuButton())
+  body.appendChild(createMenuButton());
 
   body.appendChild(menu());
 
   const main = document.createElement('main');
-
 
   main.appendChild(hero());
   main.appendChild(about());
