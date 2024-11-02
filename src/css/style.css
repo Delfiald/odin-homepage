@@ -53,6 +53,11 @@
 a {
   text-decoration: none;
   font-family: inherit;
+  color: var(--text-color);
+}
+
+ul {
+  list-style: none;
 }
 
 body {
@@ -1150,10 +1155,273 @@ main > * {
 }
 
 #projects .projects-overview {
-  flex: .5;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: .35fr .65fr;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem 2rem;
+}
+
+#projects .projects-overview .projects-details-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+
+#projects .projects-overview .projects-details {
+  min-width: 100%;
+  height: 100%;
+  align-self: start;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  scroll-snap-align: center;
+  cursor: default;
+}
+
+#projects .projects-overview .projects-details > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: .5rem;
+}
+
+#projects .projects-overview .projects-details .details-header {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-weight: bolder;
+  font-size: 1.25rem;
+  overflow: hidden;
+}
+
+#projects .projects-overview .projects-details .details-header > h3 {
+  transition: 0s all ease;
+  transform: translateY(120%) rotate(15deg);
+}
+
+#projects.show .projects-overview .projects-details .details-header > h3 {
+  transition: .5s all ease;
+  transform: translateY(0) rotate(0);
+}
+
+#projects .projects-overview .projects-details > div > *:last-child {
+  opacity: 0;
+  transform: translateY(50%);
+  transition: .15s all ease-in-out;
+}
+
+#projects .projects-overview .projects-details.active > div > *:last-child {
+  transform: translateY(0);
+  opacity: 1;
+  transition: .5s .45s all ease;
+}
+
+#projects .projects-overview .projects-details .tech-stack {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+  grid-template-rows: minmax(30px, 1fr);
+  gap: 8px;
+}
+
+#projects .projects-overview .projects-details .tech-stack > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#projects .projects-overview .projects-details .tech-stack > div img {
+  width: 100%;
+  object-fit: contain;
+}
+
+#projects .projects-overview .projects-details > div {
+  position: relative;
+}
+
+#projects .projects-overview .projects-details > div::before {
+  content: '';
+  position: absolute;
+  top: 1rem;
+  left: -1rem;
+  width: 2px;
+  height: 1.5rem;
+  transform: translateY(-50%);
+  background: var(--color-light-200);
+}
+
+#projects .projects-overview .projects-carousel {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  border-radius: 20px;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  gap: 2rem;
+}
+
+#projects .projects-overview .projects-carousel .carousel-wrapper {
+  min-width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  scroll-snap-align: center;
+}
+
+#projects .projects-overview .projects-carousel .carousel-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-dark-400);
+  opacity: .25;
+  z-index: 0;
+}
+
+#projects .projects-overview .projects-carousel .project-repo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1rem;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  overflow: hidden;
+  cursor: default !important;
+}
+
+#projects .projects-overview .projects-carousel .project-repo > div {
+  font-size: .8rem;
+  transform: translateY(100%);
+  transition: .25s all ease-in-out;
+}
+
+#projects .projects-overview .projects-carousel .project-repo i {
+  font-size: 1.5rem;
+  transition: .25s all ease;
+  opacity: .5;
+  cursor: pointer;
+}
+
+#projects .projects-overview .projects-carousel .project-repo a:hover i {
+  opacity: 1;
+}
+
+#projects .projects-overview .projects-carousel .project-repo a:hover ~ div {
+  transform: translateY(0);
+}
+
+#projects .projects-overview .projects-carousel .project-image {
+  width: 100%;
+  min-height: 55vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(1.05);
+  transition: .5s all ease;
+  z-index: -1;
+  transform-origin: top;
+}
+
+#projects .projects-overview .projects-carousel .carousel-wrapper:hover .project-image {
+  transform: scale(1);
+}
+
+#projects .projects-overview .projects-carousel .project-image img {
+  width: 100%;
+  object-fit: contain;
+}
+
+#projects .projects-overview .projects-carousel .carousel-bottom {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background: linear-gradient(360deg, var(--color-dark-400) 30%, transparent 100%);
+  transform: translateY(40%);
+  transition: .5s all ease;
+}
+
+#projects .projects-overview .projects-carousel .carousel-wrapper:hover .carousel-bottom {
+  transform: translateY(0);
+}
+
+#projects .projects-overview .projects-carousel .project-title {
+  font-size: 2rem;
+  font-weight: 600;
+  overflow: hidden;
+}
+
+#projects .projects-overview .projects-carousel .project-title > div {
+  transform: translateY(100%) rotate(15deg);
+  transition: .15s all ease-in-out;
+}
+
+#projects .projects-overview .projects-carousel > div.active .project-title > div {
+  transform: translateY(0) rotate(0);
+  transition: .5s .5s all ease;
+}
+
+#projects .projects-overview .projects-carousel .demo-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+#projects .projects-overview .projects-carousel .demo-button i {
+  position: relative;
+  transition: .25s all ease;
+  transform: translateX(-50%);
+}
+
+#projects .projects-overview .projects-carousel .demo-button:hover i {
+  transform: translateX(0);
+}
+
+#projects .projects-overview .projects-carousel .demo-button i::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(-50%, -50%) scaleX(0);
+  width: 1rem;
+  height: 2px;
+  background: var(--color-light-200);
+  transition: .25s all ease;
+  transform-origin: right;
+}
+
+#projects .projects-overview .projects-carousel .demo-button:hover i::after {
+  transform: translate(-50%, -50%) scaleX(1);
 }
 
 #projects .projects-list-wrapper {
