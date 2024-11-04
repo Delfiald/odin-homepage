@@ -202,7 +202,53 @@ const createProjectsOverview = () => {
 
 const createProjectsList = (projectsList, index = 0) => {
   const projects = document.createElement('div')
-  projects.className = `projects-${index}`
+  projects.className = `project card`
+  projects.dataset.projectId = index;
+
+  const projectCardImage = document.createElement('div')
+  projectCardImage.className = 'card-image'
+  const projectImage = document.createElement('img')
+  projectImage.src = projectImg
+  const projectDemoButton = document.createElement('div')
+  projectDemoButton.className = 'card-demo-button'
+  projectDemoButton.textContent = 'Demo'
+
+  projectCardImage.appendChild(projectImage)
+  projectCardImage.appendChild(projectDemoButton)
+  
+  const projectCardDetails = document.createElement('div')
+  projectCardDetails.className = 'card-details'
+  const projectCardTitle = document.createElement('div')
+  projectCardTitle.className = 'card-title'
+  projectCardTitle.textContent = 'Title'
+  const projectCardSummary = document.createElement('div')
+  projectCardSummary.className = 'card-summary'
+  projectCardSummary.textContent = 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consectetur minus reiciendis aspernatur sint tenetur et culpa hic. Harum, quia delectus.'
+  const projectCardTechs = document.createElement('div')
+  projectCardTechs.className = 'card-techs'
+
+  for(let i = 0; i < 4; i+=1) {
+    const techIconWrapper = document.createElement('div')
+    techIconWrapper.className = `tech-${i}`
+    const techImg = document.createElement('img')
+    techImg.src = javascript
+    techIconWrapper.appendChild(techImg)
+    projectCardTechs.appendChild(techIconWrapper)
+  }
+
+  const projectCardRepository = document.createElement('div')
+  projectCardRepository.className = 'card-repository-button'
+  const githubIcon = document.createElement('i')
+  githubIcon.className = 'fab fa-github'
+  projectCardRepository.appendChild(githubIcon)
+
+  projectCardDetails.appendChild(projectCardTitle)
+  projectCardDetails.appendChild(projectCardSummary)
+  projectCardDetails.appendChild(projectCardTechs)
+  projectCardDetails.appendChild(projectCardRepository)
+
+  projects.appendChild(projectCardImage)
+  projects.appendChild(projectCardDetails)
 
   projectsList.appendChild(projects)
 }
@@ -214,8 +260,33 @@ const createProjectsListWrapper = () => {
   const projectsList = document.createElement('div');
   projectsList.className = 'projects-list';
 
-  createProjectsList(projectsList)
+  const projectListHeader = document.createElement('div')
+  projectListHeader.className = 'project-list-header'
+  const moreProjectBtn = document.createElement('div')
+  moreProjectBtn.className = 'more-project-btn'
+  const moreProjectBtnIcon = document.createElement('div')
+  moreProjectBtnIcon.className = 'more-project-icon'
 
+  for(let i = 0; i < 2; i+=1) {
+    const moreIcon = document.createElement('i')
+    moreIcon.className = 'fas fa-chevron-down'
+    moreProjectBtnIcon.appendChild(moreIcon)
+  }
+  const moreProjectBtnText = document.createElement('div')
+  moreProjectBtnText.textContent = 'More Projects'
+  moreProjectBtn.appendChild(moreProjectBtnIcon)
+  moreProjectBtn.appendChild(moreProjectBtnText)
+
+  projectListHeader.appendChild(moreProjectBtn)
+
+  const projectsRow = document.createElement('div')
+  projectsRow.className = 'card-row'
+
+  createProjectsList(projectsRow)
+
+  projectsList.appendChild(projectsRow)
+
+  projectsListWrapper.appendChild(projectListHeader);
   projectsListWrapper.appendChild(projectsList);
 
   return projectsListWrapper;
