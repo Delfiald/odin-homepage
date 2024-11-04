@@ -1161,7 +1161,7 @@ main > * {
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  padding: 1rem 2rem;
+  padding: 0 2rem;
 }
 
 #projects .projects-overview .projects-details-container {
@@ -1372,9 +1372,9 @@ main > * {
   align-items: center;
   justify-content: center;
   transform: scale(1.05);
-  transition: .5s all ease;
   z-index: -1;
   transform-origin: top;
+  transition: .5s all ease;
 }
 
 #projects .projects-overview .projects-carousel .carousel-wrapper:hover .project-image {
@@ -1459,6 +1459,52 @@ main > * {
   transform: translate(-50%, -50%) scaleX(1);
 }
 
+#projects .projects-overview .carousel-indicator-wrapper {
+  grid-column: 1 / -1;
+  position: relative;
+  justify-self: center;
+  width: 30vw;
+  height: 5px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 5px;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  border-radius: 8px;
+  transition: .15s all ease-in-out;
+  opacity: 0;
+}
+
+#projects.show .projects-overview .carousel-indicator-wrapper {
+  transition: .5s .5s all ease;
+  opacity: 1;
+}
+
+#projects .projects-overview .carousel-indicator-wrapper .carousel-indicator {
+  height: inherit;
+  border-radius: 8px;
+  background: var(--color-dark-600);
+  cursor: pointer;
+  pointer-events: initial;
+}
+
+#projects .projects-overview .carousel-indicator-wrapper .carousel-indicator.active {
+  pointer-events: none;
+}
+
+#projects .projects-overview .carousel-indicator-wrapper .indicator-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% / 3 - .5rem);
+  height: inherit;
+  background: var(--color-light-200);
+  transition: .5s all ease;
+  border-radius: 8px;
+}
+
 #projects .projects-list-wrapper {
   display: flex;
   align-items: center;
@@ -1515,75 +1561,6 @@ main > * {
 
   100% {
     opacity: 1;
-  }
-}
-
-@media (max-width: 900px) {
-  #skills .skills-wrapper {
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    grid-auto-flow: row;
-  }
-
-  #skills .skills-wrapper:first-child,
-  #skills .skills-wrapper:last-child {
-    grid-auto-flow: column;
-  }
-
-  #skills .skills-wrapper:nth-child(even) {
-    transform: translateX(0);
-  }
-
-  #skills .skills-wrapper:nth-child(2) .skill:not(:has(img)) {
-    display: none !important;
-  }
-
-  #skills .skills-wrapper:nth-child(3) .skill:not(:has(img)) {
-    display: none !important;
-  }
-
-  #skills .skills-wrapper:nth-child(4) .skill:not(:has(img)) {
-    display: none !important;
-  }
-}
-
-@media (max-width: 800px) {
-  #skills .skills-wrapper {
-    grid-template-columns: repeat(auto-fill, minmax(70px, 12%));
-    grid-auto-rows: 10vh;
-    grid-auto-flow: row;
-  }
-}
-
-@media (max-width: 600px) {
-  #skills {
-    mask-image: none;
-  }
-
-  #skills .skills-wrapper {
-    grid-template-columns: repeat(auto-fill, minmax(100px, 12%));
-    grid-auto-rows: 100px;
-    grid-auto-flow: row;
-  }
-
-  #skills .skills-wrapper .skill:not(:has(img)) {
-    display: none !important;
-  }
-
-  #skills .skills-wrapper .skill {
-    padding: .75rem;
-  }
-
-  #skills .skills-container::before,
-  #skills .skills-container::after {
-    height: 100px;
-  }
-
-  #skills .skills-container::before {
-    top: 0px;
-  }
-
-  #skills .skills-container::after {
-    bottom: 0px;
   }
 }
 
@@ -1736,6 +1713,85 @@ main > * {
   100% {
     width: 100%;
     transform: translateX(200%);
+  }
+}
+
+@keyframes indicator-bar {
+  0% {
+    width: 0px;
+  }
+
+  100% {
+    width: calc(100% / 3 - .45rem);
+  }
+}
+
+@media (max-width: 900px) {
+  #skills .skills-wrapper {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-auto-flow: row;
+  }
+
+  #skills .skills-wrapper:first-child,
+  #skills .skills-wrapper:last-child {
+    grid-auto-flow: column;
+  }
+
+  #skills .skills-wrapper:nth-child(even) {
+    transform: translateX(0);
+  }
+
+  #skills .skills-wrapper:nth-child(2) .skill:not(:has(img)) {
+    display: none !important;
+  }
+
+  #skills .skills-wrapper:nth-child(3) .skill:not(:has(img)) {
+    display: none !important;
+  }
+
+  #skills .skills-wrapper:nth-child(4) .skill:not(:has(img)) {
+    display: none !important;
+  }
+}
+
+@media (max-width: 800px) {
+  #skills .skills-wrapper {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 12%));
+    grid-auto-rows: 10vh;
+    grid-auto-flow: row;
+  }
+}
+
+@media (max-width: 600px) {
+  #skills {
+    mask-image: none;
+  }
+
+  #skills .skills-wrapper {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 12%));
+    grid-auto-rows: 100px;
+    grid-auto-flow: row;
+  }
+
+  #skills .skills-wrapper .skill:not(:has(img)) {
+    display: none !important;
+  }
+
+  #skills .skills-wrapper .skill {
+    padding: .75rem;
+  }
+
+  #skills .skills-container::before,
+  #skills .skills-container::after {
+    height: 100px;
+  }
+
+  #skills .skills-container::before {
+    top: 0px;
+  }
+
+  #skills .skills-container::after {
+    bottom: 0px;
   }
 }
 

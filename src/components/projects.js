@@ -165,15 +165,47 @@ const createProjectsCarousel = () => {
   return projectsCarousel;
 };
 
+const createIndicator = (carouselIndicator, index = 0) => {
+  const indicator = document.createElement('div')
+  indicator.className = 'carousel-indicator'
+  indicator.dataset.carouselId = index;
+
+  carouselIndicator.appendChild(indicator)
+}
+
+const createCarouselIndicator = () => {
+  const carouselIndicator = document.createElement('div')
+  carouselIndicator.className = 'carousel-indicator-wrapper'
+
+  for(let i = 0; i < 3; i+=1) {
+    createIndicator(carouselIndicator, i)
+  }
+
+  const indicatorBar = document.createElement('div')
+  indicatorBar.className = 'indicator-bar'
+
+  carouselIndicator.appendChild(indicatorBar)
+
+  return carouselIndicator
+}
+
 const createProjectsOverview = () => {
   const projectsOverview = document.createElement('div');
   projectsOverview.className = 'projects-overview';
 
   projectsOverview.appendChild(createProjectsDetails());
   projectsOverview.appendChild(createProjectsCarousel());
+  projectsOverview.appendChild(createCarouselIndicator());
 
   return projectsOverview;
 };
+
+const createProjectsList = (projectsList, index = 0) => {
+  const projects = document.createElement('div')
+  projects.className = `projects-${index}`
+
+  projectsList.appendChild(projects)
+}
 
 const createProjectsListWrapper = () => {
   const projectsListWrapper = document.createElement('div');
@@ -181,6 +213,8 @@ const createProjectsListWrapper = () => {
 
   const projectsList = document.createElement('div');
   projectsList.className = 'projects-list';
+
+  createProjectsList(projectsList)
 
   projectsListWrapper.appendChild(projectsList);
 

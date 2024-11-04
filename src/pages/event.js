@@ -33,7 +33,7 @@ const events = () => {
       document.getElementById('projects'),
     ];
 
-    const indicators = document.querySelectorAll('.indicator');
+    const indicators = document.querySelectorAll('.indicator-wrapper .indicator');
 
     indicators.forEach((indicator) => {
       indicator.classList.remove('active');
@@ -186,6 +186,10 @@ const events = () => {
 
     const items = carouselContainer.querySelectorAll('.carousel-wrapper');
 
+    const indicatorItems = document.querySelectorAll('.carousel-indicator')
+
+    const indicatorBar = document.querySelector('.indicator-bar')
+
     detailItems[0].classList.add('active')
     
     let scrollAmount = 0;
@@ -195,11 +199,38 @@ const events = () => {
     const scrollInterval = 5000;
 
     const carouselWidth = carouselContainer.scrollWidth - carouselContainer.clientWidth;
-
     
     let intervalId = null;
 
-    const scroll = () => {
+    const startIndicatorBar = () => {
+      setTimeout(() => {
+        indicatorBar.style.animation = 'indicator-bar 4.25s linear forwards'
+      }, 750)
+    }
+
+    const pauseIndicatorBar = () => {
+      indicatorBar.style.animation = 'none';
+    }
+
+    const indicatorBarTransitions = (index) => {
+      const gap = 0.25;
+      const itemWidthPercentage = 100 / indicatorItems.length;
+      indicatorBar.style.left = `calc(${index * itemWidthPercentage}% + ${index * gap}rem)`;
+
+      indicatorBar.style.animation = 'none';
+      startIndicatorBar()
+    }
+
+    const scroll = (projectId) => {
+      if(projectId) {
+        items.forEach((item) => {
+          if(item.dataset.projectId === projectId) {
+            scrollAmount = scrollStep * projectId;
+            detailsScrollAmount = detailsScrollStep * projectId;
+          }
+        })
+      }
+
       if (scrollAmount >= carouselWidth) {
         scrollAmount = 0;
         detailsScrollAmount = 0;
@@ -233,6 +264,15 @@ const events = () => {
         }
       });
 
+      indicatorItems.forEach((item, index) => {
+        if (index === activeIndex) {
+          item.classList.add('active');
+          indicatorBarTransitions(index)
+        } else {
+          item.classList.remove('active');
+        }
+      })
+
       scrollAmount += scrollStep;
       detailsScrollAmount += detailsScrollStep;
     };
@@ -242,15 +282,25 @@ const events = () => {
     const startCarousel = () => {
       if(!intervalId) {
         intervalId = setInterval(scroll, scrollInterval);
+        startIndicatorBar()
       }
     }
     
     const stopCarousel = () => {
       clearInterval(intervalId);
       intervalId = null;
+      pauseIndicatorBar()
     }
 
-    return {startCarousel, stopCarousel}
+    const scrollTo = (projectId) => {
+      scroll(projectId)
+      stopCarousel()
+      intervalId = null;
+      pauseIndicatorBar()
+      startCarousel()
+    }
+
+    return {startCarousel, stopCarousel, scrollTo}
   })()
 
   const projectsAnimationHandler = () => {
@@ -262,6 +312,13 @@ const events = () => {
     }else {
       projectSection.classList.remove('show')
       carouselScroll.stopCarousel()
+    }
+  }
+
+  const projectsSectionHandler = (e) => {
+    const carouselIndicator = e.target.closest('.carousel-indicator')
+    if(carouselIndicator) {
+      carouselScroll.scrollTo(carouselIndicator.dataset.carouselId);
     }
   }
 
@@ -317,7 +374,7 @@ const events = () => {
   };
 
   const sectionHandler = (e) => {
-    const indicator = e.target.closest('.indicator');
+    const indicator = e.target.closest('.indicator-wrapper .indicator');
     if (indicator) {
       e.preventDefault();
       const targetSectionID = indicator.getAttribute('href');
@@ -341,6 +398,7 @@ const events = () => {
     luckyButtonHandler(e);
     aboutAnimationHandler.aboutClick(e);
     sectionHandler(e);
+    projectsSectionHandler(e);
   });
 
   const heroText = document.querySelector('.hero-wrapper h1');
