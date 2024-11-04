@@ -1206,12 +1206,12 @@ main > * {
 }
 
 #projects .projects-overview .projects-details .details-header > h3 {
-  transition: 0s all ease;
+  transition: 0.15s all ease-in-out;
   transform: translateY(120%) rotate(15deg);
 }
 
 #projects.show .projects-overview .projects-details .details-header > h3 {
-  transition: .5s all ease;
+  transition: .5s .35s all ease;
   transform: translateY(0) rotate(0);
 }
 
@@ -1221,10 +1221,10 @@ main > * {
   transition: .15s all ease-in-out;
 }
 
-#projects .projects-overview .projects-details.active > div > *:last-child {
+#projects.show .projects-overview .projects-details.active > div > *:last-child {
   transform: translateY(0);
   opacity: 1;
-  transition: .5s .45s all ease;
+  transition: .5s .5s all ease;
 }
 
 #projects .projects-overview .projects-details .tech-stack {
@@ -1254,12 +1254,26 @@ main > * {
 #projects .projects-overview .projects-details > div::before {
   content: '';
   position: absolute;
-  top: 1rem;
+  top: calc(1rem + 2.5px);
   left: -1rem;
   width: 2px;
   height: 1.5rem;
-  transform: translateY(-50%);
   background: var(--color-light-200);
+  opacity: 0;
+  transform: translateY(50%);
+  transition: .15s all ease-in-out;
+}
+
+#projects.show .projects-overview .projects-details > div::before {
+  opacity: 1;
+  transform: translateY(-50%);
+  transition: .5s .35s all ease;
+}
+
+#projects .projects-overview .projects-details > div:hover::before {
+  width: 8px;
+  transition: .25s 0s all ease;
+  background: var(--color-light-600);
 }
 
 #projects .projects-overview .projects-carousel {
@@ -1272,6 +1286,15 @@ main > * {
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   gap: 2rem;
+  opacity: 0;
+  transform: translateY(15%) scale(.75);
+  transition: .15s all ease-in-out;
+}
+
+#projects.show .projects-overview .projects-carousel {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: .5s .35s all ease;
 }
 
 #projects .projects-overview .projects-carousel .carousel-wrapper {
@@ -1309,6 +1332,16 @@ main > * {
   gap: 8px;
   overflow: hidden;
   cursor: default !important;
+}
+
+#projects .projects-overview .projects-carousel .project-repo a {
+  transform: scale(0);
+  transition: .15s all ease-in-out;
+}
+
+#projects .projects-overview .projects-carousel > div.active .project-repo a {
+  transform: scale(1);
+  transition: .5s .5s all ease;
 }
 
 #projects .projects-overview .projects-carousel .project-repo > div {
@@ -1374,9 +1407,11 @@ main > * {
 }
 
 #projects .projects-overview .projects-carousel .project-title {
-  font-size: 2rem;
-  font-weight: 600;
+  white-space: nowrap;
+  font-size: 2.5rem;
+  font-weight: bolder;
   overflow: hidden;
+  cursor: default;
 }
 
 #projects .projects-overview .projects-carousel .project-title > div {

@@ -175,11 +175,93 @@ const events = () => {
     }
   };
 
+  // Projects Section
+  // Carousel Scroll
+  const carouselScroll = (() => {
+    const projectDetailsContainer = document.querySelector('.projects-details-container')
+    
+    const carouselContainer = document.querySelector('.projects-carousel')
+
+    const detailItems = projectDetailsContainer.querySelectorAll('.projects-details')
+
+    const items = carouselContainer.querySelectorAll('.carousel-wrapper');
+
+    detailItems[0].classList.add('active')
+    
+    let scrollAmount = 0;
+    let detailsScrollAmount = 0;
+    const scrollStep = items[0].clientWidth;
+    const detailsScrollStep = detailItems[0].clientWidth;
+    const scrollInterval = 5000;
+
+    const carouselWidth = carouselContainer.scrollWidth - carouselContainer.clientWidth;
+
+    
+    let intervalId = null;
+
+    const scroll = () => {
+      if (scrollAmount >= carouselWidth) {
+        scrollAmount = 0;
+        detailsScrollAmount = 0;
+      }
+
+      carouselContainer.scrollTo({
+        left: scrollAmount,
+        behavior: 'smooth',
+      });
+
+      projectDetailsContainer.scrollTo({
+        left: detailsScrollAmount,
+        behavior: 'smooth',
+      })
+
+      const activeIndex = Math.round(detailsScrollAmount / detailsScrollStep);
+
+      detailItems.forEach((item, index) => {
+        if (index === activeIndex) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+
+      items.forEach((item, index) => {
+        if (index === activeIndex) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+
+      scrollAmount += scrollStep;
+      detailsScrollAmount += detailsScrollStep;
+    };
+
+    scroll();
+
+    const startCarousel = () => {
+      if(!intervalId) {
+        intervalId = setInterval(scroll, scrollInterval);
+      }
+    }
+    
+    const stopCarousel = () => {
+      clearInterval(intervalId);
+      intervalId = null;
+    }
+
+    return {startCarousel, stopCarousel}
+  })()
+
   const projectsAnimationHandler = () => {
     const projectSection = document.getElementById('projects')
     
     if(getVisiblePercentage(projectSection) > 20) {
       projectSection.classList.add('show')
+      carouselScroll.startCarousel()
+    }else {
+      projectSection.classList.remove('show')
+      carouselScroll.stopCarousel()
     }
   }
 
@@ -301,71 +383,6 @@ const events = () => {
   });
 
   heroEventHandler();
-
-  // Carousel Scroll
-  const carouselScroll = () => {
-    const projectDetailsContainer = document.querySelector('.projects-details-container')
-    
-    const carouselContainer = document.querySelector('.projects-carousel')
-
-    const detailItems = projectDetailsContainer.querySelectorAll('.projects-details')
-
-    const items = carouselContainer.querySelectorAll('.carousel-wrapper');
-
-    detailItems[0].classList.add('active')
-    
-    let scrollAmount = 0;
-    let detailsScrollAmount = 0;
-    const scrollStep = items[0].clientWidth;
-    const detailsScrollStep = detailItems[0].clientWidth;
-    const scrollInterval = 5000;
-
-    const carouselWidth = carouselContainer.scrollWidth - carouselContainer.clientWidth;
-
-    const scroll = () => {
-      if (scrollAmount >= carouselWidth) {
-        scrollAmount = 0;
-        detailsScrollAmount = 0;
-      }
-
-      carouselContainer.scrollTo({
-        left: scrollAmount,
-        behavior: 'smooth',
-      });
-
-      projectDetailsContainer.scrollTo({
-        left: detailsScrollAmount,
-        behavior: 'smooth',
-      })
-
-      const activeIndex = Math.round(detailsScrollAmount / detailsScrollStep);
-
-      detailItems.forEach((item, index) => {
-        if (index === activeIndex) {
-          item.classList.add('active');
-        } else {
-          item.classList.remove('active');
-        }
-      });
-
-      items.forEach((item, index) => {
-        if (index === activeIndex) {
-          item.classList.add('active');
-        } else {
-          item.classList.remove('active');
-        }
-      });
-
-      scrollAmount += scrollStep;
-      detailsScrollAmount += detailsScrollStep;
-    };
-
-    scroll();
-  
-    setInterval(scroll, scrollInterval);
-  }
-
-  carouselScroll()
 };
 
 export default events;
