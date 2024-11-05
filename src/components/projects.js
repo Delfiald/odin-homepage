@@ -209,12 +209,8 @@ const createProjectsList = (projectsList, index = 0) => {
   projectCardImage.className = 'card-image'
   const projectImage = document.createElement('img')
   projectImage.src = projectImg
-  const projectDemoButton = document.createElement('div')
-  projectDemoButton.className = 'card-demo-button'
-  projectDemoButton.textContent = 'Demo'
 
   projectCardImage.appendChild(projectImage)
-  projectCardImage.appendChild(projectDemoButton)
   
   const projectCardDetails = document.createElement('div')
   projectCardDetails.className = 'card-details'
@@ -236,16 +232,31 @@ const createProjectsList = (projectsList, index = 0) => {
     projectCardTechs.appendChild(techIconWrapper)
   }
 
+  const projectCardBottom = document.createElement('div')
+  projectCardBottom.className = 'card-bottom'
+  
+  const projectDemoButton = document.createElement('div')
+  projectDemoButton.className = 'card-demo-button'
+  const demoButtonText = document.createElement('div')
+  demoButtonText.textContent = 'Demo'
+  const demoButtonIcon = document.createElement('i')
+  demoButtonIcon.className = 'fas fa-chevron-right'
+  projectDemoButton.appendChild(demoButtonText)
+  projectDemoButton.appendChild(demoButtonIcon)
+
   const projectCardRepository = document.createElement('div')
   projectCardRepository.className = 'card-repository-button'
   const githubIcon = document.createElement('i')
   githubIcon.className = 'fab fa-github'
   projectCardRepository.appendChild(githubIcon)
 
+  projectCardBottom.appendChild(projectDemoButton)
+  projectCardBottom.appendChild(projectCardRepository)
+
   projectCardDetails.appendChild(projectCardTitle)
   projectCardDetails.appendChild(projectCardSummary)
   projectCardDetails.appendChild(projectCardTechs)
-  projectCardDetails.appendChild(projectCardRepository)
+  projectCardDetails.appendChild(projectCardBottom)
 
   projects.appendChild(projectCardImage)
   projects.appendChild(projectCardDetails)
