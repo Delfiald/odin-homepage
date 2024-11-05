@@ -303,15 +303,43 @@ const events = () => {
     return {startCarousel, stopCarousel, scrollTo}
   })()
 
+  const projectCardAnimationHandler = (() => {
+    const showsCard = (card) => {
+      card.classList.remove('hide')
+    }
+
+    const hidesCard = (cards) => {
+      cards.forEach(item => {
+        item.classList.add('hide')
+      })
+    }
+
+    return {showsCard, hidesCard}
+  })()
+
   const projectsAnimationHandler = () => {
     const projectSection = document.getElementById('projects')
+
+    const projectCards = document.querySelector('.projects-list')
+
+    const cards = projectCards.querySelectorAll('.card')
     
     if(getVisiblePercentage(projectSection) > 20) {
       projectSection.classList.add('show')
       carouselScroll.startCarousel()
-    }else {
+    }else if(getVisiblePercentage(projectSection) < 20) {
       projectSection.classList.remove('show')
       carouselScroll.stopCarousel()
+    }
+
+    cards.forEach((card) => {
+      if(getVisiblePercentage(card) > 15) {
+        projectCardAnimationHandler.showsCard(card)
+      }
+    })
+
+    if(getVisiblePercentage(projectCards) < 20) {
+      projectCardAnimationHandler.hidesCard(cards)
     }
   }
 

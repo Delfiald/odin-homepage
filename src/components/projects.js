@@ -202,7 +202,7 @@ const createProjectsOverview = () => {
 
 const createProjectsList = (projectsList, index = 0) => {
   const projects = document.createElement('div')
-  projects.className = `project card`
+  projects.className = `project card hide`
   projects.dataset.projectId = index;
 
   const projectCardImage = document.createElement('div')
@@ -291,11 +291,21 @@ const createProjectsListWrapper = () => {
   projectListHeader.appendChild(moreProjectBtn)
 
   const projectsRow = document.createElement('div')
-  projectsRow.className = 'card-row'
+  projectsRow.className = 'card-row 1'
 
-  createProjectsList(projectsRow)
+  const projectsRow2 = document.createElement('div')
+  projectsRow2.className = 'card-row 2'
+
+  for(let i = 0; i < 6; i+=1) {
+    if(i % 2 === 0) {
+      createProjectsList(projectsRow, i)
+    }else {
+      createProjectsList(projectsRow2, i)
+    }
+  }
 
   projectsList.appendChild(projectsRow)
+  projectsList.appendChild(projectsRow2)
 
   projectsListWrapper.appendChild(projectListHeader);
   projectsListWrapper.appendChild(projectsList);

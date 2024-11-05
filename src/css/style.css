@@ -1651,6 +1651,15 @@ main > * {
   overflow: hidden;
   gap: 1rem;
   cursor: default;
+  transition: .5s .5s all ease;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#projects .projects-list .card.hide {
+  transition: .15s all ease-in-out;
+  transform: translateY(25%);
+  opacity: 0;
 }
 
 #projects .projects-list .card .card-image {
