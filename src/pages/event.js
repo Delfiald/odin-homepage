@@ -323,6 +323,8 @@ const events = () => {
     const projectCards = document.querySelector('.projects-list')
 
     const cards = projectCards.querySelectorAll('.card')
+
+    const moreButton = document.querySelector('.more-project-btn')
     
     if(getVisiblePercentage(projectSection) > 20) {
       projectSection.classList.add('show')
@@ -335,11 +337,13 @@ const events = () => {
     cards.forEach((card) => {
       if(getVisiblePercentage(card) > 15) {
         projectCardAnimationHandler.showsCard(card)
+        moreButton.classList.add('hide')
       }
     })
 
     if(getVisiblePercentage(projectCards) < 20) {
       projectCardAnimationHandler.hidesCard(cards)
+      moreButton.classList.remove('hide')
     }
   }
 
@@ -347,6 +351,12 @@ const events = () => {
     const carouselIndicator = e.target.closest('.carousel-indicator')
     if(carouselIndicator) {
       carouselScroll.scrollTo(carouselIndicator.dataset.carouselId);
+    }else if(e.target.closest('.more-project-btn')) {
+      const projectList = document.querySelector('.projects-list');
+      window.scrollTo({
+        top: projectList.getBoundingClientRect().top + window.scrollY,
+        behavior: 'smooth',
+      });
     }
   }
 

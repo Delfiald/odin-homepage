@@ -1552,6 +1552,13 @@ main > * {
   transition: .5s 1s all ease;
 }
 
+#projects.show .project-list-header .more-project-btn.hide {
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: .15s all ease-in-out;
+  visibility: hidden;
+}
+
 #projects .project-list-header .more-project-btn:hover {
   opacity: 1;
   transition: .35s all ease;
@@ -1651,9 +1658,13 @@ main > * {
   overflow: hidden;
   gap: 1rem;
   cursor: default;
-  transition: .5s .5s all ease;
+  transition: .5s .15s all ease;
   opacity: 1;
   transform: translateY(0);
+}
+
+#projects .projects-list .card-row:first-child .card {
+  transition: .5s .35s all ease;
 }
 
 #projects .projects-list .card.hide {

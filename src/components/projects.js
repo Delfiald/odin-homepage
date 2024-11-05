@@ -235,7 +235,10 @@ const createProjectsList = (projectsList, index = 0) => {
   const projectCardBottom = document.createElement('div')
   projectCardBottom.className = 'card-bottom'
   
-  const projectDemoButton = document.createElement('div')
+  const projectDemoButton = document.createElement('a')
+  projectDemoButton.href = '#'
+  projectDemoButton.target = '_blank'
+  projectDemoButton.rel = 'noopener noreferrer'
   projectDemoButton.className = 'card-demo-button'
   const demoButtonText = document.createElement('div')
   demoButtonText.textContent = 'Demo'
@@ -244,7 +247,10 @@ const createProjectsList = (projectsList, index = 0) => {
   projectDemoButton.appendChild(demoButtonText)
   projectDemoButton.appendChild(demoButtonIcon)
 
-  const projectCardRepository = document.createElement('div')
+  const projectCardRepository = document.createElement('a')
+  projectCardRepository.href = '#'
+  projectCardRepository.target = '_blank'
+  projectCardRepository.rel = 'noopener noreferrer'
   projectCardRepository.className = 'card-repository-button'
   const githubIcon = document.createElement('i')
   githubIcon.className = 'fab fa-github'
@@ -291,10 +297,10 @@ const createProjectsListWrapper = () => {
   projectListHeader.appendChild(moreProjectBtn)
 
   const projectsRow = document.createElement('div')
-  projectsRow.className = 'card-row 1'
+  projectsRow.className = 'card-row'
 
   const projectsRow2 = document.createElement('div')
-  projectsRow2.className = 'card-row 2'
+  projectsRow2.className = 'card-row'
 
   for(let i = 0; i < 6; i+=1) {
     if(i % 2 === 0) {
