@@ -1,5 +1,12 @@
-import projectImg from '../assets/projects/image.png'
-import javascript from '../assets/skills/js.svg'
+import projectsData from '../data/projectsData';
+
+const getProjects = (() => {
+  const projects = projectsData.getProjects().splice(0, 3)
+
+  const getOverviewProjects = () => projects
+  const getMoreProjects = () => projectsData.getProjects()
+  return {getOverviewProjects, getMoreProjects}
+})()
 
 const createProjectsTitle = () => {
   const projectsTitle = document.createElement('div');
@@ -9,29 +16,29 @@ const createProjectsTitle = () => {
   return projectsTitle;
 };
 
-const createFeaturesList = (featuresList, index = 0) => {
+const createFeaturesList = (featuresList, projectFeat, index = 0) => {
   const feature = document.createElement('li')
   feature.className = `feature-${index}`
-  feature.textContent = 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis, quas!'
+  feature.textContent = projectFeat
 
   featuresList.appendChild(feature)
 }
 
-const createTechStackList = (techStack, index) => {
+const createTechStackList = (techStack, projectTech, index) => {
   const tech = document.createElement('div')
   tech.className = `tech-${index}`
   const techIcon = document.createElement('img')
-  techIcon.src = javascript
+  techIcon.src = projectTech
   techIcon.alt = 'javascript'
   tech.appendChild(techIcon)
 
   techStack.appendChild(tech)
 }
 
-const createDetailsItem = (projectsDetailsContainer, index = 0) => {
+const createDetailsItem = (projectsDetailsContainer, project) => {
   const projectsDetails = document.createElement('div');
   projectsDetails.className = 'projects-details';
-  projectsDetails.dataset.projectId = index;
+  projectsDetails.dataset.projectId = project.id;
 
   const projectsSummary = document.createElement('div')
   projectsSummary.className = 'project-summary'
@@ -40,7 +47,7 @@ const createDetailsItem = (projectsDetailsContainer, index = 0) => {
   const summaryText = document.createElement('h3')
   summaryText.textContent = 'Summary'
   const projectsSummaryText = document.createElement('div')
-  projectsSummaryText.textContent = 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consectetur minus reiciendis aspernatur sint tenetur et culpa hic. Harum, quia delectus.'
+  projectsSummaryText.textContent = project.summary
   projectsSummaryHeader.appendChild(summaryText)
   projectsSummary.appendChild(projectsSummaryHeader)
   projectsSummary.appendChild(projectsSummaryText)
@@ -54,9 +61,9 @@ const createDetailsItem = (projectsDetailsContainer, index = 0) => {
   const featuresList = document.createElement('ul')
   featuresList.classList = 'feats-list'
 
-  for(let i = 0; i < 2; i+=1) {
-    createFeaturesList(featuresList, i)
-  }
+  project.features.forEach((feat, index) => {
+    createFeaturesList(featuresList, feat, index)
+  })
 
   projectsFeaturesHeader.appendChild(featureText)
   projectsFeatures.appendChild(projectsFeaturesHeader)
@@ -71,9 +78,9 @@ const createDetailsItem = (projectsDetailsContainer, index = 0) => {
   const techStack = document.createElement('div')
   techStack.className = 'tech-stack'
 
-  for(let i = 0; i < 4; i+=1) {
-    createTechStackList(techStack, i)
-  }
+  project.techs.forEach((tech, index) => {
+    createTechStackList(techStack, tech ,index)
+  })
 
   projectsTechHeader.appendChild(techText)
   projectsTech.appendChild(projectsTechHeader)
@@ -87,20 +94,21 @@ const createDetailsItem = (projectsDetailsContainer, index = 0) => {
 }
 
 const createProjectsDetails = () => {
+  const projects = getProjects.getOverviewProjects()
   const projectsDetailsContainer = document.createElement('div');
   projectsDetailsContainer.className = 'projects-details-container';
 
-  for(let i = 0; i < 3; i+=1){
-    createDetailsItem(projectsDetailsContainer, i)
+  for(let i = 0; i < projects.length; i+=1){
+    createDetailsItem(projectsDetailsContainer, projects[i])
   }
 
   return projectsDetailsContainer;
 };
 
-const createCarouselItem = (projectsCarousel, index = 0) => {
+const createCarouselItem = (projectsCarousel, project) => {
   const carouselWrapper = document.createElement('div')
   carouselWrapper.className = 'carousel-wrapper'
-  carouselWrapper.dataset.projectId = index;
+  carouselWrapper.dataset.projectId = project.id;
 
   const projectRepos = document.createElement('div')
   projectRepos.className = 'project-repo'
@@ -108,7 +116,7 @@ const createCarouselItem = (projectsCarousel, index = 0) => {
   reposText.textContent = 'Go To Repository'
   const projectReposLink = document.createElement('a')
   projectReposLink.target = '_blank'
-  projectReposLink.href = '#'
+  projectReposLink.href = project.repos
   const githubIcon = document.createElement('i')
   githubIcon.className = 'fab fa-github'
   projectReposLink.appendChild(githubIcon)
@@ -118,7 +126,7 @@ const createCarouselItem = (projectsCarousel, index = 0) => {
   const projectImageWrapper = document.createElement('div')
   projectImageWrapper.className = 'project-image'
   const projectImage = document.createElement('img')
-  projectImage.src = projectImg
+  projectImage.src = project.screenshot
   projectImage.alt = 'Project Image'
   projectImageWrapper.appendChild(projectImage)
 
@@ -128,12 +136,12 @@ const createCarouselItem = (projectsCarousel, index = 0) => {
   const projectName = document.createElement('div')
   projectName.className = 'project-title'
   const projectNameText = document.createElement('div')
-  projectNameText.textContent = 'Title'
+  projectNameText.textContent = project.title
   projectName.appendChild(projectNameText)
 
   const demoButton = document.createElement('a')
   demoButton.target = '_blank'
-  demoButton.href = '#'
+  demoButton.href = project.demo
   demoButton.rel = 'noopener noreferrer'
   demoButton.className = 'demo-button'
   const demoText = document.createElement('div')
@@ -155,30 +163,32 @@ const createCarouselItem = (projectsCarousel, index = 0) => {
 }
 
 const createProjectsCarousel = () => {
+  const projects = getProjects.getOverviewProjects()
   const projectsCarousel = document.createElement('div');
   projectsCarousel.className = 'projects-carousel';
 
   for(let i = 0; i < 3; i+=1) {
-    createCarouselItem(projectsCarousel, i)
+    createCarouselItem(projectsCarousel, projects[i])
   }
 
   return projectsCarousel;
 };
 
-const createIndicator = (carouselIndicator, index = 0) => {
+const createIndicator = (carouselIndicator, id = 0) => {
   const indicator = document.createElement('div')
   indicator.className = 'carousel-indicator'
-  indicator.dataset.carouselId = index;
+  indicator.dataset.carouselId = id;
 
   carouselIndicator.appendChild(indicator)
 }
 
 const createCarouselIndicator = () => {
+  const projects = getProjects.getOverviewProjects()
   const carouselIndicator = document.createElement('div')
   carouselIndicator.className = 'carousel-indicator-wrapper'
 
-  for(let i = 0; i < 3; i+=1) {
-    createIndicator(carouselIndicator, i)
+  for(let i = 0; i < projects.length; i+=1) {
+    createIndicator(carouselIndicator, projects[i].id)
   }
 
   const indicatorBar = document.createElement('div')
@@ -200,15 +210,15 @@ const createProjectsOverview = () => {
   return projectsOverview;
 };
 
-const createProjectsList = (projectsList, index = 0) => {
+const createProjectsList = (projectsList, project) => {
   const projects = document.createElement('div')
   projects.className = `project card hide`
-  projects.dataset.projectId = index;
+  projects.dataset.projectId = project.id;
 
   const projectCardImage = document.createElement('div')
   projectCardImage.className = 'card-image'
   const projectImage = document.createElement('img')
-  projectImage.src = projectImg
+  projectImage.src = project.screenshot
 
   projectCardImage.appendChild(projectImage)
   
@@ -216,27 +226,27 @@ const createProjectsList = (projectsList, index = 0) => {
   projectCardDetails.className = 'card-details'
   const projectCardTitle = document.createElement('div')
   projectCardTitle.className = 'card-title'
-  projectCardTitle.textContent = 'Title'
+  projectCardTitle.textContent = project.title
   const projectCardSummary = document.createElement('div')
   projectCardSummary.className = 'card-summary'
-  projectCardSummary.textContent = 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consectetur minus reiciendis aspernatur sint tenetur et culpa hic. Harum, quia delectus.'
+  projectCardSummary.textContent = project.summary
   const projectCardTechs = document.createElement('div')
   projectCardTechs.className = 'card-techs'
 
-  for(let i = 0; i < 4; i+=1) {
+  project.techs.forEach((tech, index) => {
     const techIconWrapper = document.createElement('div')
-    techIconWrapper.className = `tech-${i}`
+    techIconWrapper.className = `tech-${index}`
     const techImg = document.createElement('img')
-    techImg.src = javascript
+    techImg.src = tech
     techIconWrapper.appendChild(techImg)
     projectCardTechs.appendChild(techIconWrapper)
-  }
+  });
 
   const projectCardBottom = document.createElement('div')
   projectCardBottom.className = 'card-bottom'
   
   const projectDemoButton = document.createElement('a')
-  projectDemoButton.href = '#'
+  projectDemoButton.href = project.demo
   projectDemoButton.target = '_blank'
   projectDemoButton.rel = 'noopener noreferrer'
   projectDemoButton.className = 'card-demo-button'
@@ -248,7 +258,7 @@ const createProjectsList = (projectsList, index = 0) => {
   projectDemoButton.appendChild(demoButtonIcon)
 
   const projectCardRepository = document.createElement('a')
-  projectCardRepository.href = '#'
+  projectCardRepository.href = project.repos
   projectCardRepository.target = '_blank'
   projectCardRepository.rel = 'noopener noreferrer'
   projectCardRepository.className = 'card-repository-button'
@@ -271,6 +281,7 @@ const createProjectsList = (projectsList, index = 0) => {
 }
 
 const createProjectsListWrapper = () => {
+  const projects = getProjects.getMoreProjects()
   const projectsListWrapper = document.createElement('div');
   projectsListWrapper.className = 'projects-list-wrapper';
 
@@ -304,9 +315,9 @@ const createProjectsListWrapper = () => {
 
   for(let i = 0; i < 6; i+=1) {
     if(i % 2 === 0) {
-      createProjectsList(projectsRow, i)
+      createProjectsList(projectsRow, projects[i])
     }else {
-      createProjectsList(projectsRow2, i)
+      createProjectsList(projectsRow2, projects[i])
     }
   }
 

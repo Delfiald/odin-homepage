@@ -225,8 +225,8 @@ const events = () => {
       if(projectId) {
         items.forEach((item) => {
           if(item.dataset.projectId === projectId) {
-            scrollAmount = scrollStep * projectId;
-            detailsScrollAmount = detailsScrollStep * projectId;
+            scrollAmount = scrollStep * (projectId - 1);
+            detailsScrollAmount = detailsScrollStep * (projectId - 1);
           }
         })
       }
