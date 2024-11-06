@@ -3,7 +3,7 @@ import menu from '../components/menu';
 import about from '../components/about';
 import skills from '../components/skills';
 import projects from '../components/projects';
-import contact from '../components/contact';
+import footer from '../components/footer';
 import events from './event';
 
 const createSectionIndicator = () => {
@@ -75,9 +75,9 @@ export default () => {
 
   body.appendChild(main);
 
-  body.appendChild(contact());
-
   body.appendChild(createSectionIndicator());
+  
+  body.appendChild(footer());
 
   document.querySelector('.indicator').classList.add('active');
 
