@@ -1,83 +1,83 @@
 const createLuckyMeButton = () => {
-  const luckyMeButton = document.createElement('div')
-  luckyMeButton.className = 'lucky-btn'
+  const luckyMeButton = document.createElement('div');
+  luckyMeButton.className = 'lucky-btn';
 
-  const luckyMeWrapper = document.createElement('div')
-  luckyMeWrapper.className = 'lucky-wrapper'
+  const luckyMeWrapper = document.createElement('div');
+  luckyMeWrapper.className = 'lucky-wrapper';
 
   const luckyIcon = document.createElement('i');
-  luckyIcon.className = 'fas fa-power-off'
-  
-  const luckyMe = document.createElement('div')
-  luckyMe.className = 'lucky'
+  luckyIcon.className = 'fas fa-power-off';
 
-  luckyMe.appendChild(luckyIcon)
+  const luckyMe = document.createElement('div');
+  luckyMe.className = 'lucky';
 
-  const luckyMeIndicator = document.createElement('div')
-  luckyMeIndicator.className = 'lucky-indicator'
+  luckyMe.appendChild(luckyIcon);
 
-  luckyMeWrapper.appendChild(luckyMe)
-  luckyMeButton.appendChild(luckyMeWrapper)
-  luckyMeButton.appendChild(luckyMeIndicator)
+  const luckyMeIndicator = document.createElement('div');
+  luckyMeIndicator.className = 'lucky-indicator';
 
-  return luckyMeButton
-}
+  luckyMeWrapper.appendChild(luckyMe);
+  luckyMeButton.appendChild(luckyMeWrapper);
+  luckyMeButton.appendChild(luckyMeIndicator);
+
+  return luckyMeButton;
+};
 
 const createHeroBackground = (index) => {
-  const shape = document.createElement('div')
-  shape.className = `shape-${index}`
+  const shape = document.createElement('div');
+  shape.className = `shape-${index}`;
 
-  return shape
-}
+  return shape;
+};
 
 const createHeroLine = () => {
-  const heroLine = document.createElement('div')
-  heroLine.className = 'hero-line'
+  const heroLine = document.createElement('div');
+  heroLine.className = 'hero-line';
 
-  return heroLine
-}
+  return heroLine;
+};
 
 const createHeroWrapper = () => {
-  const heroContainer = document.createElement('div')
-  heroContainer.className = 'hero-container'
+  const heroContainer = document.createElement('div');
+  heroContainer.className = 'hero-container';
 
-  const heroWrapper = document.createElement('div')
-  heroWrapper.className = 'hero-wrapper'
-  
+  const heroWrapper = document.createElement('div');
+  heroWrapper.className = 'hero-wrapper';
+
   // Text
   const heroText = document.createElement('h1');
   heroText.textContent = 'HI';
-  const heroDot = document.createElement('span')
-  heroText.appendChild(heroDot)
-  heroWrapper.appendChild(heroText)
+  const heroDot = document.createElement('span');
+  heroText.appendChild(heroDot);
+  heroWrapper.appendChild(heroText);
 
   // Scroll Down
-  const scrollDownContainer = document.createElement('div')
-  scrollDownContainer.className = 'scroll-down'
-  const scrollDownText = document.createElement('h3')
-  scrollDownText.textContent = 'Scroll Down'
-  const scrollDownIcon = document.createElement('i')
-  scrollDownIcon.className = 'fas fa-chevron-down'
+  const scrollDownContainer = document.createElement('div');
+  scrollDownContainer.className = 'scroll-down';
+  const scrollDownText = document.createElement('h3');
+  scrollDownText.textContent = 'Scroll Down';
+  const scrollDownIcon = document.createElement('i');
+  scrollDownIcon.className = 'fas fa-chevron-down';
 
-  scrollDownContainer.appendChild(scrollDownText)
-  scrollDownContainer.appendChild(scrollDownIcon)
-  
-  heroContainer.appendChild(heroWrapper)
-  heroContainer.appendChild(scrollDownContainer)
-  heroContainer.appendChild(createLuckyMeButton())
+  scrollDownContainer.appendChild(scrollDownText);
+  scrollDownContainer.appendChild(scrollDownIcon);
 
-  for(let i = 0; i < 4; i+=1) {
-    heroContainer.appendChild(createHeroBackground(i+1))
+  heroContainer.appendChild(heroWrapper);
+  heroContainer.appendChild(scrollDownContainer);
+  heroContainer.appendChild(createLuckyMeButton());
+
+  for (let i = 0; i < 4; i += 1) {
+    heroContainer.appendChild(createHeroBackground(i + 1));
   }
 
   return heroContainer;
-}
+};
 
 const createHeroSection = () => {
   const hero = document.createElement('section');
   hero.id = 'hero';
 
-  hero.appendChild(createHeroLine())
+  hero.appendChild(createHeroLine());
   hero.appendChild(createHeroWrapper());
 
   return hero;
