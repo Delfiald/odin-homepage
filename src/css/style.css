@@ -61,6 +61,10 @@ ul {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background: var(--background-color);
   color: var(--text-color);
   font-family: 'Manrope', 'Inter', sans-serif;
@@ -1869,6 +1873,73 @@ main > * {
 
 .indicator-wrapper .indicator.active:hover {
   color: var(--color-dark-400);
+}
+
+/* Footer */
+#footer {
+  max-width: 1100px;
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0 1rem;
+  row-gap: 1rem;
+  cursor: default;
+}
+
+#footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(180deg, transparent 0%, var(--background-color) 100%);
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+#footer > * {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#footer > div:nth-child(2) {
+  position: relative;
+}
+
+#footer > div:nth-child(2)::before,
+#footer > div:nth-child(2)::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 2px;
+  height: 50%;
+  background: var(--color-light-200);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+#footer > div:nth-child(2)::after {
+  left: 100%;
+  transform: translate(-100%, -50%);
+}
+
+#footer > * a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-weight: bold;
+}
+
+#footer > * i {
+  font-size: 2rem;
 }
 
 @keyframes fade-in {
