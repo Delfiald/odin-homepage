@@ -1,5 +1,4 @@
 import hero from '../components/hero';
-import menu from '../components/menu';
 import about from '../components/about';
 import skills from '../components/skills';
 import projects from '../components/projects';
@@ -64,8 +63,6 @@ export default () => {
   const body = document.querySelector('body');
   body.appendChild(createMenuButton());
 
-  body.appendChild(menu());
-
   const main = document.createElement('main');
 
   main.appendChild(hero());
@@ -76,7 +73,7 @@ export default () => {
   body.appendChild(main);
 
   body.appendChild(createSectionIndicator());
-  
+
   body.appendChild(footer());
 
   document.querySelector('.indicator').classList.add('active');
