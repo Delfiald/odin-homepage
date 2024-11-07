@@ -1,3 +1,6 @@
+import dark from '../assets/modes/dark.svg';
+import light from '../assets/modes/light.svg';
+
 const createNavButtons = (container, section, text) => {
   const button = document.createElement('div');
   button.className = `${section}-link`;
@@ -24,7 +27,7 @@ const createMenuActions = () => {
   const menuActions = document.createElement('div');
   menuActions.className = 'menu-actions';
 
-  const resumeButtons = document.createElement('div');
+  const resumeButtons = document.createElement('a');
   resumeButtons.className = 'resume-button';
   const resumeIcon = document.createElement('i');
   resumeIcon.className = 'fas fa-paperclip';
@@ -75,8 +78,28 @@ const createModeButtons = () => {
 
   const modeToggler = document.createElement('div');
   modeToggler.className = 'mode-toggler';
+  const modeTogglerIconDark = document.createElement('img');
+  modeTogglerIconDark.className = 'icon-dark';
+  modeTogglerIconDark.src = dark;
+  modeTogglerIconDark.alt = 'darkMode';
+  const modeTogglerIconLight = document.createElement('img');
+  modeTogglerIconLight.className = 'icon-light';
+  modeTogglerIconLight.src = light;
+  modeTogglerIconLight.alt = 'lightMode';
+
+  modeToggler.appendChild(modeTogglerIconDark);
+  modeToggler.appendChild(modeTogglerIconLight);
+
+  const modeTextDark = document.createElement('div');
+  modeTextDark.textContent = 'Dark';
+  modeTextDark.className = 'mode-text-dark';
+  const modeTextLight = document.createElement('div');
+  modeTextLight.textContent = 'Light';
+  modeTextLight.className = 'mode-text-light';
 
   modeTogglerWrapper.appendChild(modeToggler);
+  modeTogglerWrapper.appendChild(modeTextDark);
+  modeTogglerWrapper.appendChild(modeTextLight);
 
   modeButton.appendChild(modeTogglerWrapper);
 

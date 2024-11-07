@@ -200,7 +200,7 @@ body {
   justify-content: start;
   grid-template-columns: minmax(200px, 1fr);
   grid-template-rows: repeat(3, min-content);
-  gap: 1rem;
+  gap: .5rem;
   margin-top: 10rem;
   padding: 0rem 1rem;
   cursor: default;
@@ -215,6 +215,11 @@ body {
   opacity: 0;
   transform: translateY(30%) rotate(10deg);
   transition: .15s all ease-in-out;
+  box-shadow: 0px 0px 5px 0px var(--color-dark-200);
+}
+
+#menu .menu-container > div:nth-child(2) {
+  transform: translateY(30%) rotate(-10deg);
 }
 
 #menu.show .menu-container > div {
@@ -269,6 +274,7 @@ body {
 }
 
 #menu .menu-container .menu-actions .resume-button {
+  position: relative;
   grid-column: 1 / -1;
   display: flex;
   align-items: center;
@@ -280,6 +286,43 @@ body {
   border-radius: 10px;
   border: 1px solid var(--color-dark-600);
   cursor: pointer;
+  overflow: hidden;
+  transition: .3s all ease;
+}
+
+#menu .menu-container .menu-actions .resume-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -20%;
+  width: 7px;
+  height: 100%;
+  background: var(--color-light-200);
+  transform: skew(-15deg);
+  animation: resume-button 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 5px var(--color-light-200));
+  opacity: .2;
+}
+
+#menu .menu-container .menu-actions .resume-button:hover {
+  opacity: .75;
+}
+
+#menu .menu-container .menu-actions a:not(:has(div)) {
+  transition: .3s all ease;
+}
+
+#menu .menu-container .menu-actions a:not(:has(div)):hover {
+  transform: translateY(-10%);
+}
+
+#menu .menu-container .menu-actions a:not(:has(div)) i {
+  transition: .3s all ease;
+  color: var(--text-color);
+}
+
+#menu .menu-container .menu-actions a:not(:has(div)):hover i {
+  filter: drop-shadow(0px 3px 5px var(--color-dark-600));
 }
 
 #menu .menu-container .mode-button {
@@ -293,7 +336,7 @@ body {
   border-radius: 25px;
   height: 30px;
   border: 1px solid var(--color-dark-600);
-  max-width: 100px;
+  max-width: 110px;
   width: 100%;
   overflow: hidden;
   position: relative;
@@ -302,14 +345,65 @@ body {
 
 :root #menu .menu-container .mode-button .mode-toggler {
   position: absolute;
-  width: 30px;
-  height: 30px;
-  background: var(--color-dark-500);
+  width: 27.5px;
+  height: 27.5px;
+  background: var(--text-color);
   border-radius: 50%;
   transition: .5s all ease;
   top: 50%;
   left: 0;
   transform: translate(0, -50%);
+  transition: .5s all ease;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid var(--color-light-600);
+}
+
+:root.light #menu .menu-container .mode-button .mode-toggler {
+  left: 100%;
+  transform: translate(-100%, -50%) rotate(360deg);
+}
+
+:root #menu .menu-container .mode-button .mode-toggler img {
+  padding: 3px;
+  position: absolute;
+  left: 50%;
+  object-fit: contain;
+  width: 100%;
+  transition: .5s all ease;
+  transform: translateX(-50%);
+}
+
+:root #menu .menu-container .mode-button .mode-toggler .icon-dark,
+:root.light #menu .menu-container .mode-button .mode-toggler .icon-light {
+  opacity: 1;
+}
+
+:root.light #menu .menu-container .mode-button .mode-toggler .icon-dark,
+:root #menu .menu-container .mode-button .mode-toggler .icon-light {
+  opacity: 0;
+}
+
+:root #menu .menu-container .mode-button .mode-text-dark,
+:root #menu .menu-container .mode-button .mode-text-light {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  transition: .35s all ease;
+}
+
+:root.light #menu .menu-container .mode-button .mode-text-dark,
+:root #menu .menu-container .mode-button .mode-text-light {
+  transform: translate(-50%, 150%);
+}
+
+:root.light #menu .menu-container .mode-button .mode-text-light {
+  transform: translate(-50%, -50%);
 }
 
 /* Main */
@@ -2279,6 +2373,26 @@ main > * {
   100% {
     transform: translateY(50%);
     opacity: 0;
+  }
+}
+
+@keyframes resume-button {
+  0% {
+    left: -20%;
+    opacity: 0;
+    transform: skew(-15deg) scaleX(0.8);
+  }
+
+  50% {
+    left: 110%;
+    opacity: .5;
+    transform: skew(-15deg) scaleX(1.1);
+  }
+
+  100% {
+    left: 110%;
+    opacity: 0;
+    transform: skew(-15deg) scaleX(0.8);
   }
 }
 

@@ -380,6 +380,7 @@ const events = () => {
     const menuButton = document.querySelector('#menu-btn');
 
     const showMenu = () => {
+      menuButton.classList.add('open');
       const menuSection = menu();
       body.appendChild(menuSection);
       setTimeout(() => {
@@ -388,6 +389,7 @@ const events = () => {
     };
 
     const hideMenu = (menuSection) => {
+      menuButton.classList.remove('open');
       menuSection.classList.remove('show');
       setTimeout(() => {
         menuSection.remove();
@@ -395,7 +397,6 @@ const events = () => {
     };
 
     const toggleMenu = () => {
-      menuButton.classList.toggle('open');
       const menuSection = document.getElementById('menu');
       if (menuSection) {
         hideMenu(menuSection);
@@ -414,6 +415,10 @@ const events = () => {
       }, 500);
     };
 
+    const modeTogglerHandler = () => {
+      document.documentElement.classList.toggle('light');
+    };
+
     if (e.target.closest('#menu-btn')) {
       toggleMenu();
     } else if (e.target.closest('.home-link')) {
@@ -428,6 +433,8 @@ const events = () => {
     } else if (e.target.closest('.projects-link')) {
       const projects = document.getElementById('projects');
       scrollSections(projects);
+    } else if (e.target.closest('.mode-toggler-wrapper')) {
+      modeTogglerHandler();
     }
   };
 
