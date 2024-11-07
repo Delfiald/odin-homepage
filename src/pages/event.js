@@ -1,4 +1,5 @@
 import easterEgg from '../components/easter';
+import menu from '../components/menu';
 
 const events = () => {
   const body = document.querySelector('body');
@@ -33,7 +34,9 @@ const events = () => {
       document.getElementById('projects'),
     ];
 
-    const indicators = document.querySelectorAll('.indicator-wrapper .indicator');
+    const indicators = document.querySelectorAll(
+      '.indicator-wrapper .indicator'
+    );
 
     indicators.forEach((indicator) => {
       indicator.classList.remove('active');
@@ -178,39 +181,43 @@ const events = () => {
   // Projects Section
   // Carousel Scroll
   const carouselScroll = (() => {
-    const projectDetailsContainer = document.querySelector('.projects-details-container')
-    
-    const carouselContainer = document.querySelector('.projects-carousel')
+    const projectDetailsContainer = document.querySelector(
+      '.projects-details-container'
+    );
 
-    const detailItems = projectDetailsContainer.querySelectorAll('.projects-details')
+    const carouselContainer = document.querySelector('.projects-carousel');
+
+    const detailItems =
+      projectDetailsContainer.querySelectorAll('.projects-details');
 
     const items = carouselContainer.querySelectorAll('.carousel-wrapper');
 
-    const indicatorItems = document.querySelectorAll('.carousel-indicator')
+    const indicatorItems = document.querySelectorAll('.carousel-indicator');
 
-    const indicatorBar = document.querySelector('.indicator-bar')
+    const indicatorBar = document.querySelector('.indicator-bar');
 
-    detailItems[0].classList.add('active')
-    
+    detailItems[0].classList.add('active');
+
     let scrollAmount = 0;
     let detailsScrollAmount = 0;
     const scrollStep = items[0].clientWidth;
     const detailsScrollStep = detailItems[0].clientWidth;
     const scrollInterval = 5000;
 
-    const carouselWidth = carouselContainer.scrollWidth - carouselContainer.clientWidth;
-    
+    const carouselWidth =
+      carouselContainer.scrollWidth - carouselContainer.clientWidth;
+
     let intervalId = null;
 
     const startIndicatorBar = () => {
       setTimeout(() => {
-        indicatorBar.style.animation = 'indicator-bar 4.25s linear forwards'
-      }, 750)
-    }
+        indicatorBar.style.animation = 'indicator-bar 4.25s linear forwards';
+      }, 750);
+    };
 
     const pauseIndicatorBar = () => {
       indicatorBar.style.animation = 'none';
-    }
+    };
 
     const indicatorBarTransitions = (index) => {
       const gap = 0.25;
@@ -218,17 +225,17 @@ const events = () => {
       indicatorBar.style.left = `calc(${index * itemWidthPercentage}% + ${index * gap}rem)`;
 
       indicatorBar.style.animation = 'none';
-      startIndicatorBar()
-    }
+      startIndicatorBar();
+    };
 
     const scroll = (projectId) => {
-      if(projectId) {
+      if (projectId) {
         items.forEach((item) => {
-          if(item.dataset.projectId === projectId) {
+          if (item.dataset.projectId === projectId) {
             scrollAmount = scrollStep * (projectId - 1);
             detailsScrollAmount = detailsScrollStep * (projectId - 1);
           }
-        })
+        });
       }
 
       if (scrollAmount >= carouselWidth) {
@@ -244,7 +251,7 @@ const events = () => {
       projectDetailsContainer.scrollTo({
         left: detailsScrollAmount,
         behavior: 'smooth',
-      })
+      });
 
       const activeIndex = Math.round(detailsScrollAmount / detailsScrollStep);
 
@@ -267,11 +274,11 @@ const events = () => {
       indicatorItems.forEach((item, index) => {
         if (index === activeIndex) {
           item.classList.add('active');
-          indicatorBarTransitions(index)
+          indicatorBarTransitions(index);
         } else {
           item.classList.remove('active');
         }
-      })
+      });
 
       scrollAmount += scrollStep;
       detailsScrollAmount += detailsScrollStep;
@@ -280,85 +287,85 @@ const events = () => {
     scroll();
 
     const startCarousel = () => {
-      if(!intervalId) {
+      if (!intervalId) {
         intervalId = setInterval(scroll, scrollInterval);
-        startIndicatorBar()
+        startIndicatorBar();
       }
-    }
-    
+    };
+
     const stopCarousel = () => {
       clearInterval(intervalId);
       intervalId = null;
-      pauseIndicatorBar()
-    }
+      pauseIndicatorBar();
+    };
 
     const scrollTo = (projectId) => {
-      scroll(projectId)
-      stopCarousel()
+      scroll(projectId);
+      stopCarousel();
       intervalId = null;
-      pauseIndicatorBar()
-      startCarousel()
-    }
+      pauseIndicatorBar();
+      startCarousel();
+    };
 
-    return {startCarousel, stopCarousel, scrollTo}
-  })()
+    return { startCarousel, stopCarousel, scrollTo };
+  })();
 
   const projectCardAnimationHandler = (() => {
     const showsCard = (card) => {
-      card.classList.remove('hide')
-    }
+      card.classList.remove('hide');
+    };
 
     const hidesCard = (cards) => {
-      cards.forEach(item => {
-        item.classList.add('hide')
-      })
-    }
+      cards.forEach((item) => {
+        item.classList.add('hide');
+      });
+    };
 
-    return {showsCard, hidesCard}
-  })()
+    return { showsCard, hidesCard };
+  })();
 
   const projectsAnimationHandler = () => {
-    const projectSection = document.getElementById('projects')
+    const projectSection = document.getElementById('projects');
 
-    const projectCards = document.querySelector('.projects-list')
+    const projectCards = document.querySelector('.projects-list');
 
-    const cards = projectCards.querySelectorAll('.card')
+    const cards = projectCards.querySelectorAll('.card');
 
-    const moreButton = document.querySelector('.more-project-btn')
-    
-    if(getVisiblePercentage(projectSection) > 20) {
-      projectSection.classList.add('show')
-      carouselScroll.startCarousel()
-    }else if(getVisiblePercentage(projectSection) < 20) {
-      projectSection.classList.remove('show')
-      carouselScroll.stopCarousel()
+    const moreButton = document.querySelector('.more-project-btn');
+
+    if (getVisiblePercentage(projectSection) > 20) {
+      projectSection.classList.add('show');
+      carouselScroll.startCarousel();
+    } else if (getVisiblePercentage(projectSection) < 20) {
+      projectSection.classList.remove('show');
+      carouselScroll.stopCarousel();
     }
 
     cards.forEach((card) => {
-      if(getVisiblePercentage(card) > 15) {
-        projectCardAnimationHandler.showsCard(card)
-        moreButton.classList.add('hide')
+      if (getVisiblePercentage(card) > 15) {
+        projectCardAnimationHandler.showsCard(card);
+        moreButton.classList.add('hide');
       }
-    })
+    });
 
-    if(getVisiblePercentage(projectCards) < 20) {
-      projectCardAnimationHandler.hidesCard(cards)
-      moreButton.classList.remove('hide')
+    if (getVisiblePercentage(projectCards) < 20) {
+      projectCardAnimationHandler.hidesCard(cards);
+      moreButton.classList.remove('hide');
     }
-  }
+  };
 
   const projectsSectionHandler = (e) => {
-    const carouselIndicator = e.target.closest('.carousel-indicator')
-    if(carouselIndicator) {
+    const carouselIndicator = e.target.closest('.carousel-indicator');
+    if (carouselIndicator) {
       carouselScroll.scrollTo(carouselIndicator.dataset.carouselId);
-    }else if(e.target.closest('.more-project-btn')) {
+    } else if (e.target.closest('.more-project-btn')) {
       const projectList = document.querySelector('.projects-list');
       window.scrollTo({
         top: projectList.getBoundingClientRect().top + window.scrollY,
         behavior: 'smooth',
       });
     }
-  }
+  };
 
   // Scroll Event Listener
   window.addEventListener('scroll', () => {
@@ -371,8 +378,63 @@ const events = () => {
   // Menu
   const menuHandler = (e) => {
     const menuButton = document.querySelector('#menu-btn');
+
+    const showMenu = () => {
+      menuButton.classList.add('open');
+      const menuSection = menu();
+      body.appendChild(menuSection);
+      setTimeout(() => {
+        menuSection.classList.add('show');
+      }, 50);
+    };
+
+    const hideMenu = (menuSection) => {
+      menuButton.classList.remove('open');
+      menuSection.classList.remove('show');
+      setTimeout(() => {
+        menuSection.remove();
+      }, 750);
+    };
+
+    const toggleMenu = () => {
+      const menuSection = document.getElementById('menu');
+      if (menuSection) {
+        hideMenu(menuSection);
+      } else {
+        showMenu();
+      }
+    };
+
+    const scrollSections = (section) => {
+      toggleMenu();
+      setTimeout(() => {
+        window.scrollTo({
+          top: section.offsetTop,
+          behavior: 'smooth',
+        });
+      }, 500);
+    };
+
+    const modeTogglerHandler = () => {
+      document.documentElement.classList.toggle('light');
+    };
+
     if (e.target.closest('#menu-btn')) {
-      menuButton.classList.toggle('open');
+      toggleMenu();
+    } else if (e.target.closest('.home-link')) {
+      const home = document.getElementById('hero');
+      scrollSections(home);
+    } else if (e.target.closest('.about-link')) {
+      const about = document.getElementById('about');
+      scrollSections(about);
+    } else if (e.target.closest('.skills-link')) {
+      const skills = document.getElementById('skills');
+      scrollSections(skills);
+    } else if (e.target.closest('.projects-link')) {
+      const projects = document.getElementById('projects');
+      scrollSections(projects);
+    } else if (e.target.closest('.mode-toggler-wrapper')) {
+      modeTogglerHandler();
     }
   };
 
