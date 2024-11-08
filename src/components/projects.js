@@ -242,7 +242,11 @@ const createProjectsList = (projectsList, project) => {
     techIconWrapper.className = `tech-${index}`;
     const techImg = document.createElement('img');
     techImg.src = tech.icon;
+    const techDesc = document.createElement('div');
+    techDesc.className = 'tech-description';
+    techDesc.textContent = tech.description;
     techIconWrapper.appendChild(techImg);
+    techIconWrapper.appendChild(techDesc);
     projectCardTechs.appendChild(techIconWrapper);
   });
 

@@ -306,6 +306,7 @@ body {
 
 #menu .menu-container .menu-actions .resume-button:hover {
   opacity: .75;
+  border-color: var(--text-color);
 }
 
 #menu .menu-container .menu-actions a:not(:has(div)) {
@@ -1530,7 +1531,7 @@ main > * {
   border-radius: 8px;
 }
 
-#projects .projects-overview .projects-details .tech-stack > div .tech-description {
+#projects .tech-description {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1546,10 +1547,11 @@ main > * {
   z-index: 1;
 }
 
-#projects .projects-overview .projects-details .tech-stack > div:hover .tech-description {
+#projects .projects-overview .projects-details .tech-stack > div:hover .tech-description,
+#projects .projects-list .card .card-techs > div:hover .tech-description {
   opacity: 1;
   visibility: visible;
-  transform: translate(-50%, -150%);
+  transform: translate(-50%, -175%);
 }
 
 #projects .projects-overview .projects-details > div {
@@ -2033,8 +2035,8 @@ main > * {
 }
 
 #projects .projects-list .card .card-techs > div {
+  position: relative;
   width: 35px;
-  overflow: hidden;
   border-radius: 5px;
   display: flex;
   align-items: center;
@@ -2044,6 +2046,7 @@ main > * {
 #projects .projects-list .card .card-techs img {
   width: 100%;
   object-fit: contain;
+  border-radius: 5px;
 }
 
 #projects .projects-list .card .card-bottom {
@@ -2172,7 +2175,7 @@ main > * {
   position: relative;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   align-items: center;
   justify-content: center;
   padding: 2rem 0 1rem;
@@ -2199,6 +2202,8 @@ main > * {
 }
 
 #footer > div:nth-child(2) {
+  grid-row: 1;
+  grid-column: 1 / -1;
   position: relative;
 }
 
@@ -2222,11 +2227,22 @@ main > * {
 
 #footer > * a {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 1rem;
   font-weight: bold;
+}
+
+#footer .github-button {
+  padding: 1rem;
+  border: 1px solid var(--color-dark-600);
+  border-radius: 10px;
+  transition: .3s all ease;
+}
+
+#footer .github-button:hover {
+  opacity: .75;
+  border-color: var(--text-color);
 }
 
 #footer > * i {
