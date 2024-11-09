@@ -1,4 +1,3 @@
-import easterEgg from '../components/easter';
 import menu from '../components/menu';
 
 const events = () => {
@@ -20,9 +19,7 @@ const events = () => {
 
   // Hero
   const heroEventHandler = () => {
-    setTimeout(() => {
-      document.querySelector('.hero-container').classList.add('extend');
-    }, 3250);
+    document.querySelector('.hero-container').classList.add('extend');
   };
 
   // Indicator
@@ -367,12 +364,23 @@ const events = () => {
     }
   };
 
+  const footerAnimationHandler = () => {
+    const footer = document.getElementById('footer');
+
+    if (getVisiblePercentage(footer) >= 10) {
+      footer.classList.add('show');
+    } else {
+      footer.classList.remove('show');
+    }
+  };
+
   // Scroll Event Listener
   window.addEventListener('scroll', () => {
     setIndicatorActive();
     aboutAnimationHandler.aboutScroll();
     checkBoxes();
     projectsAnimationHandler();
+    footerAnimationHandler();
   });
 
   // Menu
@@ -438,41 +446,6 @@ const events = () => {
     }
   };
 
-  // Easter Egg
-  const easterEggHandler = () => {
-    const easterEggContainer = document.querySelector('.easter-egg');
-
-    const dvdIcon = easterEggContainer.querySelector('.dvd');
-
-    easterEggContainer.addEventListener('animationend', () => {
-      dvdIcon.classList.add('move');
-
-      if (dvdIcon.classList.contains('move')) {
-        dvdIcon.style.transform =
-          'translate(calc(45vw - 50px), calc(45vh - 50px))';
-      }
-    });
-  };
-
-  // Lucky Button
-  const luckyButtonHandler = (e) => {
-    if (e.target.closest('.lucky-wrapper')) {
-      document.querySelector('.lucky-btn').classList.toggle('active');
-      const hero = document.querySelector('#hero .hero-container');
-      hero.classList.toggle('easter');
-      if (hero.classList.contains('easter')) {
-        hero.appendChild(easterEgg());
-        easterEggHandler();
-      } else {
-        const easterEggContainer = document.querySelector('.easter-egg');
-        easterEggContainer.style.animation = 'turn-off .5s ease forwards';
-        easterEggContainer.addEventListener('animationend', () =>
-          easterEggContainer.remove()
-        );
-      }
-    }
-  };
-
   const sectionHandler = (e) => {
     const indicator = e.target.closest('.indicator-wrapper .indicator');
     if (indicator) {
@@ -495,7 +468,6 @@ const events = () => {
   // Click Event Listener
   body.addEventListener('click', (e) => {
     menuHandler(e);
-    luckyButtonHandler(e);
     aboutAnimationHandler.aboutClick(e);
     sectionHandler(e);
     projectsSectionHandler(e);

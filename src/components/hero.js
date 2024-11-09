@@ -1,42 +1,3 @@
-const createLuckyMeButton = () => {
-  const luckyMeButton = document.createElement('div');
-  luckyMeButton.className = 'lucky-btn';
-
-  const luckyMeWrapper = document.createElement('div');
-  luckyMeWrapper.className = 'lucky-wrapper';
-
-  const luckyIcon = document.createElement('i');
-  luckyIcon.className = 'fas fa-power-off';
-
-  const luckyMe = document.createElement('div');
-  luckyMe.className = 'lucky';
-
-  luckyMe.appendChild(luckyIcon);
-
-  const luckyMeIndicator = document.createElement('div');
-  luckyMeIndicator.className = 'lucky-indicator';
-
-  luckyMeWrapper.appendChild(luckyMe);
-  luckyMeButton.appendChild(luckyMeWrapper);
-  luckyMeButton.appendChild(luckyMeIndicator);
-
-  return luckyMeButton;
-};
-
-const createHeroBackground = (index) => {
-  const shape = document.createElement('div');
-  shape.className = `shape-${index}`;
-
-  return shape;
-};
-
-const createHeroLine = () => {
-  const heroLine = document.createElement('div');
-  heroLine.className = 'hero-line';
-
-  return heroLine;
-};
-
 const createHeroWrapper = () => {
   const heroContainer = document.createElement('div');
   heroContainer.className = 'hero-container';
@@ -64,11 +25,6 @@ const createHeroWrapper = () => {
 
   heroContainer.appendChild(heroWrapper);
   heroContainer.appendChild(scrollDownContainer);
-  heroContainer.appendChild(createLuckyMeButton());
-
-  for (let i = 0; i < 4; i += 1) {
-    heroContainer.appendChild(createHeroBackground(i + 1));
-  }
 
   return heroContainer;
 };
@@ -77,7 +33,6 @@ const createHeroSection = () => {
   const hero = document.createElement('section');
   hero.id = 'hero';
 
-  hero.appendChild(createHeroLine());
   hero.appendChild(createHeroWrapper());
 
   return hero;
