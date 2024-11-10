@@ -1,3 +1,40 @@
+const createSeparateLetter = (word, container) => {
+  const letters = word.split('');
+  let isSpacing = false;
+  let currentLetter = 0;
+  for (let i = 0; i < 11; i += 1) {
+    const letterDiv = document.createElement('div');
+
+    if ((letters[i] === ' ' && i < 6) || isSpacing) {
+      letterDiv.textContent = letters[i];
+      isSpacing = true;
+
+      if (i < 6) {
+        letterDiv.textContent = ' ';
+      } else {
+        letterDiv.textContent = letters[currentLetter];
+        currentLetter += 1;
+        isSpacing = false;
+      }
+
+      if (letters[i] === ' ') {
+        currentLetter = i + 1;
+      }
+    } else {
+      letterDiv.textContent = letters[i];
+      if (currentLetter < letters.length) {
+        letterDiv.textContent = letters[currentLetter];
+        currentLetter += 1;
+      } else {
+        letterDiv.textContent = ' ';
+      }
+    }
+
+    letterDiv.className = 'letter';
+    container.appendChild(letterDiv);
+  }
+};
+
 const createHeroWrapper = () => {
   const heroContainer = document.createElement('div');
   heroContainer.className = 'hero-container';
@@ -7,9 +44,23 @@ const createHeroWrapper = () => {
 
   // Text
   const heroText = document.createElement('h1');
-  heroText.textContent = 'HI';
-  const heroDot = document.createElement('span');
-  heroText.appendChild(heroDot);
+
+  const textList = ['HELLO WORLD', 'LOREM IPSUM', 'DOGE HECK', 'H I'];
+
+  for (let i = 0; i < textList.length; i += 1) {
+    const text = document.createElement('div');
+    text.className = 'hero-text';
+    text.dataset.textId = i + 1;
+    createSeparateLetter(textList[i], text);
+
+    if (i === 0) {
+      const heroDot = document.createElement('span');
+      text.appendChild(heroDot);
+    }
+
+    heroText.appendChild(text);
+  }
+
   heroWrapper.appendChild(heroText);
 
   // Scroll Down

@@ -19,7 +19,72 @@ const events = () => {
 
   // Hero
   const heroEventHandler = () => {
-    document.querySelector('.hero-container').classList.add('extend');
+    const hero = document.querySelector('.hero-container');
+    const helloText = document.querySelectorAll('.hero-text:first-child > div');
+    const loremText = document.querySelectorAll(
+      '.hero-text:nth-child(2) > div'
+    );
+    const dogeText = document.querySelectorAll('.hero-text:nth-child(3) > div');
+    const hiText = document.querySelectorAll('.hero-text:last-child > div');
+    const textDot = document.querySelector('.hero-text span');
+
+    for (let i = 0; i < helloText.length; i += 1) {
+      helloText[i].style.left = `${5.5 * i}rem`;
+      loremText[i].style.left = `${5.5 * i}rem`;
+      dogeText[i].style.left = `${5.5 * i}rem`;
+      hiText[i].style.left = `${5.5 * i}rem`;
+    }
+
+    const showText = (text) => {
+      text.forEach((letter, index) => {
+        setTimeout(() => {
+          letter.classList.add('show');
+        }, 50 * index);
+      });
+    };
+
+    const hideText = (text) => {
+      text.forEach((letter, index) => {
+        setTimeout(() => {
+          letter.classList.add('hide');
+        }, 50 * index);
+      });
+    };
+
+    setTimeout(() => {
+      hideText(helloText);
+      showText(loremText);
+    }, 1000);
+
+    setTimeout(() => {
+      hideText(loremText);
+      showText(dogeText);
+    }, 2000);
+
+    setTimeout(() => {
+      hideText(dogeText);
+      showText(hiText);
+    }, 2250);
+
+    setTimeout(() => {
+      for (let i = 0; i < helloText.length; i += 1) {
+        hiText[i].style.left = '50%';
+        hiText[i].style.transform = 'translateX(-50%)';
+        textDot.style.right = '50%';
+        textDot.style.transform = 'translateX(50%)';
+      }
+    }, 3000);
+
+    setTimeout(() => {
+      for (let i = 0; i < helloText.length; i += 1) {
+        hiText[i].style.animation = 'hide-hero-text .15s ease forwards';
+        textDot.style.animation = 'hide-hero-text .15s ease forwards';
+      }
+    }, 3250);
+
+    setTimeout(() => {
+      hero.classList.add('extend');
+    }, 3250);
   };
 
   // Indicator
@@ -509,7 +574,7 @@ const events = () => {
 
   // Mouse Enter EventListener
   heroText.addEventListener('mouseenter', () => {
-    heroFontHandler.setFont();
+    // heroFontHandler.setFont();
   });
 
   heroEventHandler();
