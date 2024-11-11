@@ -18,8 +18,9 @@ const events = () => {
   };
 
   // Hero
-  const heroEventHandler = () => {
-    const hero = document.querySelector('.hero-container');
+  const heroEventHandler = (() => {
+    const hero = document.getElementById('hero');
+    const heroContainer = document.querySelector('.hero-container');
     const helloText = document.querySelectorAll('.hero-text:first-child > div');
     const loremText = document.querySelectorAll(
       '.hero-text:nth-child(2) > div'
@@ -28,70 +29,134 @@ const events = () => {
     const hiText = document.querySelectorAll('.hero-text:nth-child(4) > div');
     const textDot = document.querySelector('.hero-text span');
 
-    for (let i = 0; i < helloText.length; i += 1) {
-      helloText[i].style.left = `${5.5 * i}rem`;
-      loremText[i].style.left = `${5.5 * i}rem`;
-      dogeText[i].style.left = `${5.5 * i}rem`;
-      hiText[i].style.left = `${5.5 * i}rem`;
-    }
+    const heroText = document.querySelector('.hero-wrapper h1 .hero-main-text');
 
-    const showText = (text) => {
-      text.forEach((letter, index) => {
-        setTimeout(() => {
-          letter.classList.add('show');
-        }, 50 * index);
-      });
+    const heroFontHandler = (() => {
+      const fontList = [
+        'Manrope',
+        'Inter',
+        'Georgia',
+        'Sans-serif',
+        'Times New Roman',
+        'Playwrite GB S',
+        'Arima',
+      ];
+
+      let currentIndex = 0;
+
+      const randomFont = () => {
+        let randomIndex;
+        do {
+          randomIndex = Math.floor(Math.random() * fontList.length);
+        } while (randomIndex === currentIndex);
+
+        currentIndex = randomIndex;
+
+        return randomIndex;
+      };
+
+      const setFont = () => {
+        const fontIndex = randomFont();
+        heroText.style.fontFamily = fontList[fontIndex];
+      };
+
+      return { setFont };
+    })();
+
+    const heroAnimationHandler = () => {
+      for (let i = 0; i < helloText.length; i += 1) {
+        helloText[i].style.left = `${5.5 * i}rem`;
+        loremText[i].style.left = `${5.5 * i}rem`;
+        dogeText[i].style.left = `${5.5 * i}rem`;
+        hiText[i].style.left = `${5.5 * i}rem`;
+      }
+
+      const showText = (text) => {
+        text.forEach((letter, index) => {
+          setTimeout(() => {
+            letter.classList.add('show');
+          }, 50 * index);
+        });
+      };
+
+      const hideText = (text) => {
+        text.forEach((letter, index) => {
+          setTimeout(() => {
+            letter.classList.add('hide');
+          }, 50 * index);
+        });
+      };
+
+      setTimeout(() => {
+        hideText(helloText);
+        showText(loremText);
+      }, 1000);
+
+      setTimeout(() => {
+        hideText(loremText);
+        showText(dogeText);
+      }, 2350);
+
+      setTimeout(() => {
+        hideText(dogeText);
+        showText(hiText);
+      }, 2500);
+
+      setTimeout(() => {
+        for (let i = 0; i < helloText.length; i += 1) {
+          hiText[i].style.left = '50%';
+          hiText[i].style.transform = 'translateX(-50%)';
+          textDot.style.right = '50%';
+          textDot.style.transform = 'translate(50%, -50%)';
+        }
+      }, 4000);
+
+      setTimeout(() => {
+        for (let i = 0; i < helloText.length; i += 1) {
+          hiText[i].style.animation = 'hide-hero-text .15s ease forwards';
+          textDot.style.animation = 'hide-hero-text .15s ease forwards';
+        }
+      }, 4250);
+
+      setTimeout(() => {
+        heroContainer.classList.add('extend');
+      }, 4000);
+
+      setTimeout(() => {
+        const heroMainText = document.querySelector('.hero-main-text');
+
+        heroMainText.style.animation =
+          'hero-main-text-show 3s cubic-bezier(0.7, 0, 0.5, 0) forwards';
+
+        // Mouse Enter EventListener
+        heroText.addEventListener('mouseenter', () => {
+          heroFontHandler.setFont();
+        });
+      }, 4500);
     };
 
-    const hideText = (text) => {
-      text.forEach((letter, index) => {
-        setTimeout(() => {
+    const heroScroll = () => {
+      const heroMainText = document.querySelectorAll('.hero-main-text > div');
+      if (getVisiblePercentage(hero) > 20) {
+        heroContainer.classList.remove('hide');
+        heroMainText.forEach((letter, index) => {
+          setTimeout(() => {
+            letter.classList.remove('hide');
+          }, 100 * index);
+        });
+      } else {
+        heroContainer.classList.add('hide');
+        heroMainText.forEach((letter) => {
           letter.classList.add('hide');
-        }, 50 * index);
-      });
+        });
+      }
     };
 
-    setTimeout(() => {
-      hideText(helloText);
-      showText(loremText);
-    }, 1000);
-
-    setTimeout(() => {
-      hideText(loremText);
-      showText(dogeText);
-    }, 2250);
-
-    setTimeout(() => {
-      hideText(dogeText);
-      showText(hiText);
-    }, 2500);
-
-    setTimeout(() => {
-      for (let i = 0; i < helloText.length; i += 1) {
-        hiText[i].style.left = '50%';
-        hiText[i].style.transform = 'translateX(-50%)';
-        textDot.style.right = '50%';
-        textDot.style.transform = 'translate(50%, -50%)';
-      }
-    }, 4000);
-
-    setTimeout(() => {
-      for (let i = 0; i < helloText.length; i += 1) {
-        hiText[i].style.animation = 'hide-hero-text .15s ease forwards';
-        textDot.style.animation = 'hide-hero-text .15s ease forwards';
-      }
-    }, 4250);
-
-    setTimeout(() => {
-      hero.classList.add('extend');
-    }, 4000);
-
-    setTimeout(() => {
-      const heroMainText = document.querySelector('.hero-main-text');
-
-      heroMainText.style.animation = 'hero-main-text-show .5s ease forwards';
-    }, 4500);
-  };
+    return {
+      heroAnimationHandler,
+      heroScroll,
+    };
+  })();
 
   // Indicator
   const setIndicatorActive = () => {
@@ -448,6 +513,7 @@ const events = () => {
   // Scroll Event Listener
   window.addEventListener('scroll', () => {
     setIndicatorActive();
+    heroEventHandler.heroScroll();
     aboutAnimationHandler.aboutScroll();
     checkBoxes();
     projectsAnimationHandler();
@@ -544,46 +610,7 @@ const events = () => {
     projectsSectionHandler(e);
   });
 
-  const heroText = document.querySelector('.hero-wrapper h1');
-
-  const heroFontHandler = (() => {
-    const fontList = [
-      'Manrope',
-      'Inter',
-      'Georgia',
-      'Sans-serif',
-      'Times New Roman',
-      'Playwrite GB S',
-      'Arima',
-    ];
-
-    let currentIndex = 0;
-
-    const randomFont = () => {
-      let randomIndex;
-      do {
-        randomIndex = Math.floor(Math.random() * fontList.length);
-      } while (randomIndex === currentIndex);
-
-      currentIndex = randomIndex;
-
-      return randomIndex;
-    };
-
-    const setFont = () => {
-      const fontIndex = randomFont();
-      heroText.style.fontFamily = fontList[fontIndex];
-    };
-
-    return { setFont };
-  })();
-
-  // Mouse Enter EventListener
-  heroText.addEventListener('mouseenter', () => {
-    // heroFontHandler.setFont();
-  });
-
-  heroEventHandler();
+  heroEventHandler.heroAnimationHandler();
 };
 
 export default events;

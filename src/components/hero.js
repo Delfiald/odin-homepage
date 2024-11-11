@@ -1,3 +1,5 @@
+import letterseparator from '../helpers/letterSeparator';
+
 const createSeparateLetter = (word, container) => {
   const letters = word.split('');
   let isSpacing = false;
@@ -63,7 +65,7 @@ const createHeroWrapper = () => {
 
   const heroMainText = document.createElement('div');
   heroMainText.className = 'hero-main-text';
-  heroMainText.textContent = 'HI';
+  letterseparator('HI', heroMainText);
   const heroDot = document.createElement('span');
   heroMainText.appendChild(heroDot);
   heroText.appendChild(heroMainText);
@@ -73,13 +75,16 @@ const createHeroWrapper = () => {
   // Scroll Down
   const scrollDownContainer = document.createElement('div');
   scrollDownContainer.className = 'scroll-down';
+  const scrollDownWrapper = document.createElement('div');
+  scrollDownWrapper.className = 'scroll-down-wrapper';
   const scrollDownText = document.createElement('h3');
   scrollDownText.textContent = 'Scroll Down';
   const scrollDownIcon = document.createElement('i');
-  scrollDownIcon.className = 'fas fa-chevron-down';
+  scrollDownIcon.className = 'fas fa-arrow-down';
 
-  scrollDownContainer.appendChild(scrollDownText);
-  scrollDownContainer.appendChild(scrollDownIcon);
+  scrollDownWrapper.appendChild(scrollDownText);
+  scrollDownWrapper.appendChild(scrollDownIcon);
+  scrollDownContainer.appendChild(scrollDownWrapper);
 
   heroContainer.appendChild(heroWrapper);
   heroContainer.appendChild(scrollDownContainer);
