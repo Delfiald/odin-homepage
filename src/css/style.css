@@ -463,7 +463,7 @@ main > * {
 }
 
 .hero-container.extend::before {
-  animation: hero-line-transform .75s ease-in-out forwards
+  animation: hero-line-transform 1s ease-in forwards
 }
 
 .hero-container .hero-wrapper {
@@ -471,7 +471,7 @@ main > * {
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 5.5rem;
+  height: 7rem;
 }
 
 .hero-wrapper h1 {
@@ -483,6 +483,7 @@ main > * {
 }
 
 .hero-wrapper h1 .hero-text {
+  height: 6rem;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -494,8 +495,10 @@ main > * {
 }
 
 .hero-wrapper h1 .hero-text > div {
+  width: min-content;
   position: absolute;
   justify-self: center;
+  transform: translate(-50%, 0);
 }
 
 .hero-wrapper h1 .hero-text > span {
@@ -504,23 +507,23 @@ main > * {
   height: 1.75rem;
   background: var(--text-color);
   border-radius: 50%;
-  bottom: -2rem;
+  bottom: 0;
   right: -2rem;
-  transform: translate(0, 0);
+  transform: translate(0, -50%);
   transition: .5s all ease;
 }
 
 .hero-wrapper h1 .hero-text:nth-child(2) > div,
 .hero-wrapper h1 .hero-text:nth-child(3) > div,
-.hero-wrapper h1 .hero-text:last-child > div {
-  transform: translateY(100%);
-  transition: .5s all ease;
+.hero-wrapper h1 .hero-text:nth-child(4) > div {
+  transform: translate(-50%, 100%);
+  transition: .5s all ease-in-out;
 }
 
 .hero-wrapper h1 .hero-text:nth-child(2) > div.show,
 .hero-wrapper h1 .hero-text:nth-child(3) > div.show,
-.hero-wrapper h1 .hero-text:last-child > div.show {
-  transform: translateY(0) rotate(0);
+.hero-wrapper h1 .hero-text:nth-child(4) > div.show {
+  transform: translate(-50%, 0) rotate(0);
 }
 
 .hero-wrapper h1 .hero-text > div {
@@ -528,7 +531,26 @@ main > * {
 }
 
 .hero-wrapper h1 .hero-text > div.hide {
-  transform: translateY(-100%) !important;
+  transform: translate(-50%, -100%) !important;
+}
+
+.hero-wrapper h1 .hero-main-text {
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 7rem;
+  cursor: default;
+  transition: .25s all ease;
+}
+
+.hero-wrapper h1 .hero-main-text span {
+  display: inline-block;
+  width: 1.75rem;
+  height: 1.75rem;
+  background: var(--text-color);
+  border-radius: 50%;
 }
 
 .hero-container .scroll-down {
@@ -2105,6 +2127,22 @@ main > * {
 
   100% {
     opacity: 0;
+  }
+}
+
+@keyframes hero-main-text-show {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.25);
   }
 }
 

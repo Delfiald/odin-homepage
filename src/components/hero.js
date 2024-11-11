@@ -61,6 +61,13 @@ const createHeroWrapper = () => {
     heroText.appendChild(text);
   }
 
+  const heroMainText = document.createElement('div');
+  heroMainText.className = 'hero-main-text';
+  heroMainText.textContent = 'HI';
+  const heroDot = document.createElement('span');
+  heroMainText.appendChild(heroDot);
+  heroText.appendChild(heroMainText);
+
   heroWrapper.appendChild(heroText);
 
   // Scroll Down

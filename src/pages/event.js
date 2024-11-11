@@ -25,7 +25,7 @@ const events = () => {
       '.hero-text:nth-child(2) > div'
     );
     const dogeText = document.querySelectorAll('.hero-text:nth-child(3) > div');
-    const hiText = document.querySelectorAll('.hero-text:last-child > div');
+    const hiText = document.querySelectorAll('.hero-text:nth-child(4) > div');
     const textDot = document.querySelector('.hero-text span');
 
     for (let i = 0; i < helloText.length; i += 1) {
@@ -59,32 +59,38 @@ const events = () => {
     setTimeout(() => {
       hideText(loremText);
       showText(dogeText);
-    }, 2000);
+    }, 2250);
 
     setTimeout(() => {
       hideText(dogeText);
       showText(hiText);
-    }, 2250);
+    }, 2500);
 
     setTimeout(() => {
       for (let i = 0; i < helloText.length; i += 1) {
         hiText[i].style.left = '50%';
         hiText[i].style.transform = 'translateX(-50%)';
         textDot.style.right = '50%';
-        textDot.style.transform = 'translateX(50%)';
+        textDot.style.transform = 'translate(50%, -50%)';
       }
-    }, 3000);
+    }, 4000);
 
     setTimeout(() => {
       for (let i = 0; i < helloText.length; i += 1) {
         hiText[i].style.animation = 'hide-hero-text .15s ease forwards';
         textDot.style.animation = 'hide-hero-text .15s ease forwards';
       }
-    }, 3250);
+    }, 4250);
 
     setTimeout(() => {
       hero.classList.add('extend');
-    }, 3250);
+    }, 4000);
+
+    setTimeout(() => {
+      const heroMainText = document.querySelector('.hero-main-text');
+
+      heroMainText.style.animation = 'hero-main-text-show .5s ease forwards';
+    }, 4500);
   };
 
   // Indicator
