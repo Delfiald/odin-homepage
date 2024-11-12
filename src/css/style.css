@@ -72,6 +72,24 @@ body {
   overflow-x: hidden;
 }
 
+body.not-scrollable {
+  overflow-y: hidden;
+}
+
+body.not-scrollable #menu-btn,
+body.not-scrollable .indicator-wrapper {
+  opacity: 0;
+  visibility: hidden;
+}
+
+body.not-scrollable #menu-btn {
+  transform: translateY(-100%);
+}
+
+body.not-scrollable .indicator-wrapper {
+  transform: translate(100%, -50%);
+}
+
 /* Menu Button */
 #menu-btn {
   position: fixed;
@@ -89,6 +107,7 @@ body {
   align-items: center;
   justify-content: space-between;
   font-weight: bolder;
+  transition: .5s all ease;
 }
 
 #menu-btn:hover {
@@ -608,9 +627,8 @@ main > * {
   top: 25%;
   left: 75%;
   transform: translate(-50%, -50%);
-  font-weight: 500;
-  cursor: default;
   overflow: hidden;
+  cursor: default;
 }
 
 .hero-container > .decoration-line:nth-child(4) {
@@ -619,7 +637,6 @@ main > * {
   left: 25%;
   transform: translate(-50%, -50%);
   overflow: hidden;
-  font-size: .75rem;
   cursor: default;
 }
 
@@ -637,7 +654,7 @@ main > * {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 2px;
+  height: 1px;
   background: linear-gradient(to right, var(--color-dark-300) 0%, var(--text-color) 50%, var(--color-dark-300) 100%);
   border-radius: 10px;
   transform: scaleX(0);
@@ -655,7 +672,7 @@ main > * {
   transition: .5s .5s all ease;
 }
 
-.hero-container .decoration-line .date-wrapper > div {
+.hero-container .decoration-line .line-text-wrapper > div {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -663,33 +680,34 @@ main > * {
   margin-bottom: 3px;
 }
 
-.hero-container .decoration-line:nth-child(4) .date-wrapper > div > div {
+.hero-container .decoration-line .line-text-wrapper > div > div {
+  font-size: .75rem;
   margin-left: 4px;
 }
 
-.hero-container .decoration-line .date-wrapper > div > div {
+.hero-container .decoration-line .line-text-wrapper > div > div {
   transform: translateY(-100%) rotate(15deg);
   transition: .15s all ease-in-out;
 }
 
-.hero-container .decoration-line:nth-child(4)  .date-wrapper > div > div {
+.hero-container .decoration-line:nth-child(4)  .line-text-wrapper > div > div {
   transform: translateY(100%) rotate(15deg);
 }
 
-.hero-container .decoration-line .date-wrapper > div > div.show {
+.hero-container .decoration-line .line-text-wrapper > div > div.show {
   transform: translateY(0) rotate(0);
   transition: .5s .5s all ease;
 }
 
-.hero-container > .decoration-word {
+.hero-container > .decoration-date {
   position: absolute;
   left: 10%;
   transform: translateX(-50%);
   font-size: .75rem;
-  font-weight: lighter;
+  opacity: .75;
 }
 
-.hero-container > .decoration-word .word-wrapper {
+.hero-container > .decoration-date .date-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -697,40 +715,110 @@ main > * {
   position: relative;
   overflow: hidden;
   cursor: default;
+  gap: 3px;
 }
 
-.hero-container > .decoration-word .word-wrapper > div {
+.hero-container > .decoration-date .date-wrapper > div {
   transform: translateX(-150%) rotate(15deg);
   transition: .15s all ease-in-out;
 }
 
-.hero-container > .decoration-word .word-wrapper > div.show {
+.hero-container > .decoration-date .date-wrapper > div.show {
   transition: .5s .5s all ease;
   transform: translateX(0) rotate(0);
 }
 
-.hero-container > .decoration-pyramid {
+.hero-container > .decoration-angle {
   position: absolute;
-  top: 65%;
+  top: 70%;
   left: 75%;
-  transform: translate(-50%, -50%);
-  visibility: hidden;
-}
-
-.hero-container > .decoration-pyramid .pyramid-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.hero-container > .decoration-pyramid .pyramid-wrapper > div {
+  transform: translate(-50%, -70%);
   width: 10vw;
+  opacity: .75;
+  transition: .5s all ease;
+  height: 10vw;
+}
+
+.hero-container > .decoration-angle.hide {
+  pointer-events: none;
+}
+
+.hero-container > .decoration-angle:hover {
+  opacity: 1;
+  transform: translate(-50%, -70%) scale(1.15);
+}
+
+.hero-container > .decoration-angle:last-child {
+  position: absolute;
+  top: 30%;
+  left: 25%;
+  transform: translate(-50%, -30%);
+  width: 10vw;
+  height: 10vw;
+  opacity: .25;
+  transition: .5s all ease;
+}
+
+.hero-container > .decoration-angle:last-child:hover {
+  opacity: 1;
+}
+
+.hero-container > .decoration-angle .angle-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-container > .decoration-angle .angle-wrapper::before,
+.hero-container > .decoration-angle .angle-wrapper::after {
+  position: absolute;
+  content: '';
+  width: 100%;
   height: 2px;
-  background: var(--color-dark-500);
-  transition: .5s .5s all ease-in-out;
-  opacity: 0;
+  bottom: 0;
+  background: linear-gradient(to right, var(--color-dark-300) -10%, var(--text-color) 100%);
+  border-radius: 50%;
+  transform-origin: right;
+  transition: .5s .5s all ease;
+}
+
+.hero-container > .decoration-angle.hide .angle-wrapper::before {
+  transform: scale(0);
+  transition: .15s all ease-in-out;
+}
+.hero-container > .decoration-angle.hide .angle-wrapper::after {
+  transform: rotate(90deg) scale(0);
+  transition: .15s all ease-in-out;
+}
+
+.hero-container > .decoration-angle .angle-wrapper::after {
+  transform: rotate(90deg);
+}
+
+.hero-container > .decoration-angle:last-child .angle-wrapper::before,
+.hero-container > .decoration-angle:last-child .angle-wrapper::after {
+  position: absolute;
+  content: '';
+  top: 0;
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(to right, var(--color-dark-300) 0%, var(--text-color) 0%, var(--color-dark-300) 100%);
+  border-radius: 50%;
+  transform-origin: left;
+  transition: .5s .5s all ease;
+}
+
+.hero-container > .decoration-angle:last-child .angle-wrapper::after {
+  transform-origin: left;
+}
+
+.hero-container > .decoration-angle:last-child.hide .angle-wrapper::before {
+  transform: scale(0);
+  transition: .15s all ease-in-out;
+}
+.hero-container > .decoration-angle:last-child.hide .angle-wrapper::after {
+  transform: rotate(90deg) scale(0);
+  transition: .15s all ease-in-out;
 }
 
 .hero-container .scroll-down {
@@ -2135,6 +2223,7 @@ main > * {
   justify-content: center;
   align-items: flex-end;
   gap: 1rem;
+  transition: .5s all ease;
 }
 
 .indicator-wrapper .indicator {

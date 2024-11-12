@@ -46,47 +46,41 @@ const createCurrentDate = () => {
   return `${currentMonth}/${currentYear}`;
 };
 
-const createLineDecoration = (heroContainer, isDate = false) => {
+const createLineDecoration = (heroContainer, text) => {
   const line = document.createElement('div');
   line.className = 'decoration-line';
   const lineWrapper = document.createElement('div');
   lineWrapper.className = 'line-wrapper';
-  const date = document.createElement('div');
-  date.className = 'date-wrapper';
-  const dateText = document.createElement('div');
-  if (isDate) {
-    letterseparator(createCurrentDate(), dateText);
-  } else {
-    letterseparator('Lorem Ipsum', dateText);
-  }
-  date.appendChild(dateText);
-  lineWrapper.appendChild(date);
+  const lineTextWrapper = document.createElement('div');
+  lineTextWrapper.className = 'line-text-wrapper';
+  const lineText = document.createElement('div');
+  letterseparator(text, lineText);
+  lineTextWrapper.appendChild(lineText);
+  lineWrapper.appendChild(lineTextWrapper);
   line.appendChild(lineWrapper);
 
   heroContainer.appendChild(line);
 };
 
-const createWordDecorations = (heroContainer) => {
+const createDateDecorations = (heroContainer) => {
   const word = document.createElement('div');
-  word.className = 'decoration-word';
+  word.className = 'decoration-date';
   const wordWrapper = document.createElement('div');
-  wordWrapper.className = 'word-wrapper';
-  letterseparator('HELLO', wordWrapper);
+  wordWrapper.className = 'date-wrapper';
+  letterseparator(createCurrentDate(), wordWrapper);
   word.appendChild(wordWrapper);
   heroContainer.appendChild(word);
 };
 
-const createPyramidDecorations = (heroContainer) => {
-  const circle = document.createElement('div');
-  circle.className = 'decoration-pyramid';
-  const circleWrapper = document.createElement('div');
-  circleWrapper.className = 'pyramid-wrapper';
-  for (let i = 0; i < 4; i += 1) {
-    const circleContent = document.createElement('div');
-    circleWrapper.appendChild(circleContent);
-  }
-  circle.appendChild(circleWrapper);
-  heroContainer.appendChild(circle);
+const createAngleDecoration = (heroContainer) => {
+  const rightAngle = document.createElement('div');
+  rightAngle.className = 'decoration-angle hide';
+  const rightAngleWrapper = document.createElement('div');
+  rightAngleWrapper.className = 'angle-wrapper';
+
+  rightAngle.appendChild(rightAngleWrapper);
+
+  heroContainer.appendChild(rightAngle);
 };
 
 const createHeroWrapper = () => {
@@ -142,11 +136,12 @@ const createHeroWrapper = () => {
   heroContainer.appendChild(scrollDownContainer);
 
   // Decoration
-  createLineDecoration(heroContainer, true);
-  createLineDecoration(heroContainer);
+  createLineDecoration(heroContainer, 'HELLO');
+  createLineDecoration(heroContainer, 'WORLD');
 
-  createWordDecorations(heroContainer);
-  createPyramidDecorations(heroContainer);
+  createDateDecorations(heroContainer);
+  createAngleDecoration(heroContainer);
+  createAngleDecoration(heroContainer);
 
   return heroContainer;
 };

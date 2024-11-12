@@ -39,14 +39,13 @@ const events = () => {
     const heroText = hero.querySelector('.hero-wrapper h1 .hero-main-text');
 
     const wordDecorations = hero.querySelectorAll(
-      '.decoration-word .word-wrapper > div'
+      '.decoration-date .date-wrapper > div'
     );
 
-    const pyramidDecorations = hero.querySelector('.decoration-pyramid');
-
-    const pyramidLines = pyramidDecorations.querySelectorAll(
-      '.pyramid-wrapper > div'
+    const angleDecorationsTop = hero.querySelector(
+      '.decoration-angle:last-child'
     );
+    const angleDecorationsBottom = hero.querySelector('.decoration-angle');
 
     const heroFontHandler = (() => {
       const fontList = [
@@ -164,39 +163,18 @@ const events = () => {
           }, 75 * index);
         });
 
-        pyramidLines.forEach((item, index) => {
-          setTimeout(() => {
-            item.style.opacity = `${1 - 0.1 * index}`;
-            item.style.transform = `translateY(${index * 100}%)`;
-            item.style.width = `${10 - 2 * index}vw`;
-          }, 75 * index);
-        });
-
         heroMainText.style.animation =
           'hero-main-text-show 3s cubic-bezier(0.7, 0, 0.5, 0) forwards';
 
-        pyramidDecorations.style.visibility = 'visible';
+        angleDecorationsTop.classList.remove('hide');
+        angleDecorationsBottom.classList.remove('hide');
 
         // Mouse Enter EventListener
         heroText.addEventListener('mouseenter', () => {
           heroFontHandler.setFont();
         });
 
-        pyramidDecorations.addEventListener('mouseenter', () => {
-          pyramidLines.forEach((item, index) => {
-            item.style.transition = '.5s all ease';
-            item.style.opacity = `${0.7 + 0.1 * index}`;
-            item.style.width = `${2 + 2 * index}vw`;
-          });
-        });
-
-        pyramidDecorations.addEventListener('mouseleave', () => {
-          pyramidLines.forEach((item, index) => {
-            item.style.transition = '.5s all ease';
-            item.style.opacity = `${1 - 0.1 * index}`;
-            item.style.width = `${10 - 2 * index}vw`;
-          });
-        });
+        body.classList.remove('not-scrollable');
       }, 4500);
     };
 
@@ -232,14 +210,8 @@ const events = () => {
           }, 75 * index);
         });
 
-        pyramidLines.forEach((item, index) => {
-          setTimeout(() => {
-            item.style.transition = '.5s .5s all ease';
-            item.style.opacity = `${1 - 0.1 * index}`;
-            item.style.transform = `translateY(${index * 100}%)`;
-            item.style.width = `${10 - 2 * index}vw`;
-          }, 75 * index);
-        });
+        angleDecorationsTop.classList.remove('hide');
+        angleDecorationsBottom.classList.remove('hide');
       } else {
         heroContainer.classList.add('hide');
         heroMainText.forEach((letter) => {
@@ -262,12 +234,8 @@ const events = () => {
           letter.classList.remove('show');
         });
 
-        pyramidLines.forEach((item, index) => {
-          item.style.transition = '.15s all ease-in-out';
-          item.style.opacity = `0`;
-          item.style.transform = `translateY(-${index * 100}%)`;
-          item.style.width = `10vw`;
-        });
+        angleDecorationsTop.classList.add('hide');
+        angleDecorationsBottom.classList.add('hide');
       }
     };
 
@@ -730,6 +698,7 @@ const events = () => {
   });
 
   heroEventHandler.heroAnimationHandler();
+  body.classList.add('not-scrollable');
 };
 
 export default events;
