@@ -37,6 +37,32 @@ const createSeparateLetter = (word, container) => {
   }
 };
 
+const createLineDecoration = (heroContainer) => {
+  const line = document.createElement('div');
+  line.className = 'decoration-line';
+  const lineWrapper = document.createElement('div');
+  lineWrapper.className = 'line-wrapper';
+  const date = document.createElement('div');
+  date.className = 'date-wrapper';
+  const dateText = document.createElement('div');
+  dateText.textContent = '11/2024';
+  date.appendChild(dateText);
+  lineWrapper.appendChild(date);
+  line.appendChild(lineWrapper);
+
+  heroContainer.appendChild(line);
+};
+
+const createWordDecorations = (heroContainer) => {
+  const word = document.createElement('div');
+  word.className = 'decoration-word';
+  const wordWrapper = document.createElement('div');
+  wordWrapper.className = 'word-wrapper';
+  letterseparator('HELLO', wordWrapper);
+  word.appendChild(wordWrapper);
+  heroContainer.appendChild(word);
+};
+
 const createHeroWrapper = () => {
   const heroContainer = document.createElement('div');
   heroContainer.className = 'hero-container';
@@ -88,6 +114,13 @@ const createHeroWrapper = () => {
 
   heroContainer.appendChild(heroWrapper);
   heroContainer.appendChild(scrollDownContainer);
+
+  // Decoration
+  for (let i = 0; i < 2; i += 1) {
+    createLineDecoration(heroContainer);
+  }
+
+  createWordDecorations(heroContainer);
 
   return heroContainer;
 };

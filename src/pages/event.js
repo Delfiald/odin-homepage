@@ -20,16 +20,18 @@ const events = () => {
   // Hero
   const heroEventHandler = (() => {
     const hero = document.getElementById('hero');
-    const heroContainer = document.querySelector('.hero-container');
-    const helloText = document.querySelectorAll('.hero-text:first-child > div');
-    const loremText = document.querySelectorAll(
-      '.hero-text:nth-child(2) > div'
-    );
-    const dogeText = document.querySelectorAll('.hero-text:nth-child(3) > div');
-    const hiText = document.querySelectorAll('.hero-text:nth-child(4) > div');
-    const textDot = document.querySelector('.hero-text span');
+    const heroContainer = hero.querySelector('.hero-container');
+    const helloText = hero.querySelectorAll('.hero-text:first-child > div');
+    const loremText = hero.querySelectorAll('.hero-text:nth-child(2) > div');
+    const dogeText = hero.querySelectorAll('.hero-text:nth-child(3) > div');
+    const hiText = hero.querySelectorAll('.hero-text:nth-child(4) > div');
+    const textDot = hero.querySelector('.hero-text span');
 
-    const heroText = document.querySelector('.hero-wrapper h1 .hero-main-text');
+    const heroText = hero.querySelector('.hero-wrapper h1 .hero-main-text');
+
+    const wordDecorations = hero.querySelectorAll(
+      '.decoration-word .word-wrapper > div'
+    );
 
     const heroFontHandler = (() => {
       const fontList = [
@@ -124,6 +126,12 @@ const events = () => {
 
       setTimeout(() => {
         const heroMainText = document.querySelector('.hero-main-text');
+
+        wordDecorations.forEach((letter, index) => {
+          setTimeout(() => {
+            letter.classList.add('show');
+          }, 75 * index);
+        });
 
         heroMainText.style.animation =
           'hero-main-text-show 3s cubic-bezier(0.7, 0, 0.5, 0) forwards';

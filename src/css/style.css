@@ -467,7 +467,7 @@ main > * {
   background: var(--color-dark-300);
   filter: brightness(1.35);
   transform: translate(0, -50%);
-  border-radius: 10px;
+  border-radius: 15px;
   transform-origin: left;
   animation: hero-line-extends 1.5s ease forwards;
 }
@@ -601,6 +601,71 @@ main > * {
 .hero-container.hide .hero-wrapper h1 .hero-main-text span::before {
   transform: translate(-50%, -50%) scale(0);
   transition: .15s all ease;
+}
+
+.hero-container > .decoration-line:nth-child(3) {
+  position: absolute;
+  top: 25%;
+  left: 75%;
+  transform: translate(-50%, -50%);
+  font-weight: 500;
+  cursor: default;
+}
+
+.hero-container > .decoration-line:nth-child(4) {
+  position: absolute;
+  top: 75%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  /* overflow: hidden; */
+}
+
+.hero-container .decoration-line .line-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15vw;
+}
+
+.hero-container .decoration-line .line-wrapper::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, var(--color-dark-300) 0%, var(--text-color) 50%, var(--color-dark-300) 100%);
+  border-radius: 10px;
+}
+
+.hero-container > .decoration-word {
+  position: absolute;
+  left: 10%;
+  transform: translateX(-50%);
+  font-size: .75rem;
+  font-weight: lighter;
+}
+
+.hero-container > .decoration-word .word-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+
+.hero-container > .decoration-word .word-wrapper > div {
+  transform: translateX(-150%) rotate(15deg);
+  transition: .15s all ease-in-out;
+}
+
+.hero-container > .decoration-word .word-wrapper > div.show {
+  transition: .5s .5s all ease;
+  transform: translateX(0) rotate(0);
 }
 
 .hero-container .scroll-down {
