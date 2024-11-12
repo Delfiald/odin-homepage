@@ -1,40 +1,86 @@
-const createLuckyMeButton = () => {
-  const luckyMeButton = document.createElement('div');
-  luckyMeButton.className = 'lucky-btn';
+import { getMonth, getYear } from 'date-fns';
 
-  const luckyMeWrapper = document.createElement('div');
-  luckyMeWrapper.className = 'lucky-wrapper';
+import letterseparator from '../helpers/letterSeparator';
 
-  const luckyIcon = document.createElement('i');
-  luckyIcon.className = 'fas fa-power-off';
+const createSeparateLetter = (word, container) => {
+  const letters = word.split('');
+  let isSpacing = false;
+  let currentLetter = 0;
+  for (let i = 0; i < 11; i += 1) {
+    const letterDiv = document.createElement('div');
 
-  const luckyMe = document.createElement('div');
-  luckyMe.className = 'lucky';
+    if ((letters[i] === ' ' && i < 6) || isSpacing) {
+      letterDiv.textContent = letters[i];
+      isSpacing = true;
 
-  luckyMe.appendChild(luckyIcon);
+      if (i < 6) {
+        letterDiv.textContent = ' ';
+      } else {
+        letterDiv.textContent = letters[currentLetter];
+        currentLetter += 1;
+        isSpacing = false;
+      }
 
-  const luckyMeIndicator = document.createElement('div');
-  luckyMeIndicator.className = 'lucky-indicator';
+      if (letters[i] === ' ') {
+        currentLetter = i + 1;
+      }
+    } else {
+      letterDiv.textContent = letters[i];
+      if (currentLetter < letters.length) {
+        letterDiv.textContent = letters[currentLetter];
+        currentLetter += 1;
+      } else {
+        letterDiv.textContent = ' ';
+      }
+    }
 
-  luckyMeWrapper.appendChild(luckyMe);
-  luckyMeButton.appendChild(luckyMeWrapper);
-  luckyMeButton.appendChild(luckyMeIndicator);
-
-  return luckyMeButton;
+    letterDiv.className = 'letter';
+    container.appendChild(letterDiv);
+  }
 };
 
-const createHeroBackground = (index) => {
-  const shape = document.createElement('div');
-  shape.className = `shape-${index}`;
+const createCurrentDate = () => {
+  const currentMonth = getMonth(new Date()) + 1;
+  const currentYear = getYear(new Date());
 
-  return shape;
+  return `${currentMonth}/${currentYear}`;
 };
 
-const createHeroLine = () => {
-  const heroLine = document.createElement('div');
-  heroLine.className = 'hero-line';
+const createLineDecoration = (heroContainer, text) => {
+  const line = document.createElement('div');
+  line.className = 'decoration-line';
+  const lineWrapper = document.createElement('div');
+  lineWrapper.className = 'line-wrapper';
+  const lineTextWrapper = document.createElement('div');
+  lineTextWrapper.className = 'line-text-wrapper';
+  const lineText = document.createElement('div');
+  letterseparator(text, lineText);
+  lineTextWrapper.appendChild(lineText);
+  lineWrapper.appendChild(lineTextWrapper);
+  line.appendChild(lineWrapper);
 
-  return heroLine;
+  heroContainer.appendChild(line);
+};
+
+const createDateDecorations = (heroContainer) => {
+  const word = document.createElement('div');
+  word.className = 'decoration-date';
+  const wordWrapper = document.createElement('div');
+  wordWrapper.className = 'date-wrapper';
+  letterseparator(createCurrentDate(), wordWrapper);
+  word.appendChild(wordWrapper);
+  heroContainer.appendChild(word);
+};
+
+const createAngleDecoration = (heroContainer) => {
+  const rightAngle = document.createElement('div');
+  rightAngle.className = 'decoration-angle hide';
+  const rightAngleWrapper = document.createElement('div');
+  rightAngleWrapper.className = 'angle-wrapper';
+
+  rightAngle.appendChild(rightAngleWrapper);
+
+  heroContainer.appendChild(rightAngle);
 };
 
 const createHeroWrapper = () => {
@@ -46,29 +92,56 @@ const createHeroWrapper = () => {
 
   // Text
   const heroText = document.createElement('h1');
-  heroText.textContent = 'HI';
+
+  const textList = ['HELLO WORLD', 'LOREM IPSUM', 'DOGE HECK', 'H I'];
+
+  for (let i = 0; i < textList.length; i += 1) {
+    const text = document.createElement('div');
+    text.className = 'hero-text';
+    text.dataset.textId = i + 1;
+    createSeparateLetter(textList[i], text);
+
+    if (i === 0) {
+      const heroDot = document.createElement('span');
+      text.appendChild(heroDot);
+    }
+
+    heroText.appendChild(text);
+  }
+
+  const heroMainText = document.createElement('div');
+  heroMainText.className = 'hero-main-text';
+  letterseparator('HI', heroMainText);
   const heroDot = document.createElement('span');
-  heroText.appendChild(heroDot);
+  heroMainText.appendChild(heroDot);
+  heroText.appendChild(heroMainText);
+
   heroWrapper.appendChild(heroText);
 
   // Scroll Down
   const scrollDownContainer = document.createElement('div');
   scrollDownContainer.className = 'scroll-down';
+  const scrollDownWrapper = document.createElement('div');
+  scrollDownWrapper.className = 'scroll-down-wrapper';
   const scrollDownText = document.createElement('h3');
   scrollDownText.textContent = 'Scroll Down';
   const scrollDownIcon = document.createElement('i');
-  scrollDownIcon.className = 'fas fa-chevron-down';
+  scrollDownIcon.className = 'fas fa-arrow-down';
 
-  scrollDownContainer.appendChild(scrollDownText);
-  scrollDownContainer.appendChild(scrollDownIcon);
+  scrollDownWrapper.appendChild(scrollDownText);
+  scrollDownWrapper.appendChild(scrollDownIcon);
+  scrollDownContainer.appendChild(scrollDownWrapper);
 
   heroContainer.appendChild(heroWrapper);
   heroContainer.appendChild(scrollDownContainer);
-  heroContainer.appendChild(createLuckyMeButton());
 
-  for (let i = 0; i < 4; i += 1) {
-    heroContainer.appendChild(createHeroBackground(i + 1));
-  }
+  // Decoration
+  createLineDecoration(heroContainer, 'HELLO');
+  createLineDecoration(heroContainer, 'WORLD');
+
+  createDateDecorations(heroContainer);
+  createAngleDecoration(heroContainer);
+  createAngleDecoration(heroContainer);
 
   return heroContainer;
 };
@@ -77,7 +150,6 @@ const createHeroSection = () => {
   const hero = document.createElement('section');
   hero.id = 'hero';
 
-  hero.appendChild(createHeroLine());
   hero.appendChild(createHeroWrapper());
 
   return hero;

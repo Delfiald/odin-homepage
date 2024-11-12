@@ -18,62 +18,76 @@ const techsData = () => {
     js: {
       icon: js,
       className: 'js',
+      description: 'Javascript',
     },
     html: {
       icon: html,
       className: 'html',
+      description: 'HTML',
     },
     css: {
       icon: css,
       className: 'css',
+      description: 'CSS',
     },
     java: {
       icon: java,
       className: 'java',
+      description: 'Java',
     },
     react: {
       icon: react,
       className: 'react',
+      description: 'React',
     },
     php: {
       icon: php,
       className: 'php',
+      description: 'PHP',
     },
     webpack: {
       icon: webpack,
       className: 'webpack',
+      description: 'Webpack',
     },
     git: {
       icon: git,
       className: 'git',
+      description: 'Git',
     },
     jest: {
       icon: jest,
       className: 'jest',
+      description: 'Jest',
     },
     mysql: {
       icon: mysql,
       className: 'mysql',
+      description: 'MySQL',
     },
     postgresql: {
       icon: postgresql,
       className: 'postgresql',
+      description: 'PostgreSQL',
     },
     codeIgniter: {
       icon: codeIgniter,
       className: 'code-igniter',
+      description: 'CodeIgniter',
     },
     bootstrap: {
       icon: bootstrap,
       className: 'bootstrap',
+      description: 'Bootstrap',
     },
     tailwind: {
       icon: tailwind,
       className: 'tailwind',
+      description: 'Tailwind',
     },
   };
 
   return techs;
 };
 
-export default techsData
+export default techsData;

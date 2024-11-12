@@ -1,13 +1,17 @@
-import techsData from "../data/techsData";
+import techsData from '../data/techsData';
 
-const createSkills = (icon, className) => {
+const createSkills = (icon, className, description) => {
   const skill = document.createElement('div');
 
   if (icon) {
     skill.className = `skill ${className}`;
     const skillIcon = document.createElement('img');
     skillIcon.src = icon;
+    const skillDescription = document.createElement('div');
+    skillDescription.className = 'skill-description';
+    skillDescription.textContent = description;
     skill.appendChild(skillIcon);
+    skill.appendChild(skillDescription);
   } else {
     skill.className = `skill`;
   }
@@ -31,7 +35,11 @@ const createSkillsWrapper = (skillContainer) => {
       for (let j = 0; j < 12; j += 1) {
         if (j >= 2 && j < 9 && skillIndex < skills.length) {
           skillsWrapper.appendChild(
-            createSkills(skills[skillIndex].icon, skills[skillIndex].className)
+            createSkills(
+              skills[skillIndex].icon,
+              skills[skillIndex].className,
+              skills[skillIndex].description
+            )
           );
           skillIndex += 1;
         } else {

@@ -1,19 +1,11 @@
 import linkedin from '../assets/link/linkedin.svg';
-
-const createSeparateLetter = (word, container) => {
-  word.split('').forEach((letter) => {
-    const letterDiv = document.createElement('div');
-    letterDiv.textContent = letter;
-    letterDiv.className = 'letter';
-    container.appendChild(letterDiv);
-  });
-};
+import letterSeparator from '../helpers/letterSeparator';
 
 const createAboutTitle = () => {
   const aboutTitle = document.createElement('div');
   aboutTitle.className = 'about-title';
 
-  createSeparateLetter('ABOUT', aboutTitle);
+  letterSeparator('ABOUT', aboutTitle);
 
   return aboutTitle;
 };
@@ -49,7 +41,7 @@ const createOverviewSection = () => {
 
   const scrollText = document.createElement('div');
   scrollText.classList = 'scroll-down-text';
-  createSeparateLetter('SCROLL', scrollText);
+  letterSeparator('SCROLL', scrollText);
   scrollDownWrapper.appendChild(scrollText);
   scrollDown.appendChild(scrollDownWrapper);
 

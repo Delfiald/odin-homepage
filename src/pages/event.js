@@ -1,4 +1,3 @@
-import easterEgg from '../components/easter';
 import menu from '../components/menu';
 
 const events = () => {
@@ -19,11 +18,232 @@ const events = () => {
   };
 
   // Hero
-  const heroEventHandler = () => {
-    setTimeout(() => {
-      document.querySelector('.hero-container').classList.add('extend');
-    }, 3250);
-  };
+  const heroEventHandler = (() => {
+    const hero = document.getElementById('hero');
+    const heroContainer = hero.querySelector('.hero-container');
+    const helloText = hero.querySelectorAll('.hero-text:first-child > div');
+    const loremText = hero.querySelectorAll('.hero-text:nth-child(2) > div');
+    const dogeText = hero.querySelectorAll('.hero-text:nth-child(3) > div');
+    const hiText = hero.querySelectorAll('.hero-text:nth-child(4) > div');
+    const textDot = hero.querySelector('.hero-text span');
+
+    const decorationLine = hero.querySelectorAll('.decoration-line');
+    const dateText = hero.querySelectorAll(
+      '.decoration-line:nth-child(3) .letter'
+    );
+
+    const loremDecorText = hero.querySelectorAll(
+      '.decoration-line:nth-child(4) .letter'
+    );
+
+    const heroText = hero.querySelector('.hero-wrapper h1 .hero-main-text');
+
+    const wordDecorations = hero.querySelectorAll(
+      '.decoration-date .date-wrapper > div'
+    );
+
+    const angleDecorationsTop = hero.querySelector(
+      '.decoration-angle:last-child'
+    );
+    const angleDecorationsBottom = hero.querySelector('.decoration-angle');
+
+    const heroFontHandler = (() => {
+      const fontList = [
+        'Manrope',
+        'Inter',
+        'Georgia',
+        'Sans-serif',
+        'Times New Roman',
+        'Playwrite GB S',
+        'Arima',
+      ];
+
+      let currentIndex = 0;
+
+      const randomFont = () => {
+        let randomIndex;
+        do {
+          randomIndex = Math.floor(Math.random() * fontList.length);
+        } while (randomIndex === currentIndex);
+
+        currentIndex = randomIndex;
+
+        return randomIndex;
+      };
+
+      const setFont = () => {
+        const fontIndex = randomFont();
+        heroText.style.fontFamily = fontList[fontIndex];
+      };
+
+      return { setFont };
+    })();
+
+    const heroAnimationHandler = () => {
+      for (let i = 0; i < helloText.length; i += 1) {
+        helloText[i].style.left = `${5.5 * i}rem`;
+        loremText[i].style.left = `${5.5 * i}rem`;
+        dogeText[i].style.left = `${5.5 * i}rem`;
+        hiText[i].style.left = `${5.5 * i}rem`;
+      }
+
+      const showText = (text) => {
+        text.forEach((letter, index) => {
+          setTimeout(() => {
+            letter.classList.add('show');
+          }, 50 * index);
+        });
+      };
+
+      const hideText = (text) => {
+        text.forEach((letter, index) => {
+          setTimeout(() => {
+            letter.classList.add('hide');
+          }, 50 * index);
+        });
+      };
+
+      setTimeout(() => {
+        hideText(helloText);
+        showText(loremText);
+      }, 1000);
+
+      setTimeout(() => {
+        hideText(loremText);
+        showText(dogeText);
+      }, 2350);
+
+      setTimeout(() => {
+        hideText(dogeText);
+        showText(hiText);
+      }, 2500);
+
+      setTimeout(() => {
+        for (let i = 0; i < helloText.length; i += 1) {
+          hiText[i].style.left = '50%';
+          hiText[i].style.transform = 'translateX(-50%)';
+          textDot.style.right = '50%';
+          textDot.style.transform = 'translate(50%, -50%)';
+        }
+      }, 4000);
+
+      setTimeout(() => {
+        for (let i = 0; i < helloText.length; i += 1) {
+          hiText[i].style.animation = 'hide-hero-text .15s ease forwards';
+          textDot.style.animation = 'hide-hero-text .15s ease forwards';
+        }
+      }, 4250);
+
+      setTimeout(() => {
+        heroContainer.classList.add('extend');
+      }, 4000);
+
+      setTimeout(() => {
+        const heroMainText = document.querySelector('.hero-main-text');
+
+        decorationLine.forEach((element) => {
+          element.classList.add('show');
+        });
+
+        dateText.forEach((letter, index) => {
+          setTimeout(() => {
+            letter.classList.add('show');
+          }, 75 * index);
+        });
+
+        loremDecorText.forEach((letter, index) => {
+          setTimeout(() => {
+            letter.classList.add('show');
+          }, 75 * index);
+        });
+
+        wordDecorations.forEach((letter, index) => {
+          setTimeout(() => {
+            letter.classList.add('show');
+          }, 75 * index);
+        });
+
+        heroMainText.style.animation =
+          'hero-main-text-show 3s cubic-bezier(0.7, 0, 0.5, 0) forwards';
+
+        angleDecorationsTop.classList.remove('hide');
+        angleDecorationsBottom.classList.remove('hide');
+
+        // Mouse Enter EventListener
+        heroText.addEventListener('mouseenter', () => {
+          heroFontHandler.setFont();
+        });
+
+        body.classList.remove('not-scrollable');
+      }, 4500);
+    };
+
+    const heroScroll = () => {
+      const heroMainText = document.querySelectorAll('.hero-main-text > div');
+      if (getVisiblePercentage(hero) > 20) {
+        heroContainer.classList.remove('hide');
+        heroMainText.forEach((letter, index) => {
+          setTimeout(() => {
+            letter.classList.remove('hide');
+          }, 100 * index);
+        });
+
+        decorationLine.forEach((element) => {
+          element.classList.add('show');
+        });
+
+        dateText.forEach((letter, index) => {
+          setTimeout(() => {
+            letter.classList.add('show');
+          }, 75 * index);
+        });
+
+        loremDecorText.forEach((letter, index) => {
+          setTimeout(() => {
+            letter.classList.add('show');
+          }, 75 * index);
+        });
+
+        wordDecorations.forEach((letter, index) => {
+          setTimeout(() => {
+            letter.classList.add('show');
+          }, 75 * index);
+        });
+
+        angleDecorationsTop.classList.remove('hide');
+        angleDecorationsBottom.classList.remove('hide');
+      } else {
+        heroContainer.classList.add('hide');
+        heroMainText.forEach((letter) => {
+          letter.classList.add('hide');
+        });
+
+        decorationLine.forEach((element) => {
+          element.classList.remove('show');
+        });
+
+        dateText.forEach((letter) => {
+          letter.classList.remove('show');
+        });
+
+        loremDecorText.forEach((letter) => {
+          letter.classList.remove('show');
+        });
+
+        wordDecorations.forEach((letter) => {
+          letter.classList.remove('show');
+        });
+
+        angleDecorationsTop.classList.add('hide');
+        angleDecorationsBottom.classList.add('hide');
+      }
+    };
+
+    return {
+      heroAnimationHandler,
+      heroScroll,
+    };
+  })();
 
   // Indicator
   const setIndicatorActive = () => {
@@ -367,12 +587,24 @@ const events = () => {
     }
   };
 
+  const footerAnimationHandler = () => {
+    const footer = document.getElementById('footer');
+
+    if (getVisiblePercentage(footer) >= 10) {
+      footer.classList.add('show');
+    } else {
+      footer.classList.remove('show');
+    }
+  };
+
   // Scroll Event Listener
   window.addEventListener('scroll', () => {
     setIndicatorActive();
+    heroEventHandler.heroScroll();
     aboutAnimationHandler.aboutScroll();
     checkBoxes();
     projectsAnimationHandler();
+    footerAnimationHandler();
   });
 
   // Menu
@@ -438,41 +670,6 @@ const events = () => {
     }
   };
 
-  // Easter Egg
-  const easterEggHandler = () => {
-    const easterEggContainer = document.querySelector('.easter-egg');
-
-    const dvdIcon = easterEggContainer.querySelector('.dvd');
-
-    easterEggContainer.addEventListener('animationend', () => {
-      dvdIcon.classList.add('move');
-
-      if (dvdIcon.classList.contains('move')) {
-        dvdIcon.style.transform =
-          'translate(calc(45vw - 50px), calc(45vh - 50px))';
-      }
-    });
-  };
-
-  // Lucky Button
-  const luckyButtonHandler = (e) => {
-    if (e.target.closest('.lucky-wrapper')) {
-      document.querySelector('.lucky-btn').classList.toggle('active');
-      const hero = document.querySelector('#hero .hero-container');
-      hero.classList.toggle('easter');
-      if (hero.classList.contains('easter')) {
-        hero.appendChild(easterEgg());
-        easterEggHandler();
-      } else {
-        const easterEggContainer = document.querySelector('.easter-egg');
-        easterEggContainer.style.animation = 'turn-off .5s ease forwards';
-        easterEggContainer.addEventListener('animationend', () =>
-          easterEggContainer.remove()
-        );
-      }
-    }
-  };
-
   const sectionHandler = (e) => {
     const indicator = e.target.closest('.indicator-wrapper .indicator');
     if (indicator) {
@@ -495,52 +692,13 @@ const events = () => {
   // Click Event Listener
   body.addEventListener('click', (e) => {
     menuHandler(e);
-    luckyButtonHandler(e);
     aboutAnimationHandler.aboutClick(e);
     sectionHandler(e);
     projectsSectionHandler(e);
   });
 
-  const heroText = document.querySelector('.hero-wrapper h1');
-
-  const heroFontHandler = (() => {
-    const fontList = [
-      'Manrope',
-      'Inter',
-      'Georgia',
-      'Sans-serif',
-      'Times New Roman',
-      'Playwrite GB S',
-      'Arima',
-    ];
-
-    let currentIndex = 0;
-
-    const randomFont = () => {
-      let randomIndex;
-      do {
-        randomIndex = Math.floor(Math.random() * fontList.length);
-      } while (randomIndex === currentIndex);
-
-      currentIndex = randomIndex;
-
-      return randomIndex;
-    };
-
-    const setFont = () => {
-      const fontIndex = randomFont();
-      heroText.style.fontFamily = fontList[fontIndex];
-    };
-
-    return { setFont };
-  })();
-
-  // Mouse Enter EventListener
-  heroText.addEventListener('mouseenter', () => {
-    heroFontHandler.setFont();
-  });
-
-  heroEventHandler();
+  heroEventHandler.heroAnimationHandler();
+  body.classList.add('not-scrollable');
 };
 
 export default events;
