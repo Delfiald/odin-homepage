@@ -27,10 +27,25 @@ const events = () => {
     const hiText = hero.querySelectorAll('.hero-text:nth-child(4) > div');
     const textDot = hero.querySelector('.hero-text span');
 
+    const decorationLine = hero.querySelectorAll('.decoration-line');
+    const dateText = hero.querySelectorAll(
+      '.decoration-line:nth-child(3) .letter'
+    );
+
+    const loremDecorText = hero.querySelectorAll(
+      '.decoration-line:nth-child(4) .letter'
+    );
+
     const heroText = hero.querySelector('.hero-wrapper h1 .hero-main-text');
 
     const wordDecorations = hero.querySelectorAll(
       '.decoration-word .word-wrapper > div'
+    );
+
+    const pyramidDecorations = hero.querySelector('.decoration-pyramid');
+
+    const pyramidLines = pyramidDecorations.querySelectorAll(
+      '.pyramid-wrapper > div'
     );
 
     const heroFontHandler = (() => {
@@ -127,18 +142,60 @@ const events = () => {
       setTimeout(() => {
         const heroMainText = document.querySelector('.hero-main-text');
 
+        decorationLine.forEach((element) => {
+          element.classList.add('show');
+        });
+
+        dateText.forEach((letter, index) => {
+          setTimeout(() => {
+            letter.classList.add('show');
+          }, 75 * index);
+        });
+
+        loremDecorText.forEach((letter, index) => {
+          setTimeout(() => {
+            letter.classList.add('show');
+          }, 75 * index);
+        });
+
         wordDecorations.forEach((letter, index) => {
           setTimeout(() => {
             letter.classList.add('show');
           }, 75 * index);
         });
 
+        pyramidLines.forEach((item, index) => {
+          setTimeout(() => {
+            item.style.opacity = `${1 - 0.1 * index}`;
+            item.style.transform = `translateY(${index * 100}%)`;
+            item.style.width = `${10 - 2 * index}vw`;
+          }, 75 * index);
+        });
+
         heroMainText.style.animation =
           'hero-main-text-show 3s cubic-bezier(0.7, 0, 0.5, 0) forwards';
+
+        pyramidDecorations.style.visibility = 'visible';
 
         // Mouse Enter EventListener
         heroText.addEventListener('mouseenter', () => {
           heroFontHandler.setFont();
+        });
+
+        pyramidDecorations.addEventListener('mouseenter', () => {
+          pyramidLines.forEach((item, index) => {
+            item.style.transition = '.5s all ease';
+            item.style.opacity = `${0.7 + 0.1 * index}`;
+            item.style.width = `${2 + 2 * index}vw`;
+          });
+        });
+
+        pyramidDecorations.addEventListener('mouseleave', () => {
+          pyramidLines.forEach((item, index) => {
+            item.style.transition = '.5s all ease';
+            item.style.opacity = `${1 - 0.1 * index}`;
+            item.style.width = `${10 - 2 * index}vw`;
+          });
         });
       }, 4500);
     };
@@ -152,10 +209,64 @@ const events = () => {
             letter.classList.remove('hide');
           }, 100 * index);
         });
+
+        decorationLine.forEach((element) => {
+          element.classList.add('show');
+        });
+
+        dateText.forEach((letter, index) => {
+          setTimeout(() => {
+            letter.classList.add('show');
+          }, 75 * index);
+        });
+
+        loremDecorText.forEach((letter, index) => {
+          setTimeout(() => {
+            letter.classList.add('show');
+          }, 75 * index);
+        });
+
+        wordDecorations.forEach((letter, index) => {
+          setTimeout(() => {
+            letter.classList.add('show');
+          }, 75 * index);
+        });
+
+        pyramidLines.forEach((item, index) => {
+          setTimeout(() => {
+            item.style.transition = '.5s .5s all ease';
+            item.style.opacity = `${1 - 0.1 * index}`;
+            item.style.transform = `translateY(${index * 100}%)`;
+            item.style.width = `${10 - 2 * index}vw`;
+          }, 75 * index);
+        });
       } else {
         heroContainer.classList.add('hide');
         heroMainText.forEach((letter) => {
           letter.classList.add('hide');
+        });
+
+        decorationLine.forEach((element) => {
+          element.classList.remove('show');
+        });
+
+        dateText.forEach((letter) => {
+          letter.classList.remove('show');
+        });
+
+        loremDecorText.forEach((letter) => {
+          letter.classList.remove('show');
+        });
+
+        wordDecorations.forEach((letter) => {
+          letter.classList.remove('show');
+        });
+
+        pyramidLines.forEach((item, index) => {
+          item.style.transition = '.15s all ease-in-out';
+          item.style.opacity = `0`;
+          item.style.transform = `translateY(-${index * 100}%)`;
+          item.style.width = `10vw`;
         });
       }
     };

@@ -1,3 +1,5 @@
+import { getMonth, getYear } from 'date-fns';
+
 import letterseparator from '../helpers/letterSeparator';
 
 const createSeparateLetter = (word, container) => {
@@ -37,7 +39,14 @@ const createSeparateLetter = (word, container) => {
   }
 };
 
-const createLineDecoration = (heroContainer) => {
+const createCurrentDate = () => {
+  const currentMonth = getMonth(new Date()) + 1;
+  const currentYear = getYear(new Date());
+
+  return `${currentMonth}/${currentYear}`;
+};
+
+const createLineDecoration = (heroContainer, isDate = false) => {
   const line = document.createElement('div');
   line.className = 'decoration-line';
   const lineWrapper = document.createElement('div');
@@ -45,7 +54,11 @@ const createLineDecoration = (heroContainer) => {
   const date = document.createElement('div');
   date.className = 'date-wrapper';
   const dateText = document.createElement('div');
-  dateText.textContent = '11/2024';
+  if (isDate) {
+    letterseparator(createCurrentDate(), dateText);
+  } else {
+    letterseparator('Lorem Ipsum', dateText);
+  }
   date.appendChild(dateText);
   lineWrapper.appendChild(date);
   line.appendChild(lineWrapper);
@@ -61,6 +74,19 @@ const createWordDecorations = (heroContainer) => {
   letterseparator('HELLO', wordWrapper);
   word.appendChild(wordWrapper);
   heroContainer.appendChild(word);
+};
+
+const createPyramidDecorations = (heroContainer) => {
+  const circle = document.createElement('div');
+  circle.className = 'decoration-pyramid';
+  const circleWrapper = document.createElement('div');
+  circleWrapper.className = 'pyramid-wrapper';
+  for (let i = 0; i < 4; i += 1) {
+    const circleContent = document.createElement('div');
+    circleWrapper.appendChild(circleContent);
+  }
+  circle.appendChild(circleWrapper);
+  heroContainer.appendChild(circle);
 };
 
 const createHeroWrapper = () => {
@@ -116,11 +142,11 @@ const createHeroWrapper = () => {
   heroContainer.appendChild(scrollDownContainer);
 
   // Decoration
-  for (let i = 0; i < 2; i += 1) {
-    createLineDecoration(heroContainer);
-  }
+  createLineDecoration(heroContainer, true);
+  createLineDecoration(heroContainer);
 
   createWordDecorations(heroContainer);
+  createPyramidDecorations(heroContainer);
 
   return heroContainer;
 };
