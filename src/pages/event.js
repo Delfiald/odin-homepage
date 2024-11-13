@@ -17,6 +17,18 @@ const events = () => {
     return (visibleHeight / windowHeight) * 100;
   };
 
+  const disabledScroll = (() => {
+    window.onbeforeunload = () => {
+      window.scrollTo(0, 0);
+    };
+
+    const setScrollable = () => {
+      body.classList.toggle('not-scrollable');
+    };
+
+    return { setScrollable };
+  })();
+
   // Hero
   const heroEventHandler = (() => {
     const hero = document.getElementById('hero');
@@ -26,27 +38,34 @@ const events = () => {
     const dogeText = hero.querySelectorAll('.hero-text:nth-child(3) > div');
     const hiText = hero.querySelectorAll('.hero-text:nth-child(4) > div');
     const textDot = hero.querySelector('.hero-text span');
-
     const decorationLine = hero.querySelectorAll('.decoration-line');
-    const dateText = hero.querySelectorAll(
+    const decorTextOne = hero.querySelectorAll(
       '.decoration-line:nth-child(3) .letter'
     );
-
-    const loremDecorText = hero.querySelectorAll(
+    const decorTextTwo = hero.querySelectorAll(
       '.decoration-line:nth-child(4) .letter'
     );
-
     const heroText = hero.querySelector('.hero-wrapper h1 .hero-main-text');
-
-    const wordDecorations = hero.querySelectorAll(
+    const decorTextThree = hero.querySelectorAll(
       '.decoration-date .date-wrapper > div'
     );
-
     const angleDecorationsTop = hero.querySelector(
       '.decoration-angle:last-child'
     );
     const angleDecorationsBottom = hero.querySelector('.decoration-angle');
+    const heroMainText = heroText.querySelectorAll('div');
 
+    const setInitialLoadTextPositions = () => {
+      const texts = [helloText, loremText, dogeText, hiText];
+      texts.forEach((textArray) => {
+        textArray.forEach((textElement, i) => {
+          const element = textElement;
+          element.style.left = `${5.5 * i}rem`;
+        });
+      });
+    };
+
+    // Change Fonts
     const heroFontHandler = (() => {
       const fontList = [
         'Manrope',
@@ -60,7 +79,7 @@ const events = () => {
 
       let currentIndex = 0;
 
-      const randomFont = () => {
+      const getRandomFontIndex = () => {
         let randomIndex;
         do {
           randomIndex = Math.floor(Math.random() * fontList.length);
@@ -71,177 +90,146 @@ const events = () => {
         return randomIndex;
       };
 
-      const setFont = () => {
-        const fontIndex = randomFont();
+      const applyRandomFont = () => {
+        const fontIndex = getRandomFontIndex();
         heroText.style.fontFamily = fontList[fontIndex];
       };
 
-      return { setFont };
+      return { applyRandomFont };
     })();
 
-    const heroAnimationHandler = () => {
-      for (let i = 0; i < helloText.length; i += 1) {
-        helloText[i].style.left = `${5.5 * i}rem`;
-        loremText[i].style.left = `${5.5 * i}rem`;
-        dogeText[i].style.left = `${5.5 * i}rem`;
-        hiText[i].style.left = `${5.5 * i}rem`;
-      }
-
-      const showText = (text) => {
-        text.forEach((letter, index) => {
-          setTimeout(() => {
-            letter.classList.add('show');
-          }, 50 * index);
-        });
-      };
-
-      const hideText = (text) => {
-        text.forEach((letter, index) => {
-          setTimeout(() => {
-            letter.classList.add('hide');
-          }, 50 * index);
-        });
-      };
-
-      setTimeout(() => {
-        hideText(helloText);
-        showText(loremText);
-      }, 1000);
-
-      setTimeout(() => {
-        hideText(loremText);
-        showText(dogeText);
-      }, 2350);
-
-      setTimeout(() => {
-        hideText(dogeText);
-        showText(hiText);
-      }, 2500);
-
-      setTimeout(() => {
-        for (let i = 0; i < helloText.length; i += 1) {
-          hiText[i].style.left = '50%';
-          hiText[i].style.transform = 'translateX(-50%)';
-          textDot.style.right = '50%';
-          textDot.style.transform = 'translate(50%, -50%)';
-        }
-      }, 4000);
-
-      setTimeout(() => {
-        for (let i = 0; i < helloText.length; i += 1) {
-          hiText[i].style.animation = 'hide-hero-text .15s ease forwards';
-          textDot.style.animation = 'hide-hero-text .15s ease forwards';
-        }
-      }, 4250);
-
-      setTimeout(() => {
-        heroContainer.classList.add('extend');
-      }, 4000);
-
-      setTimeout(() => {
-        const heroMainText = document.querySelector('.hero-main-text');
-
-        decorationLine.forEach((element) => {
-          element.classList.add('show');
-        });
-
-        dateText.forEach((letter, index) => {
-          setTimeout(() => {
-            letter.classList.add('show');
-          }, 75 * index);
-        });
-
-        loremDecorText.forEach((letter, index) => {
-          setTimeout(() => {
-            letter.classList.add('show');
-          }, 75 * index);
-        });
-
-        wordDecorations.forEach((letter, index) => {
-          setTimeout(() => {
-            letter.classList.add('show');
-          }, 75 * index);
-        });
-
-        heroMainText.style.animation =
-          'hero-main-text-show 3s cubic-bezier(0.7, 0, 0.5, 0) forwards';
-
-        angleDecorationsTop.classList.remove('hide');
-        angleDecorationsBottom.classList.remove('hide');
-
-        // Mouse Enter EventListener
-        heroText.addEventListener('mouseenter', () => {
-          heroFontHandler.setFont();
-        });
-
-        body.classList.remove('not-scrollable');
-      }, 4500);
+    const addHeroTextHoverEffect = () => {
+      heroText.addEventListener('mouseenter', heroFontHandler.applyRandomFont);
     };
 
-    const heroScroll = () => {
-      const heroMainText = document.querySelectorAll('.hero-main-text > div');
+    const textAnimationHandler = (() => {
+      const toggleClassOnText = (text, time, className, add = true) => {
+        text.forEach((element, index) => {
+          setTimeout(() => {
+            element.classList.add(className, add);
+          }, time * index);
+        });
+      };
+
+      return {
+        addClassToText: (text, time, className) =>
+          toggleClassOnText(text, time, className, true),
+        removeClassFromText: (text, time, className) =>
+          toggleClassOnText(text, time, className, false),
+      };
+    })();
+
+    const displayHeroDecorations = () => {
+      textAnimationHandler.addClassToText(decorationLine, 0, 'show');
+      textAnimationHandler.addClassToText(decorTextOne, 75, 'show');
+      textAnimationHandler.addClassToText(decorTextTwo, 75, 'show');
+      textAnimationHandler.addClassToText(decorTextThree, 75, 'show');
+
+      angleDecorationsTop.classList.remove('hide');
+      angleDecorationsBottom.classList.remove('hide');
+    };
+
+    const hideHeroDecorations = () => {
+      heroContainer.classList.add('hide');
+
+      textAnimationHandler.addClassToText(heroMainText, 0, 'hide');
+
+      textAnimationHandler.removeClassFromText(decorationLine, 0, 'show');
+      textAnimationHandler.removeClassFromText(decorTextOne, 0, 'show');
+      textAnimationHandler.removeClassFromText(decorTextTwo, 0, 'show');
+      textAnimationHandler.removeClassFromText(decorTextThree, 0, 'show');
+
+      angleDecorationsTop.classList.add('hide');
+      angleDecorationsBottom.classList.add('hide');
+    };
+
+    // Animation Handler
+    const animateHeroSequence = () => {
+      const triggerTextAnimationSequence = () => {
+        const ANIM_TIME = 50;
+
+        setTimeout(() => {
+          textAnimationHandler.addClassToText(helloText, ANIM_TIME, 'hide');
+          textAnimationHandler.addClassToText(loremText, ANIM_TIME, 'show');
+        }, 1000);
+
+        setTimeout(() => {
+          textAnimationHandler.addClassToText(loremText, ANIM_TIME, 'hide');
+          textAnimationHandler.addClassToText(dogeText, ANIM_TIME, 'show');
+        }, 2350);
+
+        setTimeout(() => {
+          textAnimationHandler.addClassToText(dogeText, ANIM_TIME, 'hide');
+          textAnimationHandler.addClassToText(hiText, ANIM_TIME, 'show');
+        }, 2500);
+      };
+
+      const animateFinalTextPositioning = () => {
+        const centerTextElements = () => {
+          hiText.forEach((textElement) => {
+            const element = textElement;
+            element.style.left = '50%';
+            element.style.transform = 'translateX(-50%)';
+          });
+
+          const dotElement = textDot;
+          dotElement.style.right = '50%';
+          dotElement.style.transform = 'translate(50%, -50%)';
+        };
+
+        const hideFinalTextElements = () => {
+          hiText.forEach((textElement) => {
+            const element = textElement;
+            element.style.animation = 'hide-hero-text .15s ease forwards';
+          });
+
+          const dotElement = textDot;
+          dotElement.style.animation = 'hide-hero-text .15s ease forwards';
+        };
+
+        const revealMainHeroText = () => {
+          displayHeroDecorations();
+
+          heroText.style.animation =
+            'hero-main-text-show 3s cubic-bezier(0.7, 0, 0.5, 0) forwards';
+
+          disabledScroll.setScrollable();
+          addHeroTextHoverEffect();
+        };
+
+        setTimeout(centerTextElements, 4000);
+        setTimeout(hideFinalTextElements, 4250);
+        setTimeout(revealMainHeroText, 4500);
+      };
+
+      const expandHeroBackground = () => {
+        setTimeout(() => {
+          heroContainer.classList.add('extend');
+        }, 4000);
+      };
+
+      disabledScroll.setScrollable();
+      setInitialLoadTextPositions();
+      triggerTextAnimationSequence();
+      animateFinalTextPositioning();
+      expandHeroBackground();
+    };
+
+    const monitorHeroScroll = () => {
       if (getVisiblePercentage(hero) > 20) {
         heroContainer.classList.remove('hide');
-        heroMainText.forEach((letter, index) => {
-          setTimeout(() => {
-            letter.classList.remove('hide');
-          }, 100 * index);
-        });
 
-        decorationLine.forEach((element) => {
-          element.classList.add('show');
-        });
+        textAnimationHandler.removeClassFromText(heroMainText, 100, 'hide');
 
-        dateText.forEach((letter, index) => {
-          setTimeout(() => {
-            letter.classList.add('show');
-          }, 75 * index);
-        });
-
-        loremDecorText.forEach((letter, index) => {
-          setTimeout(() => {
-            letter.classList.add('show');
-          }, 75 * index);
-        });
-
-        wordDecorations.forEach((letter, index) => {
-          setTimeout(() => {
-            letter.classList.add('show');
-          }, 75 * index);
-        });
-
-        angleDecorationsTop.classList.remove('hide');
-        angleDecorationsBottom.classList.remove('hide');
+        displayHeroDecorations();
       } else {
-        heroContainer.classList.add('hide');
-        heroMainText.forEach((letter) => {
-          letter.classList.add('hide');
-        });
-
-        decorationLine.forEach((element) => {
-          element.classList.remove('show');
-        });
-
-        dateText.forEach((letter) => {
-          letter.classList.remove('show');
-        });
-
-        loremDecorText.forEach((letter) => {
-          letter.classList.remove('show');
-        });
-
-        wordDecorations.forEach((letter) => {
-          letter.classList.remove('show');
-        });
-
-        angleDecorationsTop.classList.add('hide');
-        angleDecorationsBottom.classList.add('hide');
+        hideHeroDecorations();
       }
     };
 
     return {
-      heroAnimationHandler,
-      heroScroll,
+      animateHeroSequence,
+      monitorHeroScroll,
     };
   })();
 
@@ -697,8 +685,7 @@ const events = () => {
     projectsSectionHandler(e);
   });
 
-  heroEventHandler.heroAnimationHandler();
-  body.classList.add('not-scrollable');
+  heroEventHandler.animateHeroSequence();
 };
 
 export default events;
