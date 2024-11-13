@@ -106,7 +106,7 @@ const events = () => {
       const toggleClassOnText = (text, time, className, add = true) => {
         text.forEach((element, index) => {
           setTimeout(() => {
-            element.classList.add(className, add);
+            element.classList.toggle(className, add);
           }, time * index);
         });
       };
@@ -588,7 +588,7 @@ const events = () => {
   // Scroll Event Listener
   window.addEventListener('scroll', () => {
     setIndicatorActive();
-    heroEventHandler.heroScroll();
+    heroEventHandler.monitorHeroScroll();
     aboutAnimationHandler.aboutScroll();
     checkBoxes();
     projectsAnimationHandler();
