@@ -637,6 +637,11 @@ const events = () => {
 
     const modeTogglerHandler = () => {
       document.documentElement.classList.toggle('light');
+      body.classList.add('mode-transitions');
+
+      setTimeout(() => {
+        body.classList.remove('mode-transitions');
+      }, 10);
     };
 
     if (e.target.closest('#menu-btn')) {
