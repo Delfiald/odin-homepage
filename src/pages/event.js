@@ -1,4 +1,5 @@
 import menu from '../components/menu';
+import themeHandler from '../data/themeData';
 
 const events = () => {
   const body = document.querySelector('body');
@@ -642,6 +643,12 @@ const events = () => {
       setTimeout(() => {
         body.classList.remove('mode-transitions');
       }, 10);
+
+      if (document.documentElement.className === 'light') {
+        themeHandler.saveTheme('light');
+      } else {
+        themeHandler.saveTheme('');
+      }
     };
 
     if (e.target.closest('#menu-btn')) {
@@ -691,6 +698,14 @@ const events = () => {
   });
 
   heroEventHandler.animateHeroSequence();
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = themeHandler.getTheme();
+
+    if (savedTheme === 'light') {
+      document.documentElement.classList.add('light');
+    }
+  });
 };
 
 export default events;
