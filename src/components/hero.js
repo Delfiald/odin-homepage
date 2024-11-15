@@ -99,21 +99,28 @@ const createHeroWrapper = () => {
     const text = document.createElement('div');
     text.className = 'hero-text';
     text.dataset.textId = i + 1;
-    createSeparateLetter(textList[i], text);
+    const textWrapper = document.createElement('div');
+    textWrapper.className = 'hero-text-wrapper';
+    createSeparateLetter(textList[i], textWrapper);
 
     if (i === 0) {
       const heroDot = document.createElement('span');
-      text.appendChild(heroDot);
+      textWrapper.appendChild(heroDot);
     }
+
+    text.appendChild(textWrapper);
 
     heroText.appendChild(text);
   }
 
   const heroMainText = document.createElement('div');
   heroMainText.className = 'hero-main-text';
-  letterseparator('HI', heroMainText);
+  const heroMainTextWrapper = document.createElement('div');
+  heroMainTextWrapper.className = 'hero-main-text-wrapper';
+  letterseparator('HI', heroMainTextWrapper);
   const heroDot = document.createElement('span');
-  heroMainText.appendChild(heroDot);
+  heroMainTextWrapper.appendChild(heroDot);
+  heroMainText.appendChild(heroMainTextWrapper);
   heroText.appendChild(heroMainText);
 
   heroWrapper.appendChild(heroText);

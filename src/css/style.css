@@ -20,10 +20,10 @@
   --color-light-600: #ccc;
   --color-light-700: #b3b3b3;
 
-
   --text-color: var(--color-light-200);
   --background-color: var(--color-dark-200);
   --hero-background-color: var(--color-dark-300);
+  --letter-space: 9.5;
   --skill-color: var(--color-dark-300);
 
   --details-decoration-color: var(--color-light-600);
@@ -535,59 +535,69 @@ main > * {
   width: inherit;
   position: relative;
   font-size: 6rem;
-  overflow: hidden;
 }
 
 .hero-wrapper h1 .hero-text {
-  height: 6rem;
+  width: inherit;
+  height: inherit;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  overflow: hidden;
+}
+
+.hero-wrapper h1 .hero-text .hero-text-wrapper {
+  width: 85vw;
+  height: inherit;
+  position: relative;
   display: grid;
   grid-template-columns: repeat(12, 5rem);
   align-items: center;
   justify-content: center;
-  cursor: default;
 }
 
-.hero-wrapper h1 .hero-text > div {
+.hero-wrapper h1 .hero-text .hero-text-wrapper > div {
   width: min-content;
   position: absolute;
   justify-self: center;
   transform: translate(-50%, 0);
 }
 
-.hero-wrapper h1 .hero-text > span {
+.hero-wrapper h1 .hero-text .hero-text-wrapper > span {
   position: absolute;
   width: 1.75rem;
   height: 1.75rem;
   background: var(--text-color);
   border-radius: 50%;
-  bottom: 0;
+  bottom: calc(3rem - 1.75rem);
   right: -2rem;
   transform: translate(0, -50%);
   transition: .5s all ease;
 }
 
-.hero-wrapper h1 .hero-text:nth-child(2) > div,
-.hero-wrapper h1 .hero-text:nth-child(3) > div,
-.hero-wrapper h1 .hero-text:nth-child(4) > div {
+.hero-wrapper h1 .hero-text:nth-child(2) .hero-text-wrapper > div,
+.hero-wrapper h1 .hero-text:nth-child(3) .hero-text-wrapper > div,
+.hero-wrapper h1 .hero-text:nth-child(4) .hero-text-wrapper > div {
   transform: translate(-50%, 100%);
   transition: .5s all ease-in-out;
 }
 
-.hero-wrapper h1 .hero-text:nth-child(2) > div.show,
-.hero-wrapper h1 .hero-text:nth-child(3) > div.show,
-.hero-wrapper h1 .hero-text:nth-child(4) > div.show {
+.hero-wrapper h1 .hero-text:nth-child(2) .hero-text-wrapper > div.show,
+.hero-wrapper h1 .hero-text:nth-child(3) .hero-text-wrapper > div.show,
+.hero-wrapper h1 .hero-text:nth-child(4) .hero-text-wrapper > div.show {
   transform: translate(-50%, 0) rotate(0);
 }
 
-.hero-wrapper h1 .hero-text > div {
+.hero-wrapper h1 .hero-text .hero-text-wrapper > div {
   transition: .5s all ease;
 }
 
-.hero-wrapper h1 .hero-text > div.hide {
+.hero-wrapper h1 .hero-text .hero-text-wrapper > div.hide {
   transform: translate(-50%, -100%) !important;
 }
 
@@ -600,14 +610,20 @@ main > * {
   font-size: 7rem;
   cursor: default;
   transition: .25s all ease;
+  overflow: hidden;
+  padding: 1rem;
+  height: 9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.hero-wrapper h1 .hero-main-text > div {
+.hero-wrapper h1 .hero-main-text .hero-main-text-wrapper > div {
   display: inline-block;
   transition: .5s .5s all ease;
 }
 
-.hero-wrapper h1 .hero-main-text > div.hide {
+.hero-wrapper h1 .hero-main-text .hero-main-text-wrapper > div.hide {
   transition: .15s all ease-in-out;
   transform: translateY(100%);
 }
@@ -2327,6 +2343,8 @@ main > * {
   position: relative;
   transition: 1s all ease;
   transform: scaleX(0);
+  width: 80vw;
+  justify-self: center;
 }
 
 #footer > div:nth-child(2)::before,
@@ -2473,7 +2491,7 @@ main > * {
     opacity: 1;
   }
 
-  25% {
+  12.5% {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1.25);
   }
@@ -2621,6 +2639,58 @@ main > * {
   }
 }
 
+@media (max-width: 1300px) {
+  #about .about-container .about-overview {
+    font-size: 1.75rem;
+  }
+
+  #about .about-container .description-section {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 1100px) {
+  .hero-wrapper h1 {
+    font-size: 5rem;
+  }
+
+  #about .about-container .about-overview {
+    font-size: 1.4rem;
+  }
+
+  #about .about-container .description-section {
+    font-size: 1.25rem;
+  }
+
+  #about .about-container .about-details .details-section {
+    font-size: 1rem;
+  }
+
+  #about .about-container .about-details .link-section {
+    font-size: 1.25rem;
+  }
+
+  #about .about-container .more-btn, #about .about-container .less-btn {
+    font-size: 1.25rem;
+  }
+
+  #about .about-container .more-btn {
+    left: calc(66% - 3.5rem);
+  }
+
+  #about .about-container .less-btn {
+    left: calc(100% - 7.5rem);
+  }
+
+  #projects .projects-title {
+    font-size: 2rem;
+  }
+
+  #projects .projects-overview .projects-details > div {
+    font-size: .75rem;
+  }
+}
+
 @media (max-width: 900px) {
   #skills .skills-wrapper {
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
@@ -2650,6 +2720,18 @@ main > * {
 }
 
 @media (max-width: 800px) {
+  .hero-wrapper h1 {
+    font-size: 4rem;
+  }
+
+  .hero-container .hero-wrapper {
+    height: 6rem;
+  }
+
+  .hero-wrapper h1 .hero-text .hero-text-wrapper > span {
+    bottom: calc(1.5rem - 1rem);
+  }
+
   #skills .skills-wrapper {
     grid-template-columns: repeat(auto-fill, minmax(70px, 12%));
     grid-auto-rows: 10vh;
@@ -2658,6 +2740,25 @@ main > * {
 }
 
 @media (max-width: 600px) {
+  .hero-container .hero-wrapper {
+    height: 4.5rem;
+  }
+
+  .hero-wrapper h1 .hero-text .hero-text-wrapper > span {
+    right: -1.5rem;
+    width: 1rem;
+    height: 1rem;
+    bottom: calc(2rem - 1rem);
+  }
+
+  .hero-wrapper h1 {
+    font-size: 2rem;
+  }
+
+  .hero-wrapper h1 .hero-main-text {
+    font-size: 6rem;
+  }
+
   #skills {
     mask-image: none;
   }
