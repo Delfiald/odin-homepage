@@ -324,14 +324,11 @@ const events = () => {
         textShowHandler(aboutDescriptionsSections);
         moreBtn.classList.add('show');
         scrollWrapper.classList.add('show');
-
         textShowHandler(scrollLetter);
 
-        if (aboutSection.classList.contains('more')) {
-          textShowHandler(aboutCTAText);
-          detailSection.classList.add('show');
-          aboutCTAButton.classList.add('show');
-        }
+        detailSection.classList.add('show');
+        aboutCTAButton.classList.add('show');
+        textShowHandler(aboutCTAText);
       } else {
         textHideHandler(aboutTitleLetters);
         textHideHandler(aboutNameSections);
