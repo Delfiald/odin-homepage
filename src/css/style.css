@@ -666,22 +666,20 @@ main > * {
   transition: .15s all ease;
 }
 
-.hero-container > .decoration-line:nth-child(3) {
+.hero-container > .decoration-line:nth-child(3),
+.hero-container > .decoration-line:nth-child(4) {
   position: absolute;
   top: 25%;
   left: 70%;
   transform: translate(-50%, -50%);
   overflow: hidden;
   cursor: default;
+  padding: 0 1rem;
 }
 
 .hero-container > .decoration-line:nth-child(4) {
-  position: absolute;
   top: 75%;
   left: 30%;
-  transform: translate(-50%, -50%);
-  overflow: hidden;
-  cursor: default;
 }
 
 .hero-container .decoration-line .line-wrapper {
@@ -696,12 +694,12 @@ main > * {
   content: '';
   position: absolute;
   bottom: 0;
-  left: 0;
-  width: 100%;
+  left: 50%;
+  width: clamp(100px, 80%, 200px);
   height: 1px;
   background: linear-gradient(to right, var(--hero-background-color) 0%, var(--text-color) 50%, var(--hero-background-color) 100%);
   border-radius: 10px;
-  transform: scaleX(0);
+  transform: translateX(-50%) scaleX(0);
   transform-origin: left;
   transition: .15s all ease-in-out;
 }
@@ -712,7 +710,7 @@ main > * {
 }
 
 .hero-container .decoration-line.show .line-wrapper::before {
-  transform: scaleX(1);
+  transform: translateX(-50%) scaleX(1);
   transition: .5s .5s all ease;
 }
 
