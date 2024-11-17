@@ -34,10 +34,18 @@ const events = () => {
   const heroEventHandler = (() => {
     const hero = document.getElementById('hero');
     const heroContainer = hero.querySelector('.hero-container');
-    const helloText = hero.querySelectorAll('.hero-text:first-child > div');
-    const loremText = hero.querySelectorAll('.hero-text:nth-child(2) > div');
-    const dogeText = hero.querySelectorAll('.hero-text:nth-child(3) > div');
-    const hiText = hero.querySelectorAll('.hero-text:nth-child(4) > div');
+    const helloText = hero.querySelectorAll(
+      '.hero-text:first-child .hero-text-wrapper > div'
+    );
+    const loremText = hero.querySelectorAll(
+      '.hero-text:nth-child(2) .hero-text-wrapper > div'
+    );
+    const dogeText = hero.querySelectorAll(
+      '.hero-text:nth-child(3) .hero-text-wrapper > div'
+    );
+    const hiText = hero.querySelectorAll(
+      '.hero-text:nth-child(4) .hero-text-wrapper > div'
+    );
     const textDot = hero.querySelector('.hero-text span');
     const decorationLine = hero.querySelectorAll('.decoration-line');
     const decorTextOne = hero.querySelectorAll(
@@ -54,14 +62,19 @@ const events = () => {
       '.decoration-angle:last-child'
     );
     const angleDecorationsBottom = hero.querySelector('.decoration-angle');
-    const heroMainText = heroText.querySelectorAll('div');
+    const heroMainText = heroText.querySelectorAll(
+      '.hero-main-text-wrapper > div'
+    );
 
     const setInitialLoadTextPositions = () => {
       const texts = [helloText, loremText, dogeText, hiText];
+      const rootStyles = getComputedStyle(document.documentElement);
+      let letterSpace = rootStyles.getPropertyValue('--letter-space').trim();
+      letterSpace = parseFloat(letterSpace) || 0;
       texts.forEach((textArray) => {
         textArray.forEach((textElement, i) => {
           const element = textElement;
-          element.style.left = `${5.5 * i}rem`;
+          element.style.left = `${letterSpace * i}%`;
         });
       });
     };
@@ -171,11 +184,13 @@ const events = () => {
             const element = textElement;
             element.style.left = '50%';
             element.style.transform = 'translateX(-50%)';
+            element.style.transition = '1s all cubic-bezier(.75, 0, .8, 0)';
           });
 
           const dotElement = textDot;
           dotElement.style.right = '50%';
           dotElement.style.transform = 'translate(50%, -50%)';
+          dotElement.style.transition = '1s all cubic-bezier(.75, 0, .8, 0)';
         };
 
         const hideFinalTextElements = () => {
@@ -199,14 +214,14 @@ const events = () => {
         };
 
         setTimeout(centerTextElements, 4000);
-        setTimeout(hideFinalTextElements, 4250);
-        setTimeout(revealMainHeroText, 4500);
+        setTimeout(hideFinalTextElements, 4900);
+        setTimeout(revealMainHeroText, 4900);
       };
 
       const expandHeroBackground = () => {
         setTimeout(() => {
           heroContainer.classList.add('extend');
-        }, 4000);
+        }, 4300);
       };
 
       disabledScroll.setScrollable();
@@ -309,14 +324,11 @@ const events = () => {
         textShowHandler(aboutDescriptionsSections);
         moreBtn.classList.add('show');
         scrollWrapper.classList.add('show');
-
         textShowHandler(scrollLetter);
 
-        if (aboutSection.classList.contains('more')) {
-          textShowHandler(aboutCTAText);
-          detailSection.classList.add('show');
-          aboutCTAButton.classList.add('show');
-        }
+        detailSection.classList.add('show');
+        aboutCTAButton.classList.add('show');
+        textShowHandler(aboutCTAText);
       } else {
         textHideHandler(aboutTitleLetters);
         textHideHandler(aboutNameSections);

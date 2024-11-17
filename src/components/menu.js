@@ -28,6 +28,10 @@ const createMenuActions = () => {
   menuActions.className = 'menu-actions';
 
   const resumeButtons = document.createElement('a');
+  resumeButtons.href =
+    'https://drive.google.com/file/d/1iSARtnbd53uTodpo46eMjNZOEwEe3ojA/view?usp=drive_open';
+  resumeButtons.rel = 'noopener noreferrer';
+  resumeButtons.target = '_blank';
   resumeButtons.className = 'resume-button';
   const resumeIcon = document.createElement('i');
   resumeIcon.className = 'fas fa-paperclip';
