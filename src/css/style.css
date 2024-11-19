@@ -1557,6 +1557,7 @@ main > * {
   opacity: 0;
   transform: translateY(50%);
   transition: .15s all ease-in-out;
+  cursor: default;
 }
 
 #projects.show .projects-title {
@@ -1767,13 +1768,12 @@ main > * {
   gap: 8px;
   overflow: hidden;
   cursor: default !important;
-  color: var(--color-light-400);
 }
 
 #projects .projects-overview .projects-carousel .project-repo a {
   transform: scale(0);
   transition: .15s all ease-in-out;
-  color: var(--color-light-400);
+  color: var(--text-color);
 }
 
 #projects .projects-overview .projects-carousel > div.active .project-repo a {
@@ -1790,8 +1790,9 @@ main > * {
 #projects .projects-overview .projects-carousel .project-repo i {
   font-size: 1.5rem;
   transition: .25s all ease;
-  opacity: .5;
+  opacity: .75;
   cursor: pointer;
+  color: var(--text-color);
 }
 
 #projects .projects-overview .projects-carousel .project-repo a:hover i {
@@ -1834,7 +1835,7 @@ main > * {
   flex-direction: column;
   gap: 1rem;
   padding: 1rem;
-  background: linear-gradient(360deg, var(--color-dark-400) 30%, transparent 100%);
+  background: linear-gradient(360deg, var(--color-dark-400) 3%, transparent 100%);
   transform: translateY(40%);
   transition: .5s all ease;
   color: var(--color-light-400);
@@ -2064,7 +2065,7 @@ main > * {
 #projects .projects-list > div {
   display: grid;
   grid-template-columns: 1fr;
-  grid-auto-rows: 550px;
+  grid-auto-rows: 600px;
   justify-content: center;
   row-gap: 3rem;
   align-items: center;
@@ -2131,7 +2132,7 @@ main > * {
 #projects .projects-list .card .card-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   transition: .5s all ease;
 }
 
@@ -2140,10 +2141,11 @@ main > * {
 }
 
 #projects .projects-list .card .card-details {
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content 100px min-content min-content;
+  align-items: start;
   justify-content: center;
-  flex-direction: column;
   gap: .75rem;
   padding: 1rem 1rem;
   transition: .35s all ease;
@@ -2161,7 +2163,12 @@ main > * {
   font-weight: bolder;
 }
 
+#projects .projects-list .card-row:first-child .card:last-child .card-summary {
+  font-size: .9rem;
+}
+
 #projects .projects-list .card .card-techs {
+  justify-self: start;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2893,6 +2900,14 @@ main > * {
   #skills .skills-wrapper:nth-child(even) .skill:hover .skill-description {
     transform: translateY(-275%);
   }
+
+  #projects .projects-list .card-row .card-summary {
+    font-size: .95rem !important;
+  }
+
+  #projects .projects-list .card-row:first-child .card:last-child .card-summary {
+    font-size: .85rem !important;
+  }
 }
 
 @media (max-width: 800px) {
@@ -2917,6 +2932,14 @@ main > * {
     grid-auto-rows: 10vh;
     grid-auto-flow: row;
   }
+
+  #projects .projects-list .card-row .card-summary {
+    font-size: .85rem !important;
+  }
+
+  #projects .projects-list .card-row:first-child .card:last-child .card-summary {
+    font-size: .8rem !important;
+  }
 }
 
 @media (max-width: 600px) {
@@ -2936,7 +2959,7 @@ main > * {
   }
 
   .hero-wrapper h1 .hero-main-text {
-    font-size: 6rem;
+    font-size: 5.5rem;
   }
 
   #about .about-container .about-overview {
@@ -3078,6 +3101,18 @@ main > * {
 
   #projects .projects-list .card {
     padding: .25rem .25rem 1rem;
+  }
+
+  #projects .projects-list .card .card-title {
+    font-size: 1.75rem;
+  }  
+
+  #projects .projects-list .card-row .card-summary {
+    font-size: .8rem !important;
+  }
+
+  #projects .projects-list .card-row:first-child .card:last-child .card-summary {
+    font-size: .7rem !important;
   }
 
   #footer .github-button {

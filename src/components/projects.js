@@ -19,7 +19,17 @@ const createProjectsTitle = () => {
 const createFeaturesList = (featuresList, projectFeat, index = 0) => {
   const feature = document.createElement('li');
   feature.className = `feature-${index}`;
-  feature.textContent = projectFeat;
+
+  const [titleText, descriptionText] = projectFeat.split(':');
+
+  const title = document.createElement('span');
+  title.textContent = titleText.trim();
+  title.style.fontWeight = 'bold';
+
+  const description = document.createTextNode(`: ${descriptionText.trim()}`);
+
+  feature.appendChild(title);
+  feature.appendChild(description);
 
   featuresList.appendChild(feature);
 };
