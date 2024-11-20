@@ -288,6 +288,10 @@ const events = () => {
           '.easter-egg-wrapper .easter-egg .easter-second-text'
         );
 
+        const easterEggThirdText = document.querySelector(
+          '.easter-egg-wrapper .easter-egg .easter-third-text'
+        );
+
         const easterEggImage = document.querySelector(
           '.easter-egg-wrapper .easter-image-wrapper'
         );
@@ -311,21 +315,29 @@ const events = () => {
         }, 8000);
 
         setTimeout(() => {
-          easterEggImage.classList.add('show');
-        }, 18000);
+          easterEggThirdText.classList.add('show');
+        }, 10000);
 
         setTimeout(() => {
-          easterEggImage.classList.remove('show');
+          easterEggThirdText.classList.remove('show');
+        }, 13000);
+
+        setTimeout(() => {
+          easterEggImage.classList.add('show');
         }, 23000);
 
         setTimeout(() => {
+          easterEggImage.classList.remove('show');
+        }, 33000);
+
+        setTimeout(() => {
           easterEggLastText.classList.add('show');
-        }, 30000);
+        }, 43000);
 
         setTimeout(() => {
           easterEggCloseArrow.style.opacity = '1';
           easterEggCloseArrow.style.visibility = 'visible';
-        }, 35000);
+        }, 47000);
       };
 
       const closeEasterEggSection = () => {

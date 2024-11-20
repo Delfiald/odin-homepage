@@ -2457,12 +2457,12 @@ main > * {
 
 .easter-egg-wrapper .easter-egg .easter-first-text {
   position: absolute;
-  font-size: 1.75rem;
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+  font-size: 1.75rem;
 }
 
 .easter-egg-wrapper .easter-egg .easter-first-text.hide {
@@ -2470,7 +2470,9 @@ main > * {
   visibility: hidden;
 }
 
-.easter-egg-wrapper .easter-egg .easter-second-text {
+.easter-egg-wrapper .easter-egg .easter-second-text,
+.easter-egg-wrapper .easter-egg .easter-third-text,
+.easter-egg-wrapper .easter-egg .easter-last-text {
   position: absolute;
   display: flex;
   align-items: center;
@@ -2483,6 +2485,7 @@ main > * {
 }
 
 .easter-egg-wrapper .easter-egg .easter-second-text.show,
+.easter-egg-wrapper .easter-egg .easter-third-text.show,
 .easter-egg-wrapper .easter-egg .easter-image-wrapper.show,
 .easter-egg-wrapper .easter-egg .easter-last-text.show {
   opacity: 1;

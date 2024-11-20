@@ -16,6 +16,10 @@ export const createEasterEggWrapper = () => {
   easterEggSecondText.textContent = 'How to make friends in real life! 🤯';
   easterEggSecondText.className = 'easter-second-text';
 
+  const easterEggThirdText = document.createElement('div');
+  easterEggThirdText.textContent = 'Step 1.';
+  easterEggThirdText.className = 'easter-third-text';
+
   const easterImageWrapper = document.createElement('div');
   easterImageWrapper.className = 'easter-image-wrapper';
   const easterImage = document.createElement('img');
@@ -44,6 +48,7 @@ export const createEasterEggWrapper = () => {
 
   easterEgg.appendChild(easterEggFirstText);
   easterEgg.appendChild(easterEggSecondText);
+  easterEgg.appendChild(easterEggThirdText);
   easterEgg.appendChild(easterImageWrapper);
   easterEgg.appendChild(easterEggLastText);
   easterEgg.appendChild(closeButtonWrapper);
