@@ -88,7 +88,7 @@ const createDetailsItem = (projectsDetailsContainer, project) => {
   const projectsTechHeader = document.createElement('div');
   projectsTechHeader.className = 'details-header';
   const techText = document.createElement('h3');
-  techText.textContent = 'Tech Stacks';
+  techText.textContent = 'Tech Stack';
   const techStack = document.createElement('div');
   techStack.className = 'tech-stack';
 

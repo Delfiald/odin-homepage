@@ -1,3 +1,4 @@
+import createEasterEgg, { createEasterEggWrapper } from '../components/easter';
 import menu from '../components/menu';
 import themeHandler from '../data/themeData';
 
@@ -18,6 +19,7 @@ const events = () => {
     return (visibleHeight / windowHeight) * 100;
   };
 
+  // Disabled Scroll and set to Top
   const disabledScroll = (() => {
     window.onbeforeunload = () => {
       window.scrollTo(0, 0);
@@ -65,7 +67,11 @@ const events = () => {
     const heroMainText = heroText.querySelectorAll(
       '.hero-main-text-wrapper > div'
     );
+    const easterButton = heroText.querySelector(
+      '.hero-main-text-wrapper > span'
+    );
 
+    // Set initial Start Text Positions
     const setInitialLoadTextPositions = () => {
       const texts = [helloText, loremText, dogeText, hiText];
       const rootStyles = getComputedStyle(document.documentElement);
@@ -112,10 +118,18 @@ const events = () => {
       return { applyRandomFont };
     })();
 
+    // Change Fonts when Mouse Enter HeroText
     const addHeroTextHoverEffect = () => {
       heroText.addEventListener('mouseenter', heroFontHandler.applyRandomFont);
     };
 
+    // Turn On Easter Button
+    const addEasterButtonEvent = () => {
+      easterButton.style.cursor = 'pointer';
+      easterButton.style.pointerEvents = 'auto';
+    };
+
+    // Text Animation Handler
     const textAnimationHandler = (() => {
       const toggleClassOnText = (text, time, className, add = true) => {
         text.forEach((element, index) => {
@@ -133,6 +147,7 @@ const events = () => {
       };
     })();
 
+    // Show Hero Section Decorations
     const displayHeroDecorations = () => {
       textAnimationHandler.addClassToText(decorationLine, 0, 'show');
       textAnimationHandler.addClassToText(decorTextOne, 75, 'show');
@@ -143,6 +158,7 @@ const events = () => {
       angleDecorationsBottom.classList.remove('hide');
     };
 
+    // Hide Hero Decorations
     const hideHeroDecorations = () => {
       heroContainer.classList.add('hide');
 
@@ -178,8 +194,10 @@ const events = () => {
         }, 2500);
       };
 
+      // Animate Main Hero Text
       const animateFinalTextPositioning = () => {
         const centerTextElements = () => {
+          // Centered Last Start Text
           hiText.forEach((textElement) => {
             const element = textElement;
             element.style.left = '50%';
@@ -193,6 +211,7 @@ const events = () => {
           dotElement.style.transition = '1s all cubic-bezier(.75, 0, .8, 0)';
         };
 
+        // Hide Last Start Text
         const hideFinalTextElements = () => {
           hiText.forEach((textElement) => {
             const element = textElement;
@@ -203,6 +222,7 @@ const events = () => {
           dotElement.style.animation = 'hide-hero-text .15s ease forwards';
         };
 
+        // Reveal Main Hero Section Text
         const revealMainHeroText = () => {
           displayHeroDecorations();
 
@@ -211,6 +231,7 @@ const events = () => {
 
           disabledScroll.setScrollable();
           addHeroTextHoverEffect();
+          addEasterButtonEvent();
         };
 
         setTimeout(centerTextElements, 4000);
@@ -218,6 +239,7 @@ const events = () => {
         setTimeout(revealMainHeroText, 4900);
       };
 
+      // Expand Hero Background
       const expandHeroBackground = () => {
         setTimeout(() => {
           heroContainer.classList.add('extend');
@@ -243,9 +265,102 @@ const events = () => {
       }
     };
 
+    // Trigger Easter Egg
+    const triggerEasterEgg = (e) => {
+      const expandEasterEggBackground = () => {
+        const easterEggBackground = document.querySelector(
+          '.easter-egg-background'
+        );
+        const rect = easterButton.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        easterEggBackground.style.left = `${centerX + window.scrollX}px`;
+        easterEggBackground.style.top = `${centerY + window.scrollY}px`;
+      };
+
+      const easterEggAnimationSequence = () => {
+        const easterEggText = document.querySelector(
+          '.easter-egg-wrapper .easter-egg .easter-first-text'
+        );
+
+        const easterEggSecondText = document.querySelector(
+          '.easter-egg-wrapper .easter-egg .easter-second-text'
+        );
+
+        const easterEggImage = document.querySelector(
+          '.easter-egg-wrapper .easter-image-wrapper'
+        );
+        const easterEggLastText = document.querySelector(
+          '.easter-egg-wrapper .easter-last-text'
+        );
+        const easterEggCloseArrow = document.querySelector(
+          '.easter-egg-wrapper .easter-close-wrapper > i'
+        );
+
+        setTimeout(() => {
+          easterEggText.classList.add('hide');
+        }, 3000);
+
+        setTimeout(() => {
+          easterEggSecondText.classList.add('show');
+        }, 5000);
+
+        setTimeout(() => {
+          easterEggSecondText.classList.remove('show');
+        }, 8000);
+
+        setTimeout(() => {
+          easterEggImage.classList.add('show');
+        }, 18000);
+
+        setTimeout(() => {
+          easterEggImage.classList.remove('show');
+        }, 23000);
+
+        setTimeout(() => {
+          easterEggLastText.classList.add('show');
+        }, 30000);
+
+        setTimeout(() => {
+          easterEggCloseArrow.style.opacity = '1';
+          easterEggCloseArrow.style.visibility = 'visible';
+        }, 35000);
+      };
+
+      const closeEasterEggSection = () => {
+        const easterEggBackground = document.querySelector(
+          '.easter-egg-background'
+        );
+        const easterEgg = document.querySelector('.easter-egg-wrapper');
+        easterEggBackground.remove();
+        easterEgg.remove();
+      };
+
+      if (e.target.closest('#hero .hero-main-text-wrapper > span')) {
+        if (!document.querySelector('.easter-egg')) {
+          hero.appendChild(createEasterEgg());
+          const easterEggBackground = document.querySelector(
+            '.easter-egg-background'
+          );
+          expandEasterEggBackground(easterEggBackground);
+
+          easterEggBackground.addEventListener('animationend', () => {
+            hero.appendChild(createEasterEggWrapper());
+            easterEggAnimationSequence();
+            disabledScroll.setScrollable();
+          });
+        }
+      } else if (e.target.closest('.easter-close-btn')) {
+        closeEasterEggSection();
+        disabledScroll.setScrollable();
+      }
+    };
+
     return {
       animateHeroSequence,
       monitorHeroScroll,
+      triggerEasterEgg,
     };
   })();
 
@@ -703,15 +818,16 @@ const events = () => {
 
   // Click Event Listener
   body.addEventListener('click', (e) => {
-    menuHandler(e);
+    heroEventHandler.triggerEasterEgg(e);
     aboutAnimationHandler.aboutClick(e);
+    menuHandler(e);
     sectionHandler(e);
     projectsSectionHandler(e);
   });
 
-  heroEventHandler.animateHeroSequence();
-
   document.addEventListener('DOMContentLoaded', () => {
+    heroEventHandler.animateHeroSequence();
+
     const savedTheme = themeHandler.getTheme();
 
     if (savedTheme === 'light') {
