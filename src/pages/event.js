@@ -27,6 +27,7 @@ const events = () => {
 
     const setScrollable = () => {
       body.classList.toggle('not-scrollable');
+      window.scrollTo(0, 0);
     };
 
     return { setScrollable };
@@ -275,8 +276,8 @@ const events = () => {
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
 
-        easterEggBackground.style.left = `${centerX + window.scrollX}px`;
-        easterEggBackground.style.top = `${centerY + window.scrollY}px`;
+        easterEggBackground.style.left = `${centerX}px`;
+        easterEggBackground.style.top = `${centerY}px`;
       };
 
       const easterEggAnimationSequence = () => {
