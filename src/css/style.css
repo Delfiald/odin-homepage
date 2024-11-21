@@ -3116,6 +3116,10 @@ main > * {
     font-size: .8rem;
   }
 
+  #about.more .about-container .about-overview .name-section {
+    transform: none;
+  }
+
   #about .about-container .about-details .details-section {
     font-size: .8rem;
   }

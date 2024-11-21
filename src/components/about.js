@@ -62,7 +62,7 @@ const createDetailsSection = () => {
   detailsContent.className = 'details-section';
   const detailsContentText = document.createElement('div');
   detailsContentText.className = 'details-text';
-  detailsContentText.textContent = `As an enthusiastic web developer and recent graduate, I have a strong passion for coding and problem-solving. Though I'm at the start of my professional journey, I've sharpened my skills through rigorous online courses like The Odin Project. These programs have given me a solid foundation in HTML, CSS, JavaScript, and various modern web development frameworks. My portfolio highlights practical projects that demonstrate my commitment to continuous learning and my ability to create innovative web solutions!`;
+  detailsContentText.textContent = `As a recent graduate with a strong interest in front-end development, I'm committed to making web apps that are clear, responsive, and easy to use. I've solidified my knowledge of HTML, CSS, JavaScript, and contemporary web development frameworks. My portfolio includes projects that demonstrate my ability to solve problems, pay close attention to detail, and be dedicated to lifelong learning. I'm eager to contribute my skills to deliver innovative and offer innovative web solutions.`;
   detailsContent.appendChild(detailsContentText);
 
   const detailsLink = document.createElement('div');
