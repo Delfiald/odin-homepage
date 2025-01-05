@@ -1,9 +1,9 @@
 // Screenshot
+import pokemonMemoryCard from '../assets/projects/pokemonMemoryCard.png';
+import cvGenerator from '../assets/projects/cvGenerator.png';
 import battleship from '../assets/projects/battleship.png';
 import weatherApp from '../assets/projects/weatherApp.png';
 import todoList from '../assets/projects/todoList.png';
-import restaurantPage from '../assets/projects/restaurantPage.png';
-import library from '../assets/projects/library.png';
 import tictactoe from '../assets/projects/tictactoe.png';
 import adminDashboard from '../assets/projects/adminDashboard.png';
 import calculator from '../assets/projects/calculator.png';
@@ -57,6 +57,35 @@ const projectsData = (() => {
 const projectsList = () => {
   // Projects 1
   projectsData.addProjects(
+    pokemonMemoryCard,
+    'Pokemon Memory Card',
+    'Pokemon Memory Card is a memory game featuring 1025 unique Pokémon cards styled by type. Test your skills and explore detailed Pokémon info!',
+    [
+      'Memory Challenge: Avoid duplicate clicks on 1025 unique Pokémon cards styled by type, with detailed stats and abilities.',
+      'Difficulty Levels: Play on Easy, Medium, and Hard modes while tracking high scores to improve your skills.',
+      'Responsive Design: Enjoy seamless gameplay on desktop and mobile devices.',
+    ],
+    [getIcon('react'), getIcon('js'), getIcon('html'), getIcon('css')],
+    'https://dogeheck-pokemonmemory.netlify.app/',
+    'https://github.com/Delfiald/memory-card'
+  );
+  // Projects 2
+  projectsData.addProjects(
+    cvGenerator,
+    'CV Generator',
+    'Restaurant Page is a modular and responsive web app built with Webpack, offering interactive sections like home, menu, and about with efficient content loading.',
+    [
+      'ATS Mode: Optimize CVs with custom fonts and section rearrangement for ATS compatibility.',
+      'Graphics Mode: Design visually appealing CVs with adjustable fonts, layouts, and colors.',
+      'Live Preview: Real-time updates for all customization changes.',
+      'User-Friendly Interface: Simplify CV creation with easy-to-use tools.',
+    ],
+    [getIcon('react'), getIcon('js'), getIcon('html'), getIcon('css')],
+    'https://dogeheck-cv-application.netlify.app/',
+    'https://github.com/Delfiald/cv-application'
+  );
+  // Projects 3
+  projectsData.addProjects(
     battleship,
     'Battleship',
     'Battleship is a web-based adaptation of the classic game, offering strategic gameplay against AI or opponents, optimized for mobile and desktop.',
@@ -75,11 +104,11 @@ const projectsList = () => {
     'https://delfiald.github.io/odin-battleship/',
     'https://github.com/Delfiald/odin-battleship'
   );
-  // Projects 2
+  // Projects 4
   projectsData.addProjects(
     weatherApp,
     'Weather App',
-    'Weather Apps is a sleek and efficient application that delivers accurate, real-time weather updates with a visually engaging interface. By leveraging modern JavaScript and asynchronous programming, it ensures a seamless experience for users on any device.',
+    'Weather Apps provides accurate real-time updates with a sleek interface, using modern JavaScript for a seamless experience on any device.',
     [
       'Real-Time Weather & Unit Conversion: Fetch weather data by location or city and switch between Metric and Imperial units.',
       'Dynamic Backgrounds & Clear Visualization: Background changes based on weather, with clear display of temperature, humidity, and conditions.',
@@ -89,11 +118,11 @@ const projectsList = () => {
     'https://delfiald.github.io/odin-weather-app/',
     'https://github.com/Delfiald/odin-weather-app'
   );
-  // Projects 3
+  // Projects 5
   projectsData.addProjects(
     todoList,
     'To-do List',
-    'This project is a dynamic and user-friendly Todo List application designed to help you organize and manage your tasks effortlessly. With its sleek interface and robust features, the application ensures that you stay on top of your schedule while keeping everything in one place.',
+    'This Todo List app helps you organize and manage tasks effortlessly with a sleek interface and robust features to keep everything in one place.',
     [
       'Efficient Task Management: Add, edit, delete, and organize tasks by projects with custom icons.',
       'Quick Access Views: Filter tasks by due date or completion status.',
@@ -102,34 +131,6 @@ const projectsList = () => {
     [getIcon('js'), getIcon('html'), getIcon('css'), getIcon('webpack')],
     'https://delfiald.github.io/odin-todo-list/',
     'https://github.com/Delfiald/odin-todo-list'
-  );
-  // Projects 4
-  projectsData.addProjects(
-    restaurantPage,
-    'Restaurant Page',
-    'Restaurant Page is a modular and responsive web app built with Webpack, offering interactive sections like home, menu, and about with efficient content loading.',
-    [
-      'Responsive Design & Efficient Loading: Optimized for all screen sizes with modular content handling.',
-      'Bag Management & Checkout Logic: Add, edit, and remove items with real-time updates, and disable checkout when necessary.',
-      'Order Confirmation: Modal notifications for confirmed orders, with an option to refresh.',
-    ],
-    [getIcon('js'), getIcon('html'), getIcon('css'), getIcon('webpack')],
-    'https://delfiald.github.io/odin-restaurant-page/',
-    'https://github.com/Delfiald/odin-restaurant-page'
-  );
-  // Projects 5
-  projectsData.addProjects(
-    library,
-    'Library',
-    'Library is a web-based app to manage and organize your book collection, offering a clean interface to track reading progress and book details.',
-    [
-      'Book Management: Add, delete, and track books with title, author, cover image, and reading status.',
-      'Reading Progress: Manage statuses ("Read," "Not Read," "Not Finished") and track current page numbers.',
-      'Responsive Design: Seamlessly works across devices with a clean card-based layout.',
-    ],
-    [getIcon('js'), getIcon('html'), getIcon('css')],
-    'https://delfiald.github.io/odin-library/',
-    'https://github.com/Delfiald/odin-library'
   );
   // Projects 6
   projectsData.addProjects(
