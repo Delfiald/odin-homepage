@@ -1,6 +1,6 @@
 // Screenshot
 import pokemonMemoryCard from '../assets/projects/pokemonMemoryCard.png';
-import cvGenerator from '../assets/projects/cvGenerator.png';
+import cvApplication from '../assets/projects/cvApplication.png';
 import battleship from '../assets/projects/battleship.png';
 import weatherApp from '../assets/projects/weatherApp.png';
 import todoList from '../assets/projects/todoList.png';
@@ -71,8 +71,8 @@ const projectsList = () => {
   );
   // Projects 2
   projectsData.addProjects(
-    cvGenerator,
-    'CV Generator',
+    cvApplication,
+    'CV Application',
     'Restaurant Page is a modular and responsive web app built with Webpack, offering interactive sections like home, menu, and about with efficient content loading.',
     [
       'ATS Mode: Optimize CVs with custom fonts and section rearrangement for ATS compatibility.',
