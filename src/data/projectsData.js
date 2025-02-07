@@ -1,10 +1,10 @@
 // Screenshot
+import shoppingCart from '../assets/projects/shoppingCart.png';
 import pokemonMemoryCard from '../assets/projects/pokemonMemoryCard.png';
 import cvApplication from '../assets/projects/cvApplication.png';
 import battleship from '../assets/projects/battleship.png';
 import weatherApp from '../assets/projects/weatherApp.png';
 import todoList from '../assets/projects/todoList.png';
-import tictactoe from '../assets/projects/tictactoe.png';
 import adminDashboard from '../assets/projects/adminDashboard.png';
 import calculator from '../assets/projects/calculator.png';
 import odinRecipes from '../assets/projects/odinRecipes.png';
@@ -57,6 +57,20 @@ const projectsData = (() => {
 const projectsList = () => {
   // Projects 1
   projectsData.addProjects(
+    shoppingCart,
+    'Shopping Cart',
+    'Shopping cart application like an eCommerce platform, where users can browse products, add to cart, and manage purchases efficiently',
+    [
+      'Memory Challenge: Avoid duplicate clicks on 1025 unique Pokémon cards styled by type, with detailed stats and abilities.',
+      'Difficulty Levels: Play on Easy, Medium, and Hard modes while tracking high scores to improve your skills.',
+      'Responsive Design: Enjoy seamless gameplay on desktop and mobile devices.',
+    ],
+    [getIcon('react'), getIcon('js'), getIcon('html'), getIcon('css')],
+    'https://dogeheck-pokemonmemory.netlify.app/',
+    'https://github.com/Delfiald/memory-card'
+  );
+  // Projects 2
+  projectsData.addProjects(
     pokemonMemoryCard,
     'Pokemon Memory Card',
     'Pokemon Memory Card is a memory game featuring 1025 unique Pokémon cards styled by type. Test your skills and explore detailed Pokémon info!',
@@ -69,7 +83,7 @@ const projectsList = () => {
     'https://dogeheck-pokemonmemory.netlify.app/',
     'https://github.com/Delfiald/memory-card'
   );
-  // Projects 2
+  // Projects 3
   projectsData.addProjects(
     cvApplication,
     'CV Application',
@@ -84,7 +98,7 @@ const projectsList = () => {
     'https://dogeheck-cv-application.netlify.app/',
     'https://github.com/Delfiald/cv-application'
   );
-  // Projects 3
+  // Projects 4
   projectsData.addProjects(
     battleship,
     'Battleship',
@@ -104,7 +118,7 @@ const projectsList = () => {
     'https://delfiald.github.io/odin-battleship/',
     'https://github.com/Delfiald/odin-battleship'
   );
-  // Projects 4
+  // Projects 5
   projectsData.addProjects(
     weatherApp,
     'Weather App',
@@ -118,7 +132,7 @@ const projectsList = () => {
     'https://delfiald.github.io/odin-weather-app/',
     'https://github.com/Delfiald/odin-weather-app'
   );
-  // Projects 5
+  // Projects 6
   projectsData.addProjects(
     todoList,
     'To-do List',
@@ -131,20 +145,6 @@ const projectsList = () => {
     [getIcon('js'), getIcon('html'), getIcon('css'), getIcon('webpack')],
     'https://delfiald.github.io/odin-todo-list/',
     'https://github.com/Delfiald/odin-todo-list'
-  );
-  // Projects 6
-  projectsData.addProjects(
-    tictactoe,
-    'Tic Tac Toe',
-    'Tic Tac Toe is a JavaScript game featuring multiple modes, customizable settings, and responsive design, built to explore modules and closures.',
-    [
-      'Game Modes: Play human vs. human, human vs. computer, or watch computer vs. computer.',
-      'Customizable Settings: Set player names, choose markers, and switch control between human and computer during the game.',
-      'Responsive Design: Playable across devices with an intuitive interface.',
-    ],
-    [getIcon('js'), getIcon('html'), getIcon('css')],
-    'https://delfiald.github.io/odin-tictactoe/',
-    'https://github.com/Delfiald/odin-tictactoe'
   );
   // Projects 7
   projectsData.addProjects(
