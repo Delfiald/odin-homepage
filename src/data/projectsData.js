@@ -61,13 +61,13 @@ const projectsList = () => {
     'Shopping Cart',
     'Shopping cart application like an eCommerce platform, where users can browse products, add to cart, and manage purchases efficiently',
     [
-      'Memory Challenge: Avoid duplicate clicks on 1025 unique Pokémon cards styled by type, with detailed stats and abilities.',
-      'Difficulty Levels: Play on Easy, Medium, and Hard modes while tracking high scores to improve your skills.',
-      'Responsive Design: Enjoy seamless gameplay on desktop and mobile devices.',
+      'Browse & Search: Easily explore a variety of products with a built-in search and filter system using FakeStoreAPI (REST API).',
+      'Shopping Cart Management: Add, update, or remove items in the cart with persistent data, ensuring a smooth user experience.',
+      'Checkout Simulation: Review selected items before confirming the order, with a simulated checkout process and order history tracking.',
     ],
     [getIcon('react'), getIcon('js'), getIcon('html'), getIcon('css')],
-    'https://dogeheck-pokemonmemory.netlify.app/',
-    'https://github.com/Delfiald/memory-card'
+    'https://dogeheck-shoppingcart.netlify.app/',
+    'https://github.com/Delfiald/shopping-cart'
   );
   // Projects 2
   projectsData.addProjects(
